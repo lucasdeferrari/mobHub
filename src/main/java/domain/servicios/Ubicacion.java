@@ -1,4 +1,4 @@
-package Domain;
+package domain.servicios;
 
 public class Ubicacion {
   private Float latitud;

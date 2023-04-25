@@ -1,6 +1,6 @@
-package Domain;
+package domain.comunidad;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.List;
 
 public class Miembro {
@@ -9,9 +9,9 @@ public class Miembro {
   private String correoElectronico;
   private List<Comunidad> comunidadesPertenecientes;
 
-  public void unirseAComunidad(Comunidad comunidad){
+  public void unirseAComunidad(Comunidad comunidad) {
     comunidad.agregarMiembro(this);
-  };
+  }
 
   public void irseDeComunidad(Comunidad comunidad) {
     comunidad.eliminarMiembro(this);

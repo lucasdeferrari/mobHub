@@ -1,7 +1,7 @@
-package Domain;
+package domain.servicios;
 
 public enum Estado {
   DENEGADO,
   DISPONIBLE,
-  DEMORADO;
+  DEMORADO
 }

@@ -1,4 +1,4 @@
-package Domain;
+package domain.servicios;
 
 public enum Transporte {
   FERROCARRIL,

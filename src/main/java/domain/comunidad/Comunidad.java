@@ -1,4 +1,4 @@
-package Domain;
+package domain.comunidad;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ public class Comunidad {
   private String descripcion;
   private List<Miembro> miembros;
   private List<Miembro> administradores;
-  private CategoriaServicio categoria;
+
 
 
   public void agregarMiembro(Miembro miembro) {
@@ -22,9 +22,8 @@ public class Comunidad {
     return administradores.contains(miembro);
   }
 
-  public void agregarCategoriaServicio(String nombre) {
-  categoria = new CategoriaServicio(nombre);
-  //TODO
+  public void agregarServicio(Servicio servicio, Estacion estacion) {
+    estacion.agregarServicio(servicio);
   }
 
 }

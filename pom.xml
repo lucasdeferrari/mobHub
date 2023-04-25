@@ -22,6 +22,15 @@
       <scope>provided</scope>
     </dependency>
 
+
+    <dependency>
+      <groupId>com.unicodelabs</groupId>
+      <artifactId>java-dumb-passwords</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+
+
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>

@@ -1,8 +1,9 @@
-package Domain;
+package domain.servicios;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -14,8 +15,9 @@ public class ServicioPublico {
   public void agregarLinea(Linea linea){
 
   }
-  public void eliminarLinea(Linea linea){
 
+  public void eliminarLinea(Linea linea) {
+    lineas.remove(linea);
   }
 
 }

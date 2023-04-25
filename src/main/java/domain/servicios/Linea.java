@@ -1,4 +1,4 @@
-package Domain;
+package domain.servicios;
 
 import java.util.List;
 import lombok.Getter;
