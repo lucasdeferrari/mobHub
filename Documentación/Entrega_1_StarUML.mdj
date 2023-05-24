@@ -186,7 +186,7 @@
 											"top": 260,
 											"width": 191.140625,
 											"height": 13,
-											"text": "+agregarLinea(linea: Linea): void",
+											"text": "+agregarLinea(entidad: Linea): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -203,7 +203,7 @@
 											"top": 275,
 											"width": 191.140625,
 											"height": 13,
-											"text": "+eliminarLinea(linea: Linea): void",
+											"text": "+eliminarLinea(entidad: Linea): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -503,7 +503,7 @@
 											"top": 539,
 											"width": 248.19970703125,
 											"height": 13,
-											"text": "+agregarEstacion(estacion: Estacion): void",
+											"text": "+agregarEstacion(establecimiento: Estacion): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -520,7 +520,7 @@
 											"top": 554,
 											"width": 248.19970703125,
 											"height": 13,
-											"text": "+eliminarEstacion(estacion: Estacion): void",
+											"text": "+eliminarEstacion(establecimiento: Estacion): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2362,7 +2362,7 @@
 											"top": 358,
 											"width": 348.61962890625,
 											"height": 13,
-											"text": "+agregarServicio(servicio: Servicio, estacion: Estacion): void",
+											"text": "+agregarServicio(servicio: Servicio, establecimiento: Estacion): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4849,7 +4849,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGHjCRYvActrB0="
 									},
-									"name": "linea",
+									"name": "entidad",
 									"type": "Linea"
 								},
 								{
@@ -4877,7 +4877,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGHjCRnAAcz/+I="
 									},
-									"name": "linea",
+									"name": "entidad",
 									"type": "Linea"
 								},
 								{
@@ -5090,7 +5090,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGHjCYnrAgnO5Y="
 									},
-									"name": "estacion",
+									"name": "establecimiento",
 									"type": "Estacion"
 								},
 								{
@@ -5118,7 +5118,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGHjCZUQwgyZUg="
 									},
-									"name": "estacion",
+									"name": "establecimiento",
 									"type": "Estacion"
 								},
 								{
@@ -5955,7 +5955,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGHlgEoypeGJs4="
 									},
-									"name": "estacion",
+									"name": "establecimiento",
 									"type": {
 										"$ref": "AAAAAAGHjCiJMwmM2U8="
 									}

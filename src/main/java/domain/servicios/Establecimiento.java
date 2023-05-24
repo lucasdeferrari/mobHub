@@ -2,7 +2,7 @@ package domain.servicios;
 
 import java.util.List;
 
-public class Estacion {
+public class Establecimiento {
   private String nombre;
   private Ubicacion ubicacion;
   private List<Servicio> servicios;
