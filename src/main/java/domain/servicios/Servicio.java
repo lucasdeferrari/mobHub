@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 
 public class Servicio {
+  private TipoDeServicio nombre;
   private Estado estado;
   private String descripcion;
 

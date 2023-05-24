@@ -1,5 +1,7 @@
 package domain.comunidad;
 
+import domain.servicios.Establecimiento;
+
 import java.util.List;
 
 public class Comunidad {
@@ -22,8 +24,8 @@ public class Comunidad {
     return administradores.contains(miembro);
   }
 
-  public void agregarServicio(Servicio servicio, Estacion estacion) {
-    estacion.agregarServicio(servicio);
+  public void agregarServicio(Servicio servicio, Establecimiento establecimiento) {
+    establecimiento.agregarServicio(servicio);
   }
 
 }
