@@ -20,8 +20,10 @@ public class Miembro {
     return comunidad.esAdmin(this);
   }
 
-  public List<Servicio> serviciosDeInteres(){
-    //me fijo en las entidadesAsociades el establecimiento de cada una
+  public List<Servicio> serviciosDeInteres() {
+
+    List<Servicio> serviciosConProblemas= new ArrayList<>();
+    //me fijo en las entidadesAsociadas el establecimiento de cada una
     //filtro los establecimientos por la ubicacion y localizacion
     //me fijo los servicios de cada establecimiento elegido por ubicacion, que matcheen los serviciosAsociados
     //filtro los servicios por los que tengan estado denegado

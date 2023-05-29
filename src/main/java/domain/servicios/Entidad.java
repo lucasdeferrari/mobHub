@@ -30,7 +30,11 @@ public class Entidad {
     if(this.tieneAtributosExtra(this.tipo)) {
       atributosExtra.add(estacionOrigen);
       atributosExtra.add(estacionDestino);}
-else throw new Exception(message= "No se puede agregar una estacion de destino y origen ya que la entidad no es un medio de transporte")}
+else throw new Exception(message= "No se puede agregar una estacion de destino y origen ya que la entidad no es un medio de transporte");}
+
+  public void agregarServiciosConProblemasA(List<Servicio> serviciosConProblemas) {
+
+  }
 }
 
-}
+

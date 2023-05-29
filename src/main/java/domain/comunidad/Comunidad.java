@@ -1,6 +1,7 @@
 package domain.comunidad;
 
 import domain.servicios.Establecimiento;
+import domain.servicios.Servicio;
 
 import java.util.List;
 

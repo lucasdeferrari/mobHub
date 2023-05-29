@@ -19,4 +19,7 @@ public class Establecimiento {
     servicio.setEstado(estado);
   }
 
+  public boolean tieneServiciosDenegados() {
+   return servicios.stream().anyMatch(unServicio -> unServicio.estaDenegado());
+  }
 }
