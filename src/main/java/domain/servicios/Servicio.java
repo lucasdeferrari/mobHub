@@ -10,4 +10,7 @@ public class Servicio {
   private Estado estado;
   private String descripcion;
 
+  public boolean estaDenegado() {
+    return estado == Estado.DENEGADO;
+  }
 }

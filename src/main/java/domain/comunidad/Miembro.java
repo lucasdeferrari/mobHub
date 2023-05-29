@@ -5,7 +5,12 @@ import domain.servicios.Entidad;
 import domain.servicios.Localizacion;
 import domain.servicios.Servicio;
 
+
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
+
+import static domain.servicios.Estado.DENEGADO;
 
 public class Miembro {
   private String nombre;
