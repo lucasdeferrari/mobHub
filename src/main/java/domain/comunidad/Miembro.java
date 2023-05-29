@@ -28,5 +28,18 @@ public class Miembro {
     //me fijo los servicios de cada establecimiento elegido por ubicacion, que matcheen los serviciosAsociados
     //filtro los servicios por los que tengan estado denegado
 
+    // return entidadesAsociadas.stream()
+    //        .filter(unServicio -> unServicio.tieneIncidente())
+    //        .collect(Collectors.toList());
+
+    List<Entidad> entidadesDeInteres = entidadesAsociadas.stream().forEach(unaEntidad -> unaEntidad.agregarServiciosConProblemasA(serviciosConProblemas));
+
+
+    return entidadesDeInteres.stream().filter();
+    // interseccion
+
+
   }
+
 }
+

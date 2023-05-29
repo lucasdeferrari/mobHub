@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-
 public class Servicio {
   private TipoDeServicio nombre;
   private Estado estado;
