@@ -2,6 +2,7 @@ package domain.servicios;
 
 import java.util.List;
 
+
 public class Establecimiento {
   private String nombre;
   private Ubicacion ubicacion;
