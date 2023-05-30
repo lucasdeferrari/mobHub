@@ -1,9 +1,7 @@
 package domain.comunidad;
 
 
-import domain.servicios.Entidad;
-import domain.servicios.Localizacion;
-import domain.servicios.Servicio;
+import domain.servicios.*;
 
 
 import java.util.List;
@@ -18,7 +16,7 @@ public class Miembro {
   private String correoElectronico;
   private List<Comunidad> comunidadesPertenecientes;
   private List<Entidad> entidadesAsociadas;
-  private List<Servicio> serviciosAsociados;
+  private List<TipoDeServicio> serviciosAsociados;
   private Localizacion localizacion;
 
   public Boolean esAdminEn(Comunidad comunidad) {
@@ -27,20 +25,26 @@ public class Miembro {
 
   public List<Servicio> serviciosDeInteres() {
 
+    // Hay que filtrar todas las entidades por las que le interesan al usuario. Luego, dentro de esas
+    // entidades ascociadas hay que filtrar por los servicios asociados. Por ultimo, hay que filtrar
+    // los servicios que tienen problemas dentro de los que le interesan.
+
     List<Servicio> serviciosConProblemas= new ArrayList<>();
-    //me fijo en las entidadesAsociadas el establecimiento de cada una
-    //filtro los establecimientos por la ubicacion y localizacion
-    //me fijo los servicios de cada establecimiento elegido por ubicacion, que matcheen los serviciosAsociados
-    //filtro los servicios por los que tengan estado denegado
 
-    // return entidadesAsociadas.stream()
-    //        .filter(unServicio -> unServicio.tieneIncidente())
-    //        .collect(Collectors.toList());
+    for (Entidad en : entidadesAsociadas) {
+      for(Establecimiento es : en.getEstablecimientos()){
+        for(Servicio s : es.getServicios()) {
+          if (serviciosAsociados.contains(s.getNombre()) && s.estaDenegado())
+            serviciosConProblemas.add(s);
+        }
+      }
+    }
+    return serviciosConProblemas;
 
-    List<Entidad> entidadesDeInteres = entidadesAsociadas.stream().forEach(unaEntidad -> unaEntidad.agregarServiciosConProblemasA(serviciosConProblemas));
+    //entidadesAsociadas.stream().forEach(unaEntidad -> unaEntidad.conseguirServiciosConProblemasDe(serviciosAsociados));
 
 
-    return entidadesDeInteres.stream().filter();
+   // return serviciosDeInteres();
     // interseccion
 
 
