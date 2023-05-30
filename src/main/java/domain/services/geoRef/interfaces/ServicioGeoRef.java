@@ -1,5 +1,6 @@
 package domain.services.geoRef.interfaces;
 
+import domain.services.geoRef.entidades.ListadoDeDepartamentos;
 import domain.services.geoRef.entidades.ListadoDeMunicipios;
 import domain.services.geoRef.entidades.ListadoDeProvincias;
 import domain.services.geoRef.entidades.Provincia;
@@ -42,6 +43,13 @@ public class ServicioGeoRef {
     Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
     Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
     return responseListadoDeMunicipios.body();
+  }
+
+  public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(Provincia provincia) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
+    Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+    return responseListadoDeDepartamentos.body();
   }
 }
 
