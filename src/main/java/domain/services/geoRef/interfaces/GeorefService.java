@@ -1,4 +1,5 @@
 package domain.services.geoRef.interfaces;
+import domain.services.geoRef.entidades.ListadoDeDepartamentos;
 import domain.services.geoRef.entidades.ListadoDeProvincias;
 import domain.services.geoRef.entidades.ListadoDeMunicipios;
 
