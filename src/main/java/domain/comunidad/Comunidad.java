@@ -12,7 +12,6 @@ public class Comunidad {
   private List<Miembro> administradores;
 
 
-
   public void agregarMiembro(Miembro miembro) {
     miembros.add(miembro);
   }
