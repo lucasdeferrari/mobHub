@@ -48,24 +48,8 @@ public class Miembro {
     Set<Servicio> conjunto = new HashSet<>(serviciosConProblemasConRepetidos);
     List<Servicio> serviciosConProblemasSinRepetidos = new ArrayList<> (conjunto);
     return serviciosConProblemasSinRepetidos;
-
-//    for (Entidad entidad : entidadesAsociadas) {
-//      for (Establecimiento establecimiento : entidad.getEstablecimientos()) {
-//        for (Servicio servicio : establecimiento.getServicios()) {
-//          if (serviciosAsociados.contains(servicio.getNombre()) && servicio.estaDenegado())
-//            serviciosConProblemas.add(servicio);
-//        }
-//      }
-//    }
-
-    //entidadesAsociadas.stream().forEach(unaEntidad -> unaEntidad.conseguirServiciosConProblemasDe(serviciosAsociados));
-
-
-    // return serviciosDeInteres();
-    // interseccion
-
-
   }
+
 
 }
 
