@@ -6,5 +6,5 @@ public enum TipoDeServicio {
     BANIO,
     BANIO_DE_DISCAPACITADOS,
     ESCALERA,
-    ASCENSOR
+    ASCENSOR;
 }
