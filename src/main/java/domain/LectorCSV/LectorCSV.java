@@ -3,6 +3,7 @@ package domain.LectorCSV;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import retrofit2.http.Path;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -11,7 +12,7 @@ import java.nio.file.Paths;
 
 public class LectorCSV {
 
-    private static final String Ruta_Archivo = //path del archivo... ;
+    private static final String Ruta_Archivo = "...archivo.csv";
 
     public static void main (String[] args) {
         try {

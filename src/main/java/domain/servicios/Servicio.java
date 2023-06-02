@@ -13,6 +13,12 @@ public class Servicio {
   private Estado estado;
   private String descripcion;
 
+  public Servicio(TipoDeServicio nombre, Estado estado, String descripcion) {
+    this.nombre = nombre;
+    this.estado = estado;
+    this.descripcion = descripcion;
+  }
+
   public boolean estaDenegado() {
     return estado == Estado.DENEGADO;
   }

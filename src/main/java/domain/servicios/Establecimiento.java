@@ -13,6 +13,12 @@ public class Establecimiento {
   private Ubicacion ubicacion;
   public List<Servicio> servicios;
 
+  public Establecimiento(String nombre, Ubicacion ubicacion, List<Servicio> servicios) {
+    this.nombre = nombre;
+    this.ubicacion = ubicacion;
+    this.servicios = servicios;
+  }
+
   public void agregarServicio(Servicio servicio) {
     servicios.add(servicio);
   }
@@ -29,12 +35,9 @@ public class Establecimiento {
    return servicios.stream().anyMatch(unServicio -> unServicio.estaDenegado());
   }
 
-  public List<Servicio> serviciosConProblemas(List<Servicio> unosServicios) {
-    return unosServicios.stream().filter(unServicio -> unServicio.estaDenegado()).collect(Collectors.toList());
-  }
+  public List<Servicio> serviciosConProblemasDe(List<TipoDeServicio> unosServicios) {
+    List<Servicio> serviciosDenegados =  servicios.stream().filter(unServicio -> unServicio.estaDenegado()).collect(Collectors.toList());
+    return serviciosDenegados.stream().filter(unServicio -> unosServicios.contains(unServicio.getNombre())).collect(Collectors.toList());
+  } // devuelve una lista con los servicios que hay que agregar a los servicios con interes
 
-  public List<Servicio> filtrarServiciosAsociadosConProblemas(List<TipoDeServicio> serviciosAsociados) {
-    List<Servicio> serviciosQueInteresan = servicios.stream().filter(unServicio -> unServicio.esDeInteres(serviciosAsociados)).collect(Collectors.toList());
-    return this.serviciosConProblemas(serviciosQueInteresan);
-  }
 }

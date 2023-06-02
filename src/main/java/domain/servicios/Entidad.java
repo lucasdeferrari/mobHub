@@ -1,8 +1,7 @@
 package domain.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,12 @@ public class Entidad {
   private String nombre;
   public List<Establecimiento> establecimientos;
   private Localizacion localizacion;
-  private List<Establecimiento> atributosExtra;
+
+  public Entidad(String nombre, List<Establecimiento> establecimientos, Localizacion localizacion) {
+    this.nombre = nombre;
+    this.establecimientos = establecimientos;
+    this.localizacion = localizacion;
+  }
 
 
   public void eliminarEstablecimiento(Establecimiento establecimiento) {
@@ -30,8 +34,11 @@ public class Entidad {
   }
 
   public List<Servicio> conseguirServiciosConProblemasDe(List<TipoDeServicio> serviciosAsociados) {
-    return establecimientos.stream().flatMap(unEstablecimiento -> unEstablecimiento.filtrarServiciosAsociadosConProblemas(serviciosAsociados))
-            .collect(Collectors.toList());
+    List<Servicio> serviciosQueInteresan = new ArrayList<>();
+    for(Establecimiento establecimiento : establecimientos) {
+      serviciosQueInteresan.addAll(establecimiento.serviciosConProblemasDe(serviciosAsociados));
+    }
+    return serviciosQueInteresan;
   }
 }
 
