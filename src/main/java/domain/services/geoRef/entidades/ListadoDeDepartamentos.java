@@ -1,7 +1,7 @@
 package domain.services.geoRef.entidades;
 
 import java.util.List;
-
+import java.util.Optional;
 public class ListadoDeDepartamentos {
   public int cantidad;
   public int total;
@@ -14,4 +14,9 @@ public class ListadoDeDepartamentos {
     public int max;
     public List<String> provincia;
   }
+
+//  public Optional<Departamento> departamentoDeId(int id){
+//    return this.departamentos.stream().filter(p -> p.id == id).findFirst();
+//  }
+
 }
