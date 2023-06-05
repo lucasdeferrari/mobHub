@@ -31,6 +31,8 @@ public class ServicioGeoRef {
     return instancia;
   }
 
+  // ---------- PROVINCIAS -----------------
+
   public ListadoDeProvincias listadoDeProvincias() throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
     Call<ListadoDeProvincias> requestProvinciasArgentinas = georefService.provincias();
@@ -40,10 +42,28 @@ public class ServicioGeoRef {
 
   public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
-    Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
+    Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id);
     Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
     return responseListadoDeMunicipios.body();
   }
+
+  public ListadoDeMunicipios listadoDeMunicipiosDeProvinciaSegunCampos(Provincia provincia) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id, "id, nombre");
+    Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
+    return responseListadoDeMunicipios.body();
+  }
+
+  public ListadoDeMunicipios listadoDeMunicipiosDeProvinciaSegunCamposConMaximo(Provincia provincia) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id, maximaCantidadRegistrosDefault,"id, nombre");
+    Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
+    return responseListadoDeMunicipios.body();
+  }
+
+
+
+  // ---------- DEPARTAMENTOS -----------------
 
   public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);

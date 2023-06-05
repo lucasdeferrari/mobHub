@@ -29,10 +29,6 @@ public class Entidad {
     establecimientos.add(establecimiento);
   }
 
-  public Boolean establecimientosConProblemas() {
-    return establecimientos.stream().anyMatch(unEstablecimiento -> unEstablecimiento.tieneServiciosDenegados());
-  }
-
   public List<Servicio> conseguirServiciosConProblemasDe(List<TipoDeServicio> serviciosAsociados) {
     List<Servicio> serviciosQueInteresan = new ArrayList<>();
     for(Establecimiento establecimiento : establecimientos) {
