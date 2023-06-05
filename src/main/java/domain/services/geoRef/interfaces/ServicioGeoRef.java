@@ -1,9 +1,6 @@
 package domain.services.geoRef.interfaces;
 
-import domain.services.geoRef.entidades.ListadoDeDepartamentos;
-import domain.services.geoRef.entidades.ListadoDeMunicipios;
-import domain.services.geoRef.entidades.ListadoDeProvincias;
-import domain.services.geoRef.entidades.Provincia;
+import domain.services.geoRef.entidades.*;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
