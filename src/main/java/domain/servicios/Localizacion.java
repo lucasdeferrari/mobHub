@@ -1,7 +1,5 @@
 package domain.servicios;
 
-import static domain.servicios.TipoLocalizacion.PROVINCIA;
-
 import domain.services.geoRef.entidades.ListadoDeMunicipios;
 import domain.services.geoRef.entidades.ListadoDeProvincias;
 import domain.services.geoRef.entidades.Municipio;

@@ -7,12 +7,18 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface GeorefService {
+public interface  GeorefService {
 //    @GET("provincias")
 //    Call<ListadoDeProvincias> provincias();
 
     @GET("provincias")
     Call<ListadoDeProvincias> provincias(@Query("campos") String campos);
+
+    @GET("departamentos")
+    Call<ListadoDeDepartamentos> departamentos(@Query("provincia") int idProvincia);
+
+    @GET("departamentos")
+    Call<ListadoDeDepartamentos> departamentos(@Query("provincia") int idProvincia, @Query("campos") String campos );
 
     @GET("departamentos")
     Call<ListadoDeDepartamentos> departamentos(@Query("provincia") int idProvincia, @Query("max") int max, @Query("campos") String campos );
@@ -28,3 +34,5 @@ public interface GeorefService {
     Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia, @Query("max") int max, @Query("campos") String campos);
 
 }
+
+

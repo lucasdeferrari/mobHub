@@ -22,7 +22,7 @@ public class Entidad {
 
 
   public void eliminarEstablecimiento(Establecimiento establecimiento) {
-    establecimientos.add(establecimiento);
+    establecimientos.remove(establecimiento);
   }
 
   public void agregarEstablecimiento(Establecimiento establecimiento) {

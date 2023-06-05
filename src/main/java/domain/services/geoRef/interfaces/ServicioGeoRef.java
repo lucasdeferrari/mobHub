@@ -40,6 +40,8 @@ public class ServicioGeoRef {
     return responseProvinciasArgentinas.body();
   }
 
+  // ---------- MUNICIPIOS -----------------
+
   public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
     Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id);
@@ -67,10 +69,25 @@ public class ServicioGeoRef {
 
   public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
-    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
+    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id);
     Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
     return responseListadoDeDepartamentos.body();
   }
+
+  public ListadoDeDepartamentos listadoDeDepartamentosDeProvinciaSegunCampos(Provincia provincia) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id , "id, nombre");
+    Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+    return responseListadoDeDepartamentos.body();
+  }
+
+  public ListadoDeDepartamentos listadoDeDepartamentosDeProvinciaSegunCamposConMaximo(Provincia provincia) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, maximaCantidadRegistrosDefault , "id, nombre");
+    Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+    return responseListadoDeDepartamentos.body();
+  }
+
 }
 
 
