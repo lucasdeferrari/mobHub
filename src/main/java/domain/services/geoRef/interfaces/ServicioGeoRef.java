@@ -35,9 +35,11 @@ public class ServicioGeoRef {
 
   public ListadoDeProvincias listadoDeProvincias() throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
-    Call<ListadoDeProvincias> requestProvinciasArgentinas = georefService.provincias();
+    Call<ListadoDeProvincias> requestProvinciasArgentinas = georefService.provincias("id, nombre");
     Response<ListadoDeProvincias> responseProvinciasArgentinas = requestProvinciasArgentinas.execute();
     return responseProvinciasArgentinas.body();
+
+
   }
 
   // ---------- MUNICIPIOS -----------------

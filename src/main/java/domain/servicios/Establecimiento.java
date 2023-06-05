@@ -31,10 +31,6 @@ public class Establecimiento {
     servicio.setEstado(estado);
   }
 
-  public boolean tieneServiciosDenegados() {
-   return servicios.stream().anyMatch(unServicio -> unServicio.estaDenegado());
-  }
-
   public List<Servicio> serviciosConProblemasDe(List<TipoDeServicio> unosServicios) {
     List<Servicio> serviciosDenegados =  servicios.stream().filter(unServicio -> unServicio.estaDenegado()).collect(Collectors.toList());
     return serviciosDenegados.stream().filter(unServicio -> unosServicios.contains(unServicio.getNombre())).collect(Collectors.toList());
