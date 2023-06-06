@@ -20,7 +20,9 @@ public class Miembro {
   private Municipio localizacionMunicipio;
   private Departamento localizacionDepartamento;
 
-  public Miembro(String nombre, String apellido, String correoElectronico, List<Comunidad> comunidadesPertenecientes, List<Entidad> entidadesAsociadas, List<TipoDeServicio> serviciosAsociados, Localizacion localizacion) {
+
+
+  public Miembro(String nombre, String apellido, String correoElectronico, List<Comunidad> comunidadesPertenecientes, List<Entidad> entidadesAsociadas, List<TipoDeServicio> serviciosAsociados) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.correoElectronico = correoElectronico;
