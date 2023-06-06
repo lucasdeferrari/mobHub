@@ -11,10 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class LectorCSV {
+    private static final String Ruta_Archivo = "/archivo.csv"; // ruta de archivo fija
 
-    private static final String Ruta_Archivo = "...archivo.csv";
-
-    public static void main (String[] args) {
+    public static void csvUploader () {// recibe el csv y lo lee.
         try {
             Reader reader = Files.newBufferedReader(Paths.get(Ruta_Archivo));
 

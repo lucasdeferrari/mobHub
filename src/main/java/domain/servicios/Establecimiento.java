@@ -12,6 +12,7 @@ public class Establecimiento {
   private String nombre;
   private Ubicacion ubicacion;
   public List<Servicio> servicios;
+  private String tipoEstablecimiento;
 
   public Establecimiento(String nombre, Ubicacion ubicacion, List<Servicio> servicios) {
     this.nombre = nombre;

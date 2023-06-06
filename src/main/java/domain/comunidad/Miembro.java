@@ -2,8 +2,9 @@ package domain.comunidad;
 
 
 import domain.servicios.*;
-import domain.servicios.localizacion.Localizacion;
-
+import domain.services.geoRef.entidades.Departamento;
+import domain.services.geoRef.entidades.Municipio;
+import domain.services.geoRef.entidades.Provincia;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,17 +16,17 @@ public class Miembro {
   private List<Comunidad> comunidadesPertenecientes;
   public List<Entidad> entidadesAsociadas;
   private List<TipoDeServicio> serviciosAsociados;
-  private Localizacion localizacion;
-  private Localizacion tipoLocalizacion;
+  private Provincia localizacionProvincia;
+  private Municipio localizacionMunicipio;
+  private Departamento localizacionDepartamento;
 
   public Miembro(String nombre, String apellido, String correoElectronico, List<Comunidad> comunidadesPertenecientes, List<Entidad> entidadesAsociadas, List<TipoDeServicio> serviciosAsociados, Localizacion localizacion) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.correoElectronico = correoElectronico;
-    this.comunidadesPertenecientes = comunidadesPertenecientes;
-    this.entidadesAsociadas = entidadesAsociadas;
-    this.serviciosAsociados = serviciosAsociados;
-    this.localizacion = localizacion;
+    this.comunidadesPertenecientes = comunidadesPertenecientes; // cambiar
+    this.entidadesAsociadas = entidadesAsociadas;// cambiar
+    this.serviciosAsociados = serviciosAsociados;// cambiar
   }
 
   public Boolean esAdminEn(Comunidad comunidad) {
@@ -49,10 +50,5 @@ public class Miembro {
     List<Servicio> serviciosConProblemasSinRepetidos = new ArrayList<> (conjunto);
     return serviciosConProblemasSinRepetidos;
   }
-
-  public void obtenerLocalizacion() throws IOException {
-    localizacion = (Localizacion) tipoLocalizacion.obtenerLocalizacion();
-  }
-
 }
 
