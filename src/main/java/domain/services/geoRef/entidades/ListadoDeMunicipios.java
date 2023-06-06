@@ -1,6 +1,7 @@
 package domain.services.geoRef.entidades;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ListadoDeMunicipios {
   public int cantidad;
@@ -13,5 +14,11 @@ public class ListadoDeMunicipios {
     public List<String> campos;
     public int max;
     public List<String> provincia;
+  }
+
+  public Optional<Municipio> municipioDeId(int id){
+    return this.municipios.stream()
+            .filter(p -> p.id == id)
+            .findFirst();
   }
 }

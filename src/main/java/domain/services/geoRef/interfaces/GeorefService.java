@@ -23,7 +23,6 @@ public interface  GeorefService {
     @GET("departamentos")
     Call<ListadoDeDepartamentos> departamentos(@Query("provincia") int idProvincia, @Query("max") int max, @Query("campos") String campos );
 
-
     @GET("municipios")
     Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia);
 
