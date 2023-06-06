@@ -3,12 +3,10 @@ package org.example;
 import domain.servicios.*;
 import domain.comunidad.Comunidad;
 import domain.comunidad.Miembro;
+import domain.servicios.localizacion.Localizacion;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 import static domain.servicios.Estado.DENEGADO;
@@ -16,7 +14,6 @@ import static domain.servicios.Estado.DISPONIBLE;
 import static domain.servicios.TipoDeServicio.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class ServicioTest {
 

@@ -1,8 +1,10 @@
 package domain.servicios;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.servicios.localizacion.Localizacion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +15,7 @@ public class Entidad {
   private String nombre;
   public List<Establecimiento> establecimientos;
   private Localizacion localizacion;
+  private Localizacion tipoLocalizacion;
 
   public Entidad(String nombre, List<Establecimiento> establecimientos, Localizacion localizacion) {
     this.nombre = nombre;
@@ -35,6 +38,10 @@ public class Entidad {
       serviciosQueInteresan.addAll(establecimiento.serviciosConProblemasDe(serviciosAsociados));
     }
     return serviciosQueInteresan;
+  }
+
+  public void obtenerLocalizacion() throws IOException {
+    localizacion = (Localizacion) tipoLocalizacion.obtenerLocalizacion();
   }
 }
 

@@ -2,12 +2,11 @@ package domain.comunidad;
 
 
 import domain.servicios.*;
+import domain.servicios.localizacion.Localizacion;
 
 
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static domain.servicios.Estado.DENEGADO;
 
 public class Miembro {
   private String nombre;
@@ -17,6 +16,7 @@ public class Miembro {
   public List<Entidad> entidadesAsociadas;
   private List<TipoDeServicio> serviciosAsociados;
   private Localizacion localizacion;
+  private Localizacion tipoLocalizacion;
 
   public Miembro(String nombre, String apellido, String correoElectronico, List<Comunidad> comunidadesPertenecientes, List<Entidad> entidadesAsociadas, List<TipoDeServicio> serviciosAsociados, Localizacion localizacion) {
     this.nombre = nombre;
@@ -48,6 +48,10 @@ public class Miembro {
     Set<Servicio> conjunto = new HashSet<>(serviciosConProblemasConRepetidos);
     List<Servicio> serviciosConProblemasSinRepetidos = new ArrayList<> (conjunto);
     return serviciosConProblemasSinRepetidos;
+  }
+
+  public void obtenerLocalizacion() throws IOException {
+    localizacion = (Localizacion) tipoLocalizacion.obtenerLocalizacion();
   }
 
 }
