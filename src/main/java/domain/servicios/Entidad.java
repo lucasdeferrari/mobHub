@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.servicios.localizacion.Localizacion;
+import domain.services.geoRef.entidades.Departamento;
+import domain.services.geoRef.entidades.Municipio;
+import domain.services.geoRef.entidades.Provincia;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,15 +14,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Entidad {
+
   private String nombre;
   public List<Establecimiento> establecimientos;
-  private Localizacion localizacion;
-  private Localizacion tipoLocalizacion;
+  private Provincia localizacionProvincia;
+  private Municipio localizacionMunicipio;
+  private Departamento localizacionDepartamento;
+  private String tipoEntidad;
 
-  public Entidad(String nombre, List<Establecimiento> establecimientos, Localizacion localizacion) {
+
+  public Entidad(String nombre, List<Establecimiento> establecimientos) {
     this.nombre = nombre;
     this.establecimientos = establecimientos;
-    this.localizacion = localizacion;
+
   }
 
 
@@ -40,9 +46,6 @@ public class Entidad {
     return serviciosQueInteresan;
   }
 
-  public void obtenerLocalizacion() throws IOException {
-    localizacion = (Localizacion) tipoLocalizacion.obtenerLocalizacion();
-  }
 }
 
 
