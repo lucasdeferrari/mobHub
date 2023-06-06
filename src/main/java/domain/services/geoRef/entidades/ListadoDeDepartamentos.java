@@ -15,8 +15,8 @@ public class ListadoDeDepartamentos {
     public List<String> provincia;
   }
 
-//  public Optional<Departamento> departamentoDeId(int id){
-//    return this.departamentos.stream().filter(p -> p.id == id).findFirst();
-//  }
+  public Optional<Departamento> departamentoDeId(int id){
+    return this.departamentos.stream().filter(p -> p.id == id).findFirst();
+  }
 
 }
