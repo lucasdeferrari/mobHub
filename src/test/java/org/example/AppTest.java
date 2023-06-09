@@ -3,7 +3,6 @@ package org.example;
 import domain.servicios.*;
 import domain.comunidad.Comunidad;
 import domain.comunidad.Miembro;
-import domain.servicios.localizacion.Localizacion;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,7 +21,7 @@ class ServicioTest {
         // Crear una instancia del objeto bajo prueba
         Comunidad neus = new Comunidad();
         Comunidad lucas = new Comunidad();
-        Localizacion neusLoca = new Localizacion();
+      //  Localizacion neusLoca = new Localizacion();
 
         Ubicacion ubicacion = new Ubicacion(1F,1F);
 
@@ -45,14 +44,14 @@ class ServicioTest {
 
         List<Establecimiento> establecimientos2 = List.of(establecimiento3,establecimiento4);
 
-        Entidad entidad1 = new Entidad("entidad1", establecimientos, neusLoca);
-        Entidad entidad2 = new Entidad("entidad2", establecimientos2, neusLoca);
+        Entidad entidad1 = new Entidad("entidad1", establecimientos);
+        Entidad entidad2 = new Entidad("entidad2", establecimientos );
 
         List<Comunidad> comunidades = List.of(neus, lucas);
         List<Entidad> entidades = List.of(entidad1, entidad2);
         List<TipoDeServicio> tiposDeServicio = List.of(RAMPA,BANIO);
 
-        Miembro miembro = new Miembro("lucas", "deferrari", "neus@gmail.com", comunidades, entidades, tiposDeServicio, neusLoca);
+        Miembro miembro = new Miembro("lucas", "deferrari", "neus@gmail.com", comunidades, entidades, tiposDeServicio);
 
         // Llamar al método bajo prueba
         List<Servicio> resultado = miembro.serviciosDeInteres();
