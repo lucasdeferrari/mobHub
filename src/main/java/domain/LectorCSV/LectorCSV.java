@@ -43,5 +43,6 @@ public class LectorCSV {
             throw new RuntimeException(e);
         }
 
+        return diccionarioDatos;
     }
 }
