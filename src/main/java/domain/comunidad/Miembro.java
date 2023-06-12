@@ -22,13 +22,13 @@ public class Miembro {
 
 
 
-  public Miembro(String nombre, String apellido, String correoElectronico, List<Comunidad> comunidadesPertenecientes, List<Entidad> entidadesAsociadas, List<TipoDeServicio> serviciosAsociados) {
+  public Miembro(String nombre, String apellido, String correoElectronico) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.correoElectronico = correoElectronico;
-    this.comunidadesPertenecientes = comunidadesPertenecientes; // cambiar
-    this.entidadesAsociadas = entidadesAsociadas;// cambiar
-    this.serviciosAsociados = serviciosAsociados;// cambiar
+    //this.comunidadesPertenecientes = comunidadesPertenecientes; // cambiar
+    //this.entidadesAsociadas = entidadesAsociadas;// cambiar
+    //this.serviciosAsociados = serviciosAsociados;// cambiar
   }
 
   public Boolean esAdminEn(Comunidad comunidad) {

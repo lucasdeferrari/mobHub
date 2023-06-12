@@ -21,7 +21,9 @@ public class Entidad {
   private Municipio localizacionMunicipio;
   private Departamento localizacionDepartamento;
   private String tipoEntidad;
-
+/*
+  tipoEntidad ": " nombre
+ */
 
   public Entidad(String nombre, List<Establecimiento> establecimientos) {
     this.nombre = nombre;
