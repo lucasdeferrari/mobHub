@@ -73,13 +73,6 @@ public class ServicioGeoRef {
     return responseListadoDeDepartamentos.body();
   }
 
-  public ListadoDeDepartamentos listadoDeDepartamentosDeProvinciaSegunCampos(Provincia provincia) throws IOException {
-    GeorefService georefService = this.retrofit.create(GeorefService.class);
-    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id , "id, nombre");
-    Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
-    return responseListadoDeDepartamentos.body();
-  }
-
   public ListadoDeDepartamentos listadoDeDepartamentosDeProvinciaSegunCamposConMaximo(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
     Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, maximaCantidadRegistrosDefault , "id, nombre");

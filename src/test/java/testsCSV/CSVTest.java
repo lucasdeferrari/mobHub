@@ -1,10 +1,8 @@
 package testsCSV;
 
 import domain.LectorCSV.DatosCSV;
-import domain.LectorCSV.LectorCSV;
-import domain.servicios.ImportadorCSV;
+import domain.LectorCSV.ImportadorDeOrganismosDeControl;
 import org.junit.jupiter.api.Test;
-import domain.servicios.ImportadorCSV;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CSVTest {
     @Test
     void testCSv() {
-        ImportadorCSV importer = new ImportadorCSV(new LectorCSV(), new HashMap<>());
+        ImportadorCSV importer = new ImportadorCSV(new ImportadorDeOrganismosDeControl(), new HashMap<>());
         importer.traerDiccionario();
 
         Map<String, DatosCSV> resultado = importer.getDiccionarioDatos();
