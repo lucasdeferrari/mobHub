@@ -5,6 +5,7 @@ import domain.servicios.*;
 import domain.services.geoRef.entidades.Departamento;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
+import domain.servicios.Incidente;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

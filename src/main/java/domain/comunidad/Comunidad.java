@@ -2,7 +2,7 @@ package domain.comunidad;
 
 import domain.servicios.Establecimiento;
 import domain.servicios.Servicio;
-
+import domain.servicios.Incidente;
 import java.util.List;
 
 public class Comunidad {
