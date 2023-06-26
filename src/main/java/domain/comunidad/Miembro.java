@@ -7,6 +7,7 @@ import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Miembro {
@@ -19,7 +20,6 @@ public class Miembro {
   private Provincia localizacionProvincia;
   private Municipio localizacionMunicipio;
   private Departamento localizacionDepartamento;
-
 
 
   public Miembro(String nombre, String apellido, String correoElectronico) {
@@ -49,8 +49,17 @@ public class Miembro {
 
     serviciosConProblemasConRepetidos.addAll(serviciosQueInteresan);
     Set<Servicio> conjunto = new HashSet<>(serviciosConProblemasConRepetidos);
-    List<Servicio> serviciosConProblemasSinRepetidos = new ArrayList<> (conjunto);
+    List<Servicio> serviciosConProblemasSinRepetidos = new ArrayList<>(conjunto);
     return serviciosConProblemasSinRepetidos;
   }
-}
 
+
+  public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio) {
+    Incidente incidente = new Incidente(this.comunidadesPertenecientes, this, servicio, establecimiento, entidad, LocalDateTime.now());
+    comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.agregarIncidente(incidente));
+    servicio.denegar();
+  }
+
+//  public void recibirIncidente(Incidente unIncidente);
+
+}

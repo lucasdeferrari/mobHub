@@ -22,4 +22,8 @@ public class Servicio {
   public boolean estaDenegado() {
     return estado == Estado.DENEGADO;
   }
+
+  public void denegar() {
+    setEstado(Estado.DENEGADO);
+  }
 }
