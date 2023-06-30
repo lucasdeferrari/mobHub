@@ -1,11 +1,25 @@
 package domain.Rankings;
 
-import domain.incidentes.RepositorioIncidentes;
+import domain.servicios.Incidente;
+import domain.servicios.Entidad;
 import domain.servicios.EntidadPrestadora;
-import java.util.List;
+import domain.servicios.Incidente;
 import lombok.Getter;
 import lombok.Setter;
-import domain.servicios.Entidad;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 @Setter
 @Getter
 public class GeneradorRanking {

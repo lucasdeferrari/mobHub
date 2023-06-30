@@ -1,6 +1,6 @@
 package domain.Rankings;
 
-import domain.incidentes.Incidente;
+import domain.servicios.Incidente;
 import domain.servicios.Entidad;
 import java.util.ArrayList;
 import java.util.HashMap;
