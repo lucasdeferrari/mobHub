@@ -1,7 +1,9 @@
 package domain.Rankings;
-
-import domain.incidentes.Incidente;
+import java.time.LocalTime;
+import domain.servicios.Incidente;
 import domain.servicios.Entidad;
+import domain.servicios.Incidente;
+
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
