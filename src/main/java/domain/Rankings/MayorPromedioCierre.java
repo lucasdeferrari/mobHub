@@ -18,12 +18,15 @@ import java.time.DayOfWeek;
 public class MayorPromedioCierre extends Ranking {
 
   @Override
-  public List<Entidad> generar() {
-    List<Incidente> incidentesCerrados = repoIncidentes.incidentesCerrados();
+  public List<Entidad> generar(List<Incidente> incidentes) {
     Map<Entidad, Double> promedioTiempoCierre = new HashMap<>();
     Map<Entidad, Integer> cantidadIncidentes = new HashMap<>();
 
-    incidentesCerrados = incidentesCerrados.stream().filter(incidente ->this.incidentesDeEstaSemana(incidente))
+    List<Incidente> incidentesCerrados = incidentes.stream()
+            .filter(incidente -> incidente.getFechaHoraCierre() != null)
+            .collect(Collectors.toList());// hace cualquier cosa
+
+    incidentesCerrados = incidentesCerrados.stream().filter(incidente ->this.esIncidenteDeEstaSemana(incidente))
         .collect(Collectors.toList()); //hago que sean de esta semana
 
     for (Incidente incidente : incidentesCerrados) {

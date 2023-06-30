@@ -31,7 +31,6 @@ public class AlertarSinApuro implements FormaNotificacion{
         if (delayInicial < 0) {
             delayInicial += 24 * 60 * 60; // Agrega 24 horas si la hora deseada ya pasó hoy
         }
-
         // Programa la tarea para que se ejecute en la hora exacta
         executor.schedule(() -> {
             timer = new Timer();
