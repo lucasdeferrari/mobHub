@@ -26,4 +26,3 @@ public class Incidente {
         this.fechaHoraApertura = fechaHoraApertura;
     }
 }
-

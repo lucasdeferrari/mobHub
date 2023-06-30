@@ -35,8 +35,8 @@ public class AlertarSinApuro implements FormaNotificacion{
         // Programa la tarea para que se ejecute en la hora exacta
         executor.schedule(() -> {
             timer = new Timer();
-            timer.schedule(task, 0, 30 * 60 * 1000);
-        }, delayInicial, TimeUnit.SECONDS);
+            timer.schedule(task, 0, 30);
+        }, delayInicial, TimeUnit.MINUTES);
 
         // Cierra el executor después de ejecutar la tarea
         executor.shutdown();

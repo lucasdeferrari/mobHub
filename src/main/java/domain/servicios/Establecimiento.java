@@ -14,10 +14,9 @@ public class Establecimiento {
   public List<Servicio> servicios;
   private String tipoEstablecimiento;
 
-  public Establecimiento(String nombre, Ubicacion ubicacion, List<Servicio> servicios) {
+  public Establecimiento(String nombre, Ubicacion ubicacion) {
     this.nombre = nombre;
     this.ubicacion = ubicacion;
-    this.servicios = servicios;
   }
 
   public void agregarServicio(Servicio servicio) {

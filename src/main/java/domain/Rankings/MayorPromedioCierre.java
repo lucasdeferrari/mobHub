@@ -26,17 +26,17 @@ public class MayorPromedioCierre extends Ranking {
 
     for (Incidente incidente : incidentesCerrados) {
       Entidad entidad_incidente = incidente.getEntidad();
-      Duration tiempoCierre = incidente.duracion();
+      long tiempoCierre = incidente.duracion();
 
       if (promedioTiempoCierre.containsKey(entidad_incidente)) {
         double promedioActual = promedioTiempoCierre.get(entidad_incidente); //consigo el promedio de la entidad
         int cantidadActual = cantidadIncidentes.get(entidad_incidente); //consigo la cantidad de incidentes
 
-        double nuevoPromedio = (promedioActual * cantidadActual + tiempoCierre.toMinutes()) / (cantidadActual + 1);
+        double nuevoPromedio = (promedioActual * cantidadActual + tiempoCierre) / (cantidadActual + 1);
         promedioTiempoCierre.put(entidad_incidente, nuevoPromedio);
         cantidadIncidentes.put(entidad_incidente, cantidadActual + 1);
       } else {
-        promedioTiempoCierre.put(entidad_incidente, (double) tiempoCierre.toMinutes()); //si no encuentra el incidente
+        promedioTiempoCierre.put(entidad_incidente, (double) tiempoCierre); //si no encuentra el incidente
         cantidadIncidentes.put(entidad_incidente, 1);
       }
     }

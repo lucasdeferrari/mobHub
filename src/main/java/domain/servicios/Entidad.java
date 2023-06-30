@@ -25,10 +25,8 @@ public class Entidad {
   tipoEntidad ": " nombre
  */
 
-  public Entidad(String nombre, List<Establecimiento> establecimientos) {
+  public Entidad(String nombre) {
     this.nombre = nombre;
-    this.establecimientos = establecimientos;
-
   }
 
 
