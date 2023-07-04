@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class AlertarSinApuro implements FormaNotificacion{
     private Timer timer;
     private MedioDeNotificacion receptor;
-    private List<Incidente> incidentes;
+    private List<TipoNotificacion> notificacionesAEnviar;
     private LocalTime horarioDeNotificacion;
 
     public void notificar(TipoNotificacion unaNotificacion) {

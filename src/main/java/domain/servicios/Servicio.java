@@ -26,4 +26,10 @@ public class Servicio {
   public void denegar() {
     setEstado(Estado.DENEGADO);
   }
+
+  public void disponible() {
+    setEstado(Estado.DISPONIBLE);
+  }
+
+
 }
