@@ -1,3 +1,5 @@
+package domain.notificaciones.medioDeNotificaciones;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 

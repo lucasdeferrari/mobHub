@@ -1,8 +1,6 @@
-package domain.notificaciones;
+package domain.notificaciones.formaDeNotificacion;
 
 import domain.servicios.Incidente;
-
-import java.util.List;
 
 public interface FormaNotificacion {
     public void notificar(Incidente incidente);

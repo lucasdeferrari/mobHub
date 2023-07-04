@@ -1,6 +1,10 @@
-package domain.notificaciones;
+package domain.notificaciones.formaDeNotificacion;
 
+import domain.comunidad.Miembro;
+import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
+import domain.notificaciones.tipoDeNotificacion.TipoNotificacion;
 import domain.servicios.Incidente;
+import org.apache.commons.mail.EmailException;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -45,11 +49,16 @@ public class AlertarSinApuro implements FormaNotificacion{
         public void run() {
             boolean result = esLaHora();
             if(result) {
-               // receptor.notificar(incidentes);
-                //TODO
+                notificacionesAEnviar.stream().filter(unaNotificacion->unaNotificacion.filtrarSegunTipo()).collect(Collectors.toList());
+                try {
+                    receptor.notificar(notificacionesAEnviar);
+                } catch (EmailException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     };
+
 
     private Boolean esLaHora(){
         LocalTime horarioActual = LocalTime.now();

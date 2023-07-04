@@ -1,8 +1,11 @@
 package domain.comunidad;
 
+import domain.notificaciones.tipoDeNotificacion.NotificacionApertura;
 import domain.servicios.Establecimiento;
 import domain.servicios.Servicio;
 import domain.servicios.Incidente;
+
+import javax.management.Notification;
 import java.util.List;
 
 public class Comunidad {
@@ -30,14 +33,31 @@ public class Comunidad {
   }
 
   public void agregarIncidente(Incidente unIncidente) {
-    this.notificarAMiembros(unIncidente);
+    this.notificarAperturaAMiembros(unIncidente);
     incidentesAbiertos.add(unIncidente);
 
   }
 
-  public void notificarAMiembros(Incidente unIncidente) {
-    //miembros.forEach(unMiembro -> unMiembro.recibirIncidente(unIncidente));
-    //TODO
+  public void cerrarIncidente(Incidente unIncidente) {
+    this.notificarCierreAMiembros(unIncidente);
+    incidentesAbiertos.remove(unIncidente);
+  }
+
+  public void notificarAperturaAMiembros(Incidente unIncidente) {
+    NotificacionApertura notificacion = new NotificacionApertura(unIncidente);
+    notificacion.asunto();
+    notificacion.cuerpo();
+
+    miembros.forEach(unMiembro -> unMiembro.recibirNotificacion(notificacion));
+
+    //TODO FACTORY
+
+  }
+  public void notificarCierreAMiembros(Incidente unIncidente) {
+
+
+    //miembros.forEach(unMiembro -> unMiembro.recibirNotificacion(notificacion));
+    //TODO FACTORY
   }
 
 }

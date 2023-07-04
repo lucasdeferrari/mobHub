@@ -3,6 +3,7 @@ package domain.servicios;
 import domain.comunidad.Comunidad;
 import domain.comunidad.Miembro;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 @Getter
-
+@Setter
 public class Incidente {
     private String observaciones;
     private List<Comunidad> comunidades;
@@ -29,12 +30,18 @@ public class Incidente {
         return horasTranscurridas;
     }
 
-    public Incidente(List<Comunidad> comunidades, Miembro quienAbrio, Servicio servicio, Establecimiento establecimiento, Entidad entidad, LocalDateTime fechaHoraApertura) {
+    public Incidente(List<Comunidad> comunidades, Miembro quienAbrio, Servicio servicio, Establecimiento establecimiento, Entidad entidad, LocalDateTime fechaHoraApertura, LocalDateTime fechaHoraCierre) {
         this.comunidades = comunidades;
         this.quienAbrio = quienAbrio;
         this.servicio = servicio;
         this.establecimiento = establecimiento;
         this.entidad = entidad;
         this.fechaHoraApertura = fechaHoraApertura;
+        this.fechaHoraCierre = fechaHoraCierre;
     }
+
+    public void ponerDisponible() {
+        servicio.disponible();
+    }
+
 }

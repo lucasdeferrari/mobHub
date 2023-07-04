@@ -1,6 +1,7 @@
 package domain.comunidad;
 
 
+import domain.notificaciones.tipoDeNotificacion.TipoNotificacion;
 import domain.servicios.*;
 import domain.services.geoRef.entidades.Departamento;
 import domain.services.geoRef.entidades.Municipio;
@@ -8,6 +9,7 @@ import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -61,6 +63,12 @@ public class Miembro {
     servicio.denegar();
   }
 
-//  public void recibirIncidente(Incidente unIncidente);
+  public void cerrarIncidente(Incidente incidente) {
+    incidente.setQuienCerro(this);
+    incidente.setFechaHoraCierre(LocalDateTime.now());
+    comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.cerrarIncidente(incidente));
+    incidente.ponerDisponible();
+  }
+//  public void recibirNotificacion(Notificacion unaNotificacion);
 
 }
