@@ -58,8 +58,20 @@ public class Miembro {
 
 
   public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio) {
-    Incidente incidente = new Incidente(this.comunidadesPertenecientes, this, servicio, establecimiento, entidad, LocalDateTime.now());
-    comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.agregarIncidente(incidente));
+    for (Comunidad comunidad : comunidadesPertenecientes) {
+      Incidente incidente = new Incidente(
+              comunidadesPertenecientes,
+              this,
+              servicio,
+              establecimiento,
+              entidad,
+              LocalDateTime.now(),
+              LocalDateTime.now()
+      );
+
+      comunidad.agregarIncidente(incidente);
+    }
+
     servicio.denegar();
   }
 

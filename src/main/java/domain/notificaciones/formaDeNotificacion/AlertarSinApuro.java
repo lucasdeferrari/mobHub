@@ -14,6 +14,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class AlertarSinApuro implements FormaNotificacion{
     private Timer timer;
@@ -21,11 +22,12 @@ public class AlertarSinApuro implements FormaNotificacion{
     private List<Incidente> incidentes;
     private LocalTime horarioDeNotificacion;
 
-    public void notificar(Incidente unIncidente) {
-        incidentes.add(unIncidente);
+    public void notificar(TipoNotificacion unaNotificacion) {
+        notificacionesAEnviar.add(unaNotificacion);
     }
 
     LocalTime horaDeInicio = LocalTime.of(0,0,0);
+
     public void main() {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
