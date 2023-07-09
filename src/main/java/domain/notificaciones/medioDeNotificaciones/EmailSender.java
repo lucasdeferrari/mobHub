@@ -2,6 +2,7 @@ package domain.notificaciones.medioDeNotificaciones;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.util.Properties;
 
 public class EmailSender {
     public static void main(String[] args) {

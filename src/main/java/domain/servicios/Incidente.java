@@ -45,4 +45,11 @@ public class Incidente {
         servicio.disponible();
     }
 
+    public Boolean sigueAbierto() {
+        return (fechaHoraCierre == null);
+    }
+
+    public boolean tieneEsteServicio(Servicio unServicio) {
+        return servicio == unServicio;
+    }
 }
