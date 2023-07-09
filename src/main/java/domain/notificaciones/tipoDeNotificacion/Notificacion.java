@@ -1,8 +1,10 @@
 package domain.notificaciones.tipoDeNotificacion;
 
-import domain.servicios.Incidente;
-
-public interface TipoNotificacion {
+public interface Notificacion {
     public String asunto();
+
     public String cuerpo();
+
+
+
 }

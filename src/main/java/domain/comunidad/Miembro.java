@@ -1,15 +1,14 @@
 package domain.comunidad;
 
 
-import domain.notificaciones.tipoDeNotificacion.TipoNotificacion;
+import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
+import domain.notificaciones.tipoDeNotificacion.Notificacion;
 import domain.servicios.*;
 import domain.services.geoRef.entidades.Departamento;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
 
-import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -23,6 +22,7 @@ public class Miembro {
   private Provincia localizacionProvincia;
   private Municipio localizacionMunicipio;
   private Departamento localizacionDepartamento;
+  private FormaNotificacion formaNotificacion;
 
 
   public Miembro(String nombre, String apellido, String correoElectronico) {
@@ -59,20 +59,20 @@ public class Miembro {
 
   public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio) {
     for (Comunidad comunidad : comunidadesPertenecientes) {
-      Incidente incidente = new Incidente(
-              comunidadesPertenecientes,
-              this,
-              servicio,
-              establecimiento,
-              entidad,
-              LocalDateTime.now(),
-              LocalDateTime.now()
-      );
-
-      comunidad.agregarIncidente(incidente);
+      if (!comunidad.existeIncidenteReportado(servicio)) {
+        Incidente incidente = new Incidente( //todo builder
+                comunidadesPertenecientes,
+                this,
+                servicio,
+                establecimiento,
+                entidad,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+        comunidad.agregarIncidente(incidente);
+      }
+      servicio.denegar();
     }
-
-    servicio.denegar();
   }
 
   public void cerrarIncidente(Incidente incidente) {
@@ -81,6 +81,8 @@ public class Miembro {
     comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.cerrarIncidente(incidente));
     incidente.ponerDisponible();
   }
-//  public void recibirNotificacion(Notificacion unaNotificacion);
+  public void recibirNotificacion(Notificacion unaNotificacion) {
+    formaNotificacion.notificar(unaNotificacion);
+  };
 
 }

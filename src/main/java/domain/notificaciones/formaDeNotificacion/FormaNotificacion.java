@@ -1,9 +1,8 @@
 package domain.notificaciones.formaDeNotificacion;
 
-import domain.notificaciones.tipoDeNotificacion.TipoNotificacion;
-import domain.servicios.Incidente;
+import domain.notificaciones.tipoDeNotificacion.Notificacion;
 
 public interface FormaNotificacion {
-    public void notificar(TipoNotificacion unaNotificacion);
+    public void notificar(Notificacion unaNotificacion);
 
 }

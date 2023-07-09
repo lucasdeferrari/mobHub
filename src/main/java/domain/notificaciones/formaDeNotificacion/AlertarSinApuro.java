@@ -1,6 +1,5 @@
 package domain.notificaciones.formaDeNotificacion;
 
-import domain.comunidad.Miembro;
 import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
 import domain.notificaciones.tipoDeNotificacion.TipoNotificacion;
 import domain.servicios.Incidente;
@@ -8,6 +7,7 @@ import org.apache.commons.mail.EmailException;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,9 +22,7 @@ public class AlertarSinApuro implements FormaNotificacion{
     private List<TipoNotificacion> notificacionesAEnviar;
     private LocalTime horarioDeNotificacion;
 
-    public void notificar(TipoNotificacion unaNotificacion) {
-        notificacionesAEnviar.add(unaNotificacion);
-    }
+    public void notificar(Notificacion unaNotificacion) {notificacionesAEnviar.add(unaNotificacion);}
 
     LocalTime horaDeInicio = LocalTime.of(0,0,0);
 
@@ -51,7 +49,8 @@ public class AlertarSinApuro implements FormaNotificacion{
         public void run() {
             boolean result = esLaHora();
             if(result) {
-                notificacionesAEnviar.stream().filter(unaNotificacion->unaNotificacion.filtrarSegunTipo()).collect(Collectors.toList());
+                List<NotificacionApertura> notificacionesApertura = filtrarAlertarSinApuro(notificacionesAEnviar);
+                notificacionesApertura.stream().filter(unaNotificacion->unaNotificacion.sigueAbierta()).collect(Collectors.toList());
                 try {
                     receptor.notificar(notificacionesAEnviar);
                 } catch (EmailException e) {
@@ -66,4 +65,17 @@ public class AlertarSinApuro implements FormaNotificacion{
         LocalTime horarioActual = LocalTime.now();
         return horarioActual == horarioDeNotificacion;
     }
+
+    public List<NotificacionApertura> filtrarAlertarSinApuro(List<Notificacion> listaNotificaciones) {
+        List<NotificacionApertura> listaFiltrada = new ArrayList<>();
+ 
+        for (Notificacion notificacion : listaNotificaciones) {
+            if (notificacion instanceof NotificacionApertura) {
+                listaFiltrada.add((NotificacionApertura) notificacion);
+            }
+        }
+
+        return listaFiltrada;
+    }
 }
+

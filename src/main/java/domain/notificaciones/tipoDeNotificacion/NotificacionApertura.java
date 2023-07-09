@@ -2,7 +2,7 @@ package domain.notificaciones.tipoDeNotificacion;
 
 import domain.servicios.Incidente;
 
-public class NotificacionApertura implements TipoNotificacion {
+public class NotificacionApertura implements Notificacion {
     private Incidente incidenteAsociado;
 
     public NotificacionApertura(Incidente incidenteEnviado) {
@@ -18,8 +18,8 @@ public class NotificacionApertura implements TipoNotificacion {
         return incidenteAsociado.getObservaciones(); // a chequear idealizando lo que manda mas adelante
     }
 
-    public Boolean filtrarSegunTipo(Miembro miembro) {
-        // se fija que el incidente siga abierto
+    public Boolean sigueAbierta() {
+        return incidenteAsociado.sigueAbierto();
     }
 
 }

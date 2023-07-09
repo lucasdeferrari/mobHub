@@ -50,6 +50,8 @@ public class Comunidad {
 
     miembros.forEach(unMiembro -> unMiembro.recibirNotificacion(notificacion));
 
+
+
     //TODO FACTORY
 
   }
