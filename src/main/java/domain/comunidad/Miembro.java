@@ -57,7 +57,8 @@ public class Miembro {
   }
 
 
-  public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio) {
+  public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio)
+  {
     for (Comunidad comunidad : comunidadesPertenecientes) {
       if (!comunidad.existeIncidenteReportado(servicio)) {
         Incidente incidente = new Incidente( //todo builder

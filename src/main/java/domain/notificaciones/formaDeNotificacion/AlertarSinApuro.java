@@ -1,8 +1,8 @@
 package domain.notificaciones.formaDeNotificacion;
 
 import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
-import domain.notificaciones.tipoDeNotificacion.TipoNotificacion;
-import domain.servicios.Incidente;
+import domain.notificaciones.tipoDeNotificacion.NotificacionApertura;
+import domain.notificaciones.tipoDeNotificacion.Notificacion;
 import org.apache.commons.mail.EmailException;
 
 import java.time.LocalTime;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class AlertarSinApuro implements FormaNotificacion{
     private Timer timer;
     private MedioDeNotificacion receptor;
-    private List<TipoNotificacion> notificacionesAEnviar;
+    private List<Notificacion> notificacionesAEnviar;
     private LocalTime horarioDeNotificacion;
 
     public void notificar(Notificacion unaNotificacion) {notificacionesAEnviar.add(unaNotificacion);}
