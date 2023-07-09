@@ -5,6 +5,7 @@ import domain.servicios.Incidente;
 public class NotificacionApertura implements Notificacion {
     private Incidente incidenteAsociado;
 
+
     public NotificacionApertura(Incidente incidenteEnviado) {
         incidenteAsociado = incidenteEnviado;
     }

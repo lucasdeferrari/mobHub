@@ -1,5 +1,6 @@
 package domain.notificaciones.tipoDeNotificacion;
 
+import domain.comunidad.Miembro;
 import domain.servicios.Incidente;
 
 public class NotificacionCierre implements Notificacion {
