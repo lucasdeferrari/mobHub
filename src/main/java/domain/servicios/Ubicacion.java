@@ -1,5 +1,8 @@
 package domain.servicios;
 
+import lombok.Getter;
+
+@Getter
 public class Ubicacion {
   private Float latitud;
   private Float longitud;

@@ -23,4 +23,4 @@ public abstract class Ranking {
     return fechaCierre.isAfter(inicioSemana) && fechaCierre.isBefore(finSemana);
   }
 }
-
+ 

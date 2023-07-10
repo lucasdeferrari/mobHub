@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 @Getter
 @Setter
@@ -44,11 +42,12 @@ public class Incidente {
         servicio.disponible();
     }
 
-    public Boolean sigueAbierto() {
+    public Boolean estadoAbierto() {
         return (fechaHoraCierre == null);
     }
 
     public boolean tieneEsteServicio(Servicio unServicio) {
         return servicio == unServicio;
     }
+
 }

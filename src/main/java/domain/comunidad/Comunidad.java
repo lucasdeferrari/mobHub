@@ -41,8 +41,8 @@ public class Comunidad {
 
   }
 
-  public void cerrarIncidente(Incidente unIncidente) {
-    this.notificarCierreAMiembros(unIncidente);
+  public void cerrarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {
+    this.notificarCierreAMiembros(unIncidente, miembroQueAbrio);
     incidentesAbiertos.remove(unIncidente);
   }
 
@@ -64,4 +64,6 @@ public class Comunidad {
   public boolean existeIncidenteReportado(Servicio servicio) {
     return incidentesAbiertos.stream().anyMatch(unIncidente -> unIncidente.tieneEsteServicio(servicio) );
   }
+
+
 }
