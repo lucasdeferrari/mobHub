@@ -34,6 +34,9 @@ public class Miembro {
   private FormaNotificacion formaNotificacion;
   private Ubicacion ubicacionActual;
   private List<Incidente> incidentesDeInteresPropio;
+  private Rol[] rolesServicios;
+  //@Setter
+  //private Rol rol; // se puede cambiar entre roles con el setter
 
   public Miembro(String nombre, String apellido, String correoElectronico) {
     this.nombre = nombre;
@@ -42,6 +45,25 @@ public class Miembro {
     //this.comunidadesPertenecientes = comunidadesPertenecientes; // cambiar
     //this.entidadesAsociadas = entidadesAsociadas;// cambiar
     //this.serviciosAsociados = serviciosAsociados;// cambiar
+  }
+
+  // SE LLAMA A ESTA FUNCION LUEGO DE CREAR UN MIEMBRO.
+  public void definirRoles() {
+    Integer indice = 0;
+
+    for(Rol rol: rolesServicios) {
+      if (serviciosAsociados.contains(indice)) {
+        rol = Rol.AFECTADO;
+      }
+      else {
+        rol = Rol.OBSERVADOR;
+      }
+      indice++;
+    }
+  }
+
+  public void cambiarRolManualmente(TipoDeServicio tipoDeServicio, Rol rol) {
+    rolesServicios[tipoDeServicio.ordinal()] = rol;
   }
 
   public Boolean esAdminEn(Comunidad comunidad) {

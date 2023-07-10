@@ -21,12 +21,13 @@ public class GeneradorRanking { //todo para mi va singleton
   private static List<Entidad> rankingMayorPromedioCierre;
   private static List<Entidad> rankingMayorGradoImpacto;
   private static List<Incidente> incidentes;
+  private static ExportadorInforme exportadorInforme;
   private Timer timer;
 
   LocalTime horaDeInicio = LocalTime.of(0, 0, 0);
   // LA CLASE SE DEBE EJECUTAR POR PRIMERA VEZ UN DOMINGO
 
-  public void main() {
+  public  void main(String[] args) {
     ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
     // Calcula el retraso hasta la hora exacta
     LocalTime horaActual = LocalTime.now();
@@ -63,16 +64,11 @@ public class GeneradorRanking { //todo para mi va singleton
     incidentes.add(unIncidente);
   }
 
- // public static List<Entidad> devolverInformeOrganismo(List<EntidadPrestadora> entidadesPrestadoras, Ranking criterio) {
-  //  return entidadesPrestadoras.stream()
-      //      .flatMap(entidadPrestadora -> devolverInformeEntidadPrestadora(entidadPrestadora, criterio).stream())
-           // .collect(Collectors.toList());
-  //}
 
-  public static Workbook devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
+  public static void devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
     List<Entidad> entidadesDeEmpresas = entidadPrestadora.getEntidades();
     entidadesDeEmpresas.retainAll(rankingSegunCriterio(criterio)); // Intersecta las listas
-    return GenerarExcellInforme.crearAPartirDeLista(entidadesDeEmpresas);
+    exportadorInforme.exportarInforme(entidadesDeEmpresas);
   }
 
   public static List<Entidad> rankingSegunCriterio(Ranking criterio) {
