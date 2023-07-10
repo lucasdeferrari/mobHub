@@ -4,13 +4,10 @@ import domain.Rankings.MayorCantidadReportes;
 import domain.Rankings.MayorGradoImpacto;
 import domain.Rankings.MayorPromedioCierre;
 import domain.Rankings.Ranking;
-import domain.generadorRankings.ExportadorInforme;
-import domain.generadorRankings.FormatoExcel;
 import domain.servicios.*;
 import domain.servicios.Incidente;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.poi.ss.usermodel.Workbook;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;

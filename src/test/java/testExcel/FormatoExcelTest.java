@@ -1,7 +1,6 @@
 package testExcel;
 
 import domain.generadorRankings.FormatoExcel;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.servicios.Entidad;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class FormatoExcelTest {
