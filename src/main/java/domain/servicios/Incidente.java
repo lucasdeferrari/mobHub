@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class Incidente {
     private String observaciones;
-    private List<Comunidad> comunidades;
+    private List<Comunidad> comunidades; //TODO ver si va o no
     private Miembro quienAbrio;
     private Miembro quienCerro;
     private Servicio servicio;

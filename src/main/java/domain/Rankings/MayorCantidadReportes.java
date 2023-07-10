@@ -22,10 +22,10 @@ import java.time.LocalDateTime;
               .filter(unincidente -> esIncidenteDeEstaSemana(unincidente))
               .collect(Collectors.toList());
 
-      for (Incidente incidente : listaIncidentes) {
+      for (Incidente incidente : listaIncidentes) { // revisar
         Entidad entidad = incidente.getEntidad();
         if (existeIncidenteReportado(entidad, incidente, listaIncidentes)) {
-          continue;
+          continue; //si existe no lo agrega
         }
         cantidadIncidentes.put(entidad, cantidadIncidentes.getOrDefault(entidad, 0) + 1);
       }
@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
     }
 
     public boolean existeIncidenteReportado(Entidad entidad, Incidente incidente, List<Incidente> listaIncidentes) {
-      if (incidente.getFechaHoraCierre() == null) {
+      if (incidente.estadoAbierto()) {
         for (Incidente incidenteLista : listaIncidentes) {
           if (menosDe24Horas(incidente, incidenteLista) && esElMismoIncidente(incidente, incidenteLista)) {
             return true;

@@ -16,19 +16,18 @@ import java.util.stream.Collectors;
 public class Comunidad {
   private String nombre;
   private String descripcion;
-  private List<Miembro> miembros;
+  private HashMap<Miembro, Rol> miembros;
+  //private List<Miembro> miembros;
   private List<Miembro> administradores;
   private List<Incidente> incidentesAbiertos; //todo ver si va o no
 
 
-  public void agregarMiembro(Miembro miembro) {
-    miembros.add(miembro);
+  public void agregarMiembro(Miembro miembro, Rol rol) {
+    miembros.put(miembro, rol);
   }
-
-  public void eliminarMiembro(Miembro miembro) {
-    miembros.remove(miembro);
-  }
-
+  public void cambiarRol(Miembro miembro, Rol nuevoRol){miembros.put(miembro, nuevoRol); }
+  public void eliminarMiembro(Miembro miembro) {miembros.remove(miembro);}
+  public Integer cantidadMiembro(){return miembros.size();}
   public Boolean esAdmin(Miembro miembro) {
     return administradores.contains(miembro);
   }

@@ -11,7 +11,6 @@ public class OrganismoDeControl {
     private String nombre;
     private List<EntidadPrestadora> entidadadesPrestadoras;
     private List<TipoDeServicio> serviciosAControlar;
-    private Ranking criterio;
 
     public void eliminarEntidadPrestadora(EntidadPrestadora entidad) {
         entidadadesPrestadoras.remove(entidad);
@@ -19,7 +18,7 @@ public class OrganismoDeControl {
     public void agregarEntidadPrestadora(EntidadPrestadora entidad) {
         entidadadesPrestadoras.add(entidad);
     }
-    public List<Entidad> obtenerInforme(){
-        return GeneradorRanking.devolverInformeOrganismo(entidadadesPrestadoras, criterio);
+    public Workbook obtenerInforme(EntidadPrestadora prestadora){
+        return prestadora.obtenerInforme();
     }
 }

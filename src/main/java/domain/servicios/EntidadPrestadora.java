@@ -5,6 +5,7 @@ import java.util.List;
 import domain.Rankings.GeneradorRanking;
 import domain.Rankings.Ranking;
 import lombok.Getter;
+import org.apache.poi.ss.usermodel.Workbook;
 
 @Getter
 public class EntidadPrestadora {
@@ -21,7 +22,8 @@ public class EntidadPrestadora {
     public void agregarEntidad(Entidad entidad) {
         entidades.add(entidad);
     }
-    public List<Entidad> obtenerInforme(){
+
+    public Workbook obtenerInforme(){
        return GeneradorRanking.devolverInformeEntidadPrestadora(this, criterio);
     }
 

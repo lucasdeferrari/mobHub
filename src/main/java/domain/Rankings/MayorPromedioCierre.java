@@ -23,7 +23,7 @@ public class MayorPromedioCierre extends Ranking {
     Map<Entidad, Integer> cantidadIncidentes = new HashMap<>();
 
     List<Incidente> incidentesCerrados = incidentes.stream()
-            .filter(incidente -> incidente.getFechaHoraCierre() != null)
+            .filter(incidente -> incidente.estadoAbierto() == false)
             .collect(Collectors.toList());// hace cualquier cosa
 
     incidentesCerrados = incidentesCerrados.stream().filter(incidente ->this.esIncidenteDeEstaSemana(incidente))

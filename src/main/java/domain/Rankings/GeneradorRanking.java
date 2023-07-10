@@ -1,9 +1,7 @@
 package domain.Rankings;
 
-import domain.comunidad.Miembro;
-import domain.servicios.Incidente;
-import domain.servicios.Entidad;
-import domain.servicios.EntidadPrestadora;
+import domain.generadorRankings.GenerarExcellInforme;
+import domain.servicios.*;
 import domain.servicios.Incidente;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,7 +47,6 @@ public class GeneradorRanking { //todo para mi va singleton
 
   TimerTask task = new TimerTask() {
     public void run() {
-      // habria que agarrar con un metodo, la lista de incidentes, aca o en algun lado antes
       Ranking criterio1 = new MayorPromedioCierre();
       Ranking criterio2 = new MayorCantidadReportes();
       Ranking criterio3 = new MayorGradoImpacto();
@@ -66,16 +63,16 @@ public class GeneradorRanking { //todo para mi va singleton
     incidentes.add(unIncidente);
   }
 
-  public static List<Entidad> devolverInformeOrganismo(List<EntidadPrestadora> entidadesPrestadoras, Ranking criterio) {
-    return entidadesPrestadoras.stream()
-            .flatMap(entidadPrestadora -> devolverInformeEntidadPrestadora(entidadPrestadora, criterio).stream())
-            .collect(Collectors.toList());
-  }
+ // public static List<Entidad> devolverInformeOrganismo(List<EntidadPrestadora> entidadesPrestadoras, Ranking criterio) {
+  //  return entidadesPrestadoras.stream()
+      //      .flatMap(entidadPrestadora -> devolverInformeEntidadPrestadora(entidadPrestadora, criterio).stream())
+           // .collect(Collectors.toList());
+  //}
 
   public static Workbook devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
     List<Entidad> entidadesDeEmpresas = entidadPrestadora.getEntidades();
     entidadesDeEmpresas.retainAll(rankingSegunCriterio(criterio)); // Intersecta las listas
-    return entidadesDeEmpresas;
+    return GenerarExcellInforme.crearAPartirDeLista(entidadesDeEmpresas);
   }
 
   public static List<Entidad> rankingSegunCriterio(Ranking criterio) {

@@ -1,7 +1,6 @@
 package domain.notificaciones.formaDeNotificacion;
 
 import domain.comunidad.Miembro;
-import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
 import domain.notificaciones.notificacion.Notificacion;
 
 public interface FormaNotificacion {

@@ -3,8 +3,7 @@ package domain.comunidad;
 
 import domain.geolocalizacion.GestorGeolocalizacion;
 import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
-import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
-import domain.notificaciones.notificacion.NotificacionApertura;
+import domain.notificaciones.medioDeNotificaciones.MedioNotificacion;
 import domain.servicios.*;
 import domain.services.geoRef.entidades.Departamento;
 import domain.services.geoRef.entidades.Municipio;
@@ -14,13 +13,10 @@ import domain.Rankings.GeneradorRanking;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Getter
 public class Miembro {
@@ -34,11 +30,10 @@ public class Miembro {
   private Provincia localizacionProvincia;
   private Municipio localizacionMunicipio;
   private Departamento localizacionDepartamento;
-  private MedioDeNotificacion medioDeNotificacion;
+  private MedioNotificacion medioDeNotificacion;
   private FormaNotificacion formaNotificacion;
   private Ubicacion ubicacionActual;
   private List<Incidente> incidentesDeInteresPropio;
-
 
   public Miembro(String nombre, String apellido, String correoElectronico) {
     this.nombre = nombre;
