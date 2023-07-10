@@ -1,5 +1,6 @@
 package domain.Rankings;
 
+import domain.comunidad.Miembro;
 import domain.servicios.Incidente;
 import domain.servicios.Entidad;
 import domain.servicios.EntidadPrestadora;
