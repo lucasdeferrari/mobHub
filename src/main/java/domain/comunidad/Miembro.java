@@ -12,7 +12,6 @@ import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
 import domain.Rankings.GeneradorRanking;
 import lombok.Getter;
-import org.apache.commons.mail.EmailException;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -87,7 +86,6 @@ public class Miembro {
                 LocalDateTime.now()
         );
         comunidad.agregarIncidente(incidente, this);
-        comunidad.notificarAperturaAMiembros(incidente, this);
         GeneradorRanking.agregarIncidente(incidente); // generador de ranking seria una singleton que habria que llamar en algun momento
         // aca habria que agregar el incidente a un repositorio de incidentes
       }
@@ -119,6 +117,12 @@ public class Miembro {
 
     // Cierra el executor después de ejecutar la tarea
     executor.shutdown();
+  }
+
+  public Boolean leInteresaElIncidente(Incidente unIncidente) {
+    List<Servicio> serviciosDeInteres = this.serviciosDeInteres();
+
+    return serviciosDeInteres.contains(unIncidente.getServicio());
   }
 
   TimerTask task = new TimerTask() {

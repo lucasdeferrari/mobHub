@@ -7,7 +7,7 @@ import domain.servicios.Incidente;
 import domain.servicios.Servicio;
 import lombok.Getter;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -46,20 +46,7 @@ public class Comunidad {
     incidentesAbiertos.remove(unIncidente);
   }
 
-  public void notificarAperturaAMiembros(Incidente unIncidente, Miembro miembroQueAbrio) {
-    NotificacionApertura notificacion = new NotificacionApertura(unIncidente);
-    //para que no notifique al miembro que creo el incidente
-    List <Miembro> listaSinElMiembro = miembros.stream().filter(unMiembro -> unMiembro != miembroQueAbrio).collect(Collectors.toList());
 
-    listaSinElMiembro.forEach(unMiembro -> unMiembro.getFormaNotificacion().notificar(notificacion, unMiembro));
-
-  }
-
-
-  public void notificarCierreAMiembros(Incidente unIncidente, Miembro miembroQueCerro) {
-    NotificacionCierre notificacion = new NotificacionCierre(unIncidente);
-
-  }
 
   public boolean existeIncidenteReportado(Servicio servicio) {
     return incidentesAbiertos.stream().anyMatch(unIncidente -> unIncidente.tieneEsteServicio(servicio) );

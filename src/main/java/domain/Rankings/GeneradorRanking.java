@@ -8,20 +8,16 @@ import domain.servicios.Incidente;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
-public class GeneradorRanking { //todo para mi va tsingleton
+public class GeneradorRanking { //todo para mi va singleton
   private static List<Entidad> rankingMayorCantidadReportes; //de esta semana
   private static List<Entidad> rankingMayorPromedioCierre;
   private static List<Entidad> rankingMayorGradoImpacto;
@@ -29,6 +25,7 @@ public class GeneradorRanking { //todo para mi va tsingleton
   private Timer timer;
 
   LocalTime horaDeInicio = LocalTime.of(0, 0, 0);
+  // LA CLASE SE DEBE EJECUTAR POR PRIMERA VEZ UN DOMINGO
 
   public void main() {
     ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
@@ -55,9 +52,12 @@ public class GeneradorRanking { //todo para mi va tsingleton
       Ranking criterio1 = new MayorPromedioCierre();
       Ranking criterio2 = new MayorCantidadReportes();
       Ranking criterio3 = new MayorGradoImpacto();
-      rankingMayorCantidadReportes = criterio1.generar(incidentes);
-      rankingMayorPromedioCierre = criterio2.generar(incidentes);
-      rankingMayorGradoImpacto = criterio3.generar(incidentes);
+
+      rankingMayorCantidadReportes =  criterio1.generar(incidentes);
+      rankingMayorGradoImpacto = criterio2.generar(incidentes);
+      rankingMayorPromedioCierre = criterio3.generar(incidentes);
+
+      incidentes.clear();
     }
   };
 

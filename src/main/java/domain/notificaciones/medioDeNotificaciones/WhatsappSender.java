@@ -4,12 +4,9 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import domain.comunidad.Miembro;
-import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
 import domain.notificaciones.notificacion.Notificacion;
 
-import java.util.List;
-
-public class Whatsapp {
+public class WhatsappSender {
     // Find your Account Sid and Token at twilio.com/console
     private static final String ACCOUNT_SID = "AC8089600acca9fc93c63ba5bee993936f";
     private static final String AUTH_TOKEN = "941e609076b6204db1db10a32c1b0f77";
@@ -31,6 +28,6 @@ public class Whatsapp {
     public void notificar(Notificacion notificacion, Miembro unMiembro) {
         // Llamada al método main
         miembro = unMiembro;
-        Whatsapp.main(notificacion);
+        WhatsappSender.main(notificacion);
     }
 }
