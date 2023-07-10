@@ -13,13 +13,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -30,7 +28,7 @@ public class GeneradorRanking { //todo para mi va tsingleton
   private static List<Incidente> incidentes = new ArrayList<>();
   private Timer timer;
 
-  LocalTime horaDeInicio = LocalTime.of(0,0,0);
+  LocalTime horaDeInicio = LocalTime.of(0, 0, 0);
 
   public void main() {
     ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
@@ -44,7 +42,7 @@ public class GeneradorRanking { //todo para mi va tsingleton
     // Programa la tarea para que se ejecute en la hora exacta
     executor.schedule(() -> {
       timer = new Timer();
-      timer.schedule(task, 0,  7);
+      timer.schedule(task, 0, 7);
     }, delayInicial, TimeUnit.DAYS);
 
     // Cierra el executor después de ejecutar la tarea
@@ -54,12 +52,28 @@ public class GeneradorRanking { //todo para mi va tsingleton
   TimerTask task = new TimerTask() {
     public void run() {
       // habria que agarrar con un metodo, la lista de incidentes, aca o en algun lado antes
-      generarRanking();
+      Ranking criterio1 = new MayorPromedioCierre();
+      Ranking criterio2 = new MayorCantidadReportes();
+      Ranking criterio3 = new MayorGradoImpacto();
+      rankingMayorCantidadReportes = criterio1.generar(incidentes);
+      rankingMayorPromedioCierre = criterio2.generar(incidentes);
+      rankingMayorGradoImpacto = criterio3.generar(incidentes);
     }
   };
-  public List<Entidad> devolverUltimoRanking(EntidadPrestadora entidadPrestadora){
+
+  public static void agregarIncidente(Incidente unIncidente) {
+    incidentes.add(unIncidente);
+  }
+
+  public static List<Entidad> devolverInformeOrganismo(List<EntidadPrestadora> entidadesPrestadoras, Ranking criterio) {
+    return entidadesPrestadoras.stream()
+            .flatMap(entidadPrestadora -> devolverInformeEntidadPrestadora(entidadPrestadora, criterio).stream())
+            .collect(Collectors.toList());
+  }
+
+  public static List<Entidad> devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
     List<Entidad> entidadesDeEmpresas = entidadPrestadora.getEntidades();
-    entidadesDeEmpresas.retainAll(rankingActual); // Intersecta las listas
+    entidadesDeEmpresas.retainAll(rankingSegunCriterio(criterio)); // Intersecta las listas
     return entidadesDeEmpresas;
   }
 

@@ -15,6 +15,7 @@ public abstract class Ranking {
 
   public abstract List<Entidad> generar(List<Incidente> incidentes);
 
+
   public Boolean esIncidenteDeEstaSemana(Incidente incidente) {
     LocalDateTime fechaActual = LocalDateTime.now();
     LocalDateTime inicioSemana = fechaActual.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)); //para que sea lunes el inicio de semana

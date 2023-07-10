@@ -14,13 +14,12 @@ import java.time.LocalDateTime;
 
 
   public class MayorCantidadReportes extends Ranking {
-
-    @Override
+  @Override
     public List<Entidad> generar(List<Incidente> listaIncidentes) {
       Map<Entidad, Integer> cantidadIncidentes = new HashMap<>();
 
       listaIncidentes = listaIncidentes.stream()
-              .filter(this::esIncidenteDeEstaSemana)
+              .filter(unincidente -> esIncidenteDeEstaSemana(unincidente))
               .collect(Collectors.toList());
 
       for (Incidente incidente : listaIncidentes) {

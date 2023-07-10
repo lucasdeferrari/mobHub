@@ -1,5 +1,8 @@
 package domain.servicios;
 
+import domain.Rankings.GeneradorRanking;
+import domain.Rankings.Ranking;
+
 import java.util.List;
 
 public class OrganismoDeControl {
@@ -14,5 +17,8 @@ public class OrganismoDeControl {
     }
     public void agregarEntidadPrestadora(EntidadPrestadora entidad) {
         entidadadesPrestadoras.add(entidad);
+    }
+    public List<Entidad> obtenerInforme(){
+        return GeneradorRanking.devolverInformeOrganismo(entidadadesPrestadoras, criterio);
     }
 }
