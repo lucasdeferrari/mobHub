@@ -1,6 +1,11 @@
-package domain.Rankings;
+package domain.generadorRankings;
 
-import domain.generadorRankings.GenerarExcellInforme;
+import domain.Rankings.MayorCantidadReportes;
+import domain.Rankings.MayorGradoImpacto;
+import domain.Rankings.MayorPromedioCierre;
+import domain.Rankings.Ranking;
+import domain.generadorRankings.ExportadorInforme;
+import domain.generadorRankings.FormatoExcel;
 import domain.servicios.*;
 import domain.servicios.Incidente;
 import lombok.Getter;

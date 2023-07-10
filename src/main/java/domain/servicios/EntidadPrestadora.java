@@ -2,10 +2,9 @@ package domain.servicios;
 
 import java.util.List;
 
-import domain.Rankings.GeneradorRanking;
+import domain.generadorRankings.GeneradorRanking;
 import domain.Rankings.Ranking;
 import lombok.Getter;
-import org.apache.poi.ss.usermodel.Workbook;
 
 @Getter
 public class EntidadPrestadora {
@@ -23,8 +22,8 @@ public class EntidadPrestadora {
         entidades.add(entidad);
     }
 
-    public Workbook obtenerInforme(){
-       return GeneradorRanking.devolverInformeEntidadPrestadora(this, criterio);
+    public void obtenerInforme(){
+        GeneradorRanking.devolverInformeEntidadPrestadora(this, criterio);
     }
 
 }

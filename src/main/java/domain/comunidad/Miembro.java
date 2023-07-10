@@ -9,7 +9,7 @@ import domain.services.geoRef.entidades.Departamento;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
-import domain.Rankings.GeneradorRanking;
+import domain.generadorRankings.GeneradorRanking;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class Miembro {
   private String correoElectronico;
   private String telefono;
   private List<Comunidad> comunidadesPertenecientes;
-  private List<Entidad> entidadesAsociadas;
+  private  List<Entidad> entidadesAsociadas;
   private List<TipoDeServicio> serviciosAsociados;
   private Provincia localizacionProvincia;
   private Municipio localizacionMunicipio;

@@ -8,4 +8,5 @@ public interface MedioNotificacion {
 
     public void notificar(Notificacion notificacion, Miembro miembro) throws EmailException;
 
+
 }
