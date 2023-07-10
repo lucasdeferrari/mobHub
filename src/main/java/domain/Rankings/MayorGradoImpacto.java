@@ -37,10 +37,13 @@ public class MayorGradoImpacto extends Ranking{
 
     List<Miembro> listaMiembros = new ArrayList<>();
 
-    for (Map.Entry<Miembro, Rol> unMiembro : comunidad.getMiembros().entrySet()) {
-      if (unMiembro.getValue() == Rol.AFECTADO) {
-        listaMiembros.add(unMiembro.getKey());
-      }
+    for (Miembro unMiembro : comunidad.getMiembros()) {
+      incidentes.forEach(unIncidente -> {
+        TipoDeServicio tipoDeServicio = unIncidente.getServicio().getNombre();
+        if(unMiembro.getRolesServicios()[tipoDeServicio.ordinal()] == Rol.AFECTADO) {
+          listaMiembros.add(unMiembro);
+        }
+      });
     }
     return listaMiembros.size();
   }
