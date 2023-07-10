@@ -7,6 +7,7 @@ import domain.servicios.EntidadPrestadora;
 import domain.servicios.Incidente;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -71,7 +72,7 @@ public class GeneradorRanking { //todo para mi va singleton
             .collect(Collectors.toList());
   }
 
-  public static List<Entidad> devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
+  public static Workbook devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
     List<Entidad> entidadesDeEmpresas = entidadPrestadora.getEntidades();
     entidadesDeEmpresas.retainAll(rankingSegunCriterio(criterio)); // Intersecta las listas
     return entidadesDeEmpresas;

@@ -18,7 +18,7 @@ class ServicioTest {
 
     @Test
     void testServiciosDeInteres() {
-        // Crear una instancia del objeto bajo prueba
+        // Crear una instancia del objeto bajo prueba.java
         Comunidad neus = new Comunidad();
         Comunidad lucas = new Comunidad();
       //  Localizacion neusLoca = new Localizacion();
@@ -53,7 +53,7 @@ class ServicioTest {
 
         //Miembro miembro = new Miembro("lucas", "deferrari", "neus@gmail.com", comunidades, entidades, tiposDeServicio);
 
-        // Llamar al método bajo prueba
+        // Llamar al método bajo prueba.java
         //List<Servicio> resultado = miembro.serviciosDeInteres();
 
         // Verificar el resultado esperado
