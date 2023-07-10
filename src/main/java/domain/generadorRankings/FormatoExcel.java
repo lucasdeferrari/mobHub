@@ -36,9 +36,13 @@ public abstract class FormatoExcel implements ExportadorInforme {
             Cell celdaEntidad = filaDatos.createCell(1);
             celdaEntidad.setCellValue(entidad.getNombre());
         }
-
-        return libro;
+        try (FileOutputStream fileOutputStream = new FileOutputStream("F:\\pipeta2\\Informe.xlsx")) {
+            libro.write(fileOutputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+
 
 
