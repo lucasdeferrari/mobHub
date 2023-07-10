@@ -13,3 +13,4 @@ public class MayorGradoImpacto extends Ranking{
     return null;
   }
 }
+

@@ -1,6 +1,7 @@
 package domain.geolocalizacion;
 
 import domain.comunidad.Miembro;
+import domain.notificaciones.NotificarRevisionManual;
 import domain.notificaciones.notificacion.NotificacionApertura;
 import domain.notificaciones.notificacion.NotificacionRevision;
 import domain.servicios.Incidente;
@@ -38,16 +39,17 @@ public class GestorGeolocalizacion {
       // VACIO LA LISTA DE INCIDENTES PARA QUE ARRANQUE VACIA LA PROXIMA
       incidentesCerca.clear();
 
-      GestorGeolocalizacion.notificarMiembro(miembro, incidentesSinRepetidos);
+      GestorGeolocalizacion.notificarRevisionManual(miembro, incidentesSinRepetidos);
    }
 
-   public static void notificarMiembro(Miembro miembro, List<Incidente> incidentes) {
-      incidentes.forEach(unIncidente -> {
-         NotificacionRevision notificacion = new NotificacionRevision(unIncidente);
-         miembro.getFormaNotificacion().notificar(notificacion, miembro);
-      });
+   public static void notificarRevisionManual(Miembro miembro, List<Incidente> incidentes) {
 
+      List<Miembro> miembros = new ArrayList<>();
+      miembros.add(miembro);
+
+      incidentes.forEach(unIncidente -> NotificarRevisionManual.notificar(unIncidente, miembros));
+
+      // VACIO LA LISTA PARA QUE NO QUEDE EL MIEMBRO ANTERIOR
+      miembros.clear();
    }
-
-
 }

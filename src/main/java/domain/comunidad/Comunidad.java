@@ -1,5 +1,7 @@
 package domain.comunidad;
 
+import domain.notificaciones.NotificarAperturaAMiembros;
+import domain.notificaciones.NotificarCierreAMiembros;
 import domain.notificaciones.notificacion.NotificacionApertura;
 import domain.notificaciones.notificacion.NotificacionCierre;
 import domain.servicios.Establecimiento;
@@ -36,14 +38,23 @@ public class Comunidad {
   }
 
   public void agregarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {
-    this.notificarAperturaAMiembros(unIncidente, miembroQueAbrio);
+    List<Miembro> listaMiembros = new ArrayList<>(miembros.keySet());
+    List<Miembro> miembrosALosQueLeInteresa = listaMiembros.stream().filter(unMiembro -> unMiembro.leInteresaElIncidente(unIncidente)).collect(Collectors.toList());
     incidentesAbiertos.add(unIncidente);
+    //para que no notifique al miembro que creo el incidente
+    List <Miembro> listaSinElMiembro = miembrosALosQueLeInteresa.stream().filter(unMiembro -> unMiembro != miembroQueAbrio).collect(Collectors.toList());
+
+    NotificarAperturaAMiembros.notificar(unIncidente, listaSinElMiembro);
 
   }
 
-  public void cerrarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {
-    this.notificarCierreAMiembros(unIncidente, miembroQueAbrio);
+  public void cerrarIncidente(Incidente unIncidente, Miembro miembroQueCerro) {
+
     incidentesAbiertos.remove(unIncidente);
+    List<Miembro> listaMiembros = new ArrayList<>(miembros.keySet());
+    List <Miembro> listaSinElMiembro = listaMiembros.stream().filter(unMiembro -> unMiembro != miembroQueCerro).collect(Collectors.toList());
+
+    NotificarCierreAMiembros.notificar(unIncidente, listaSinElMiembro);
   }
 
 

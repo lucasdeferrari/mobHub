@@ -29,7 +29,7 @@ public class Miembro {
   private String correoElectronico;
   private String telefono;
   private List<Comunidad> comunidadesPertenecientes;
-  public List<Entidad> entidadesAsociadas;
+  private List<Entidad> entidadesAsociadas;
   private List<TipoDeServicio> serviciosAsociados;
   private Provincia localizacionProvincia;
   private Municipio localizacionMunicipio;
@@ -99,10 +99,6 @@ public class Miembro {
     comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.cerrarIncidente(incidente, this));
     incidente.ponerDisponible();
   }
-
-
-
-
 
   private Timer timer;
 

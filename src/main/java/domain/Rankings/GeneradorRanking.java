@@ -22,7 +22,7 @@ public class GeneradorRanking { //todo para mi va singleton
   private static List<Entidad> rankingMayorCantidadReportes; //de esta semana
   private static List<Entidad> rankingMayorPromedioCierre;
   private static List<Entidad> rankingMayorGradoImpacto;
-  private static List<Incidente> incidentes = new ArrayList<>();
+  private static List<Incidente> incidentes;
   private Timer timer;
 
   LocalTime horaDeInicio = LocalTime.of(0, 0, 0);
