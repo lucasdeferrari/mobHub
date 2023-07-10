@@ -3,19 +3,34 @@ package domain.notificaciones.medioDeNotificaciones;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import domain.comunidad.Miembro;
+import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
+import domain.notificaciones.notificacion.Notificacion;
+
+import java.util.List;
 
 public class Whatsapp {
     // Find your Account Sid and Token at twilio.com/console
-    public static final String ACCOUNT_SID = "AC8089600acca9fc93c63ba5bee993936f";
-    public static final String AUTH_TOKEN = "941e609076b6204db1db10a32c1b0f77";
+    private static final String ACCOUNT_SID = "AC8089600acca9fc93c63ba5bee993936f";
+    private static final String AUTH_TOKEN = "941e609076b6204db1db10a32c1b0f77";
+    private static Miembro miembro;
 
-    public static void main(String[] args) {
+    public static void main(Notificacion notificacion) {
+        String cuerpo = notificacion.asunto;
+        cuerpo.concat("\n\n");
+        cuerpo.concat(notificacion.cuerpo);
+
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
-                new PhoneNumber("whatsapp:+5491157519116"),
+                new PhoneNumber("whatsapp: " + miembro.getTelefono()),
                 new PhoneNumber("whatsapp:+14155238886"),
-                "la wea fue esta y esta").create();
+                cuerpo).create();
 
         System.out.println(message.getSid());
+    }
+    public void notificar(Notificacion notificacion, Miembro unMiembro) {
+        // Llamada al método main
+        miembro = unMiembro;
+        Whatsapp.main(notificacion);
     }
 }

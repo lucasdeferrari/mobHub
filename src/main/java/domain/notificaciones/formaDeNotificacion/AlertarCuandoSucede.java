@@ -1,7 +1,8 @@
 package domain.notificaciones.formaDeNotificacion;
 
+import domain.comunidad.Miembro;
 import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
-import domain.notificaciones.tipoDeNotificacion.Notificacion;
+import domain.notificaciones.notificacion.Notificacion;
 import org.apache.commons.mail.EmailException;
 
 import java.util.ArrayList;
@@ -9,13 +10,9 @@ import java.util.List;
 
 public class AlertarCuandoSucede implements FormaNotificacion {
 
-    private MedioDeNotificacion receptor;
-
-    public void notificar(Notificacion unaNotificacion) {
-        List<Notificacion> notificacionesAEnviar = new ArrayList<>();
-        notificacionesAEnviar.add(unaNotificacion);
+    public void notificar(Notificacion unaNotificacion, Miembro miembro) {
         try {
-            receptor.notificar(notificacionesAEnviar);
+            miembro.getMedioDeNotificacion().notificar(unaNotificacion, miembro);
         } catch (EmailException e) {
             throw new RuntimeException(e);
         }

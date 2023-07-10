@@ -1,8 +1,10 @@
 package domain.notificaciones.formaDeNotificacion;
 
-import domain.notificaciones.tipoDeNotificacion.Notificacion;
+import domain.comunidad.Miembro;
+import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
+import domain.notificaciones.notificacion.Notificacion;
 
 public interface FormaNotificacion {
-    public void notificar(Notificacion unaNotificacion);
+    public void notificar(Notificacion unaNotificacion, Miembro unMiembro);
 
 }

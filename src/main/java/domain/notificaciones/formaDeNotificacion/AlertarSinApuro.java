@@ -1,8 +1,8 @@
 package domain.notificaciones.formaDeNotificacion;
 
-import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
-import domain.notificaciones.tipoDeNotificacion.NotificacionApertura;
-import domain.notificaciones.tipoDeNotificacion.Notificacion;
+import domain.comunidad.Miembro;
+import domain.notificaciones.notificacion.NotificacionApertura;
+import domain.notificaciones.notificacion.Notificacion;
 import org.apache.commons.mail.EmailException;
 
 import java.time.LocalTime;
@@ -18,11 +18,14 @@ import java.util.stream.Collectors;
 
 public class AlertarSinApuro implements FormaNotificacion{
     private Timer timer;
-    private MedioDeNotificacion receptor;
     private List<Notificacion> notificacionesAEnviar;
     private LocalTime horarioDeNotificacion;
+    private Miembro miembro;
 
-    public void notificar(Notificacion unaNotificacion) {notificacionesAEnviar.add(unaNotificacion);}
+    public void notificar(Notificacion unaNotificacion, Miembro unMiembro) {
+        notificacionesAEnviar.add(unaNotificacion);
+        miembro = unMiembro;
+    }
 
     LocalTime horaDeInicio = LocalTime.of(0,0,0);
 
@@ -47,12 +50,22 @@ public class AlertarSinApuro implements FormaNotificacion{
 
     TimerTask task = new TimerTask() {
         public void run() {
-            boolean result = esLaHora();
-            if(result) {
-                List<NotificacionApertura> notificacionesApertura = filtrarAlertarSinApuro(notificacionesAEnviar);
-                notificacionesApertura.stream().filter(unaNotificacion->unaNotificacion.sigueAbierta()).collect(Collectors.toList());
+            if(esLaHora()) {
+                List<NotificacionApertura> notificacionesApertura = filtrarAlertarSinApuro(notificacionesAEnviar); //consigue todas las notificaciones SinApuro que dentro tienen los incidentes
+
+                notificacionesApertura = notificacionesApertura.stream().filter(unaNotificacion-> unaNotificacion.getIncidenteAsociado().estadoAbierto())
+                        .collect(Collectors.toList());
+
+                String nuevoCuerpo = "";
+                notificacionesApertura.forEach(unaNotificacion -> {nuevoCuerpo.concat(unaNotificacion.cuerpo); nuevoCuerpo.concat(" \n");});
+
+
+                NotificacionApertura notificacion = new NotificacionApertura(null);   //
+                notificacion.setAsunto("Esta listo su nuevo resumen de notificaciones.");
+                notificacion.setCuerpo(nuevoCuerpo);
+                
                 try {
-                    receptor.notificar(notificacionesAEnviar);
+                    miembro.getMedioDeNotificacion().notificar(notificacion, miembro);
                 } catch (EmailException e) {
                     throw new RuntimeException(e);
                 }
@@ -68,7 +81,6 @@ public class AlertarSinApuro implements FormaNotificacion{
 
     public List<NotificacionApertura> filtrarAlertarSinApuro(List<Notificacion> listaNotificaciones) {
         List<NotificacionApertura> listaFiltrada = new ArrayList<>();
- 
         for (Notificacion notificacion : listaNotificaciones) {
             if (notificacion instanceof NotificacionApertura) {
                 listaFiltrada.add((NotificacionApertura) notificacion);

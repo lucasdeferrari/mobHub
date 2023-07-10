@@ -24,7 +24,6 @@ public class Incidente {
     private LocalDateTime fechaHoraCierre;
 
 
-
     public long duracion(){
         Duration duracion = Duration.between(fechaHoraApertura, fechaHoraCierre);
         long horasTranscurridas = duracion.toMinutes() % 60;

@@ -1,28 +1,44 @@
 package domain.comunidad;
 
 
+import domain.geolocalizacion.GestorGeolocalizacion;
 import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
-import domain.notificaciones.tipoDeNotificacion.Notificacion;
+import domain.notificaciones.medioDeNotificaciones.MedioDeNotificacion;
+import domain.notificaciones.notificacion.NotificacionApertura;
 import domain.servicios.*;
 import domain.services.geoRef.entidades.Departamento;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
+import domain.Rankings.GeneradorRanking;
+import lombok.Getter;
+import org.apache.commons.mail.EmailException;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
+@Getter
 public class Miembro {
   private String nombre;
   private String apellido;
   private String correoElectronico;
+  private String telefono;
   private List<Comunidad> comunidadesPertenecientes;
   public List<Entidad> entidadesAsociadas;
   private List<TipoDeServicio> serviciosAsociados;
   private Provincia localizacionProvincia;
   private Municipio localizacionMunicipio;
   private Departamento localizacionDepartamento;
+  private MedioDeNotificacion medioDeNotificacion;
   private FormaNotificacion formaNotificacion;
+  private Ubicacion ubicacionActual;
+  private List<Incidente> incidentesDeInteresPropio;
 
 
   public Miembro(String nombre, String apellido, String correoElectronico) {
@@ -70,7 +86,10 @@ public class Miembro {
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
-        comunidad.agregarIncidente(incidente);
+        comunidad.agregarIncidente(incidente, this);
+        comunidad.notificarAperturaAMiembros(incidente, this);
+        GeneradorRanking.agregarIncidente(incidente); // generador de ranking seria una singleton que habria que llamar en algun momento
+        // aca habria que agregar el incidente a un repositorio de incidentes
       }
       servicio.denegar();
     }
@@ -79,11 +98,37 @@ public class Miembro {
   public void cerrarIncidente(Incidente incidente) {
     incidente.setQuienCerro(this);
     incidente.setFechaHoraCierre(LocalDateTime.now());
-    comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.cerrarIncidente(incidente));
+    comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.cerrarIncidente(incidente, this));
     incidente.ponerDisponible();
   }
-  public void recibirNotificacion(Notificacion unaNotificacion) {
-    formaNotificacion.notificar(unaNotificacion);
+
+
+
+
+
+  private Timer timer;
+
+  public void main(String[] args) {
+    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
+    // Programa la tarea para que se ejecute en la hora exacta
+    executor.schedule(() -> {
+      timer = new Timer();
+      timer.schedule(task, 0, 30);
+    }, 0, TimeUnit.MINUTES);
+
+    // Cierra el executor después de ejecutar la tarea
+    executor.shutdown();
+  }
+
+  TimerTask task = new TimerTask() {
+    public void run() {
+      List<Incidente> incidentesAbiertosDeLasComunidades = new ArrayList<>();
+      comunidadesPertenecientes.forEach(unaComunidad -> incidentesAbiertosDeLasComunidades.addAll(unaComunidad.getIncidentesAbiertos()));
+
+      GestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
+    }
   };
+
 
 }

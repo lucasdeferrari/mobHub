@@ -1,19 +1,22 @@
 package domain.comunidad;
 
-import domain.notificaciones.tipoDeNotificacion.NotificacionApertura;
+import domain.notificaciones.notificacion.NotificacionApertura;
+import domain.notificaciones.notificacion.NotificacionCierre;
 import domain.servicios.Establecimiento;
-import domain.servicios.Servicio;
 import domain.servicios.Incidente;
+import domain.servicios.Servicio;
+import lombok.Getter;
 
-import javax.management.Notification;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Getter
 public class Comunidad {
   private String nombre;
   private String descripcion;
   private List<Miembro> miembros;
   private List<Miembro> administradores;
-  private List<Incidente> incidentesAbiertos;
+  private List<Incidente> incidentesAbiertos; //todo ver si va o no
 
 
   public void agregarMiembro(Miembro miembro) {
@@ -32,8 +35,8 @@ public class Comunidad {
     establecimiento.agregarServicio(servicio);
   }
 
-  public void agregarIncidente(Incidente unIncidente) {
-    this.notificarAperturaAMiembros(unIncidente);
+  public void agregarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {
+    this.notificarAperturaAMiembros(unIncidente, miembroQueAbrio);
     incidentesAbiertos.add(unIncidente);
 
   }
@@ -45,21 +48,17 @@ public class Comunidad {
 
   public void notificarAperturaAMiembros(Incidente unIncidente) {
     NotificacionApertura notificacion = new NotificacionApertura(unIncidente);
-    notificacion.asunto();
-    notificacion.cuerpo();
+    //para que no notifique al miembro que creo el incidente
+    List <Miembro> listaSinElMiembro = miembros.stream().filter(unMiembro -> unMiembro != miembroQueAbrio).collect(Collectors.toList());
 
-    miembros.forEach(unMiembro -> unMiembro.recibirNotificacion(notificacion));
-
-
-
-    //TODO FACTORY
+    listaSinElMiembro.forEach(unMiembro -> unMiembro.getFormaNotificacion().notificar(notificacion, unMiembro));
 
   }
-  public void notificarCierreAMiembros(Incidente unIncidente) {
 
 
-    //miembros.forEach(unMiembro -> unMiembro.recibirNotificacion(notificacion));
-    //TODO FACTORY
+  public void notificarCierreAMiembros(Incidente unIncidente, Miembro miembroQueCerro) {
+    NotificacionCierre notificacion = new NotificacionCierre(unIncidente);
+
   }
 
   public boolean existeIncidenteReportado(Servicio servicio) {

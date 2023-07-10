@@ -1,13 +1,20 @@
 package domain.notificaciones.medioDeNotificaciones;
 
+import domain.comunidad.Miembro;
+import domain.notificaciones.notificacion.Notificacion;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 
 public class EmailSender {
-    public static void main(String[] args) {
-        final String username = "tu_correo@gmail.com";
-        final String password = "tu_contraseña";
+
+    private static final String username = "diseniodesistemas123@gmail.com";
+    private static final String password = "utndisenio2023";
+    private static Miembro miembro;
+
+    public static void main(Notificacion notificacion) {
+
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -24,9 +31,9 @@ public class EmailSender {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("destinatario@example.com"));
-            message.setSubject("Asunto del correo");
-            message.setText("Contenido del correo electrónico");
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(miembro.getCorreoElectronico()));
+            message.setSubject(notificacion.asunto);
+            message.setText(notificacion.cuerpo);
 
             Transport.send(message);
 
@@ -34,5 +41,11 @@ public class EmailSender {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+
+    public void notificar(Notificacion notificacion, Miembro unMiembro) {
+        // Llamada al método main
+        miembro = unMiembro;
+        EmailSender.main(notificacion);
     }
 }

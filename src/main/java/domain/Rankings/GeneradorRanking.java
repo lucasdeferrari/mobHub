@@ -22,16 +22,12 @@ import java.util.concurrent.TimeUnit;
 
 @Setter
 @Getter
-public class GeneradorRanking {
-  private Ranking criterio;
-  private List<Entidad> rankingActual;
+public class GeneradorRanking { //todo para mi va tsingleton
+  private static List<Entidad> rankingMayorCantidadReportes; //de esta semana
+  private static List<Entidad> rankingMayorPromedioCierre;
+  private static List<Entidad> rankingMayorGradoImpacto;
+  private static List<Incidente> incidentes = new ArrayList<>();
   private Timer timer;
-  private List<Incidente> incidentes = new ArrayList<>();
-  
-  public void generarRanking(){ // SOLO FUNCIONA PARA 1 SE MANA, NO SE ACTUALIZA LA LISTA DE INCIDENTES CADA SEMANA
-    //incidentes.addAll(incidentesExternos);                                        // ESO PERTENECE A LA SIGUIENTE ENTREGA
-    rankingActual = criterio.generar(incidentes);
-  }
 
   LocalTime horaDeInicio = LocalTime.of(0,0,0);
 
@@ -66,6 +62,18 @@ public class GeneradorRanking {
     return entidadesDeEmpresas;
   }
 
-
-
+  public static List<Entidad> rankingSegunCriterio(Ranking criterio) {
+    if (criterio instanceof MayorPromedioCierre) {
+      return rankingMayorPromedioCierre;
+    }
+    else if (criterio instanceof MayorCantidadReportes) {
+      return rankingMayorCantidadReportes;
+    }
+    else if (criterio instanceof MayorGradoImpacto) {
+      return rankingMayorGradoImpacto;
+    }
+  throw new RuntimeException();
+  }
 }
+
+
