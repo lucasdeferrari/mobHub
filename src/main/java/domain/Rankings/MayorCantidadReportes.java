@@ -2,7 +2,7 @@ package domain.Rankings;
 
 import domain.servicios.Incidente;
 import domain.servicios.Entidad;
-import domain.servicios.Incidente;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;

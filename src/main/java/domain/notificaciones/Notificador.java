@@ -4,7 +4,7 @@ import domain.comunidad.Miembro;
 import domain.servicios.Incidente;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public interface Notificador {
 

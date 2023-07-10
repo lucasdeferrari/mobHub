@@ -2,15 +2,14 @@ package domain.geolocalizacion;
 
 import domain.comunidad.Miembro;
 import domain.notificaciones.NotificarRevisionManual;
-import domain.notificaciones.notificacion.NotificacionApertura;
-import domain.notificaciones.notificacion.NotificacionRevision;
+
 import domain.servicios.Incidente;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 public class GestorGeolocalizacion {
 

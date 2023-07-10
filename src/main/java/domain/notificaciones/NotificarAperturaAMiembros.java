@@ -5,7 +5,7 @@ import domain.notificaciones.notificacion.NotificacionApertura;
 import domain.servicios.Incidente;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class NotificarAperturaAMiembros implements Notificador {
 

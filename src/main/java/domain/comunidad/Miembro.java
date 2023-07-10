@@ -35,7 +35,7 @@ public class Miembro {
   private Ubicacion ubicacionActual;
   private List<Incidente> incidentesDeInteresPropio;
   private Rol[] rolesServicios;
-  //@Setter
+
   //private Rol rol; // se puede cambiar entre roles con el setter
 
   public Miembro(String nombre, String apellido, String correoElectronico) {
