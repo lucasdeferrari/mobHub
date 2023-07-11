@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
               .filter(unincidente -> esIncidenteDeEstaSemana(unincidente))
               .collect(Collectors.toList());
 
-      for (Incidente incidente : listaIncidentes) { // revisar
+      for (Incidente incidente : listaIncidentes) {
         Entidad entidad = incidente.getEntidad();
         if (existeIncidenteReportado(entidad, incidente, listaIncidentes)) {
           continue; //si existe no lo agrega

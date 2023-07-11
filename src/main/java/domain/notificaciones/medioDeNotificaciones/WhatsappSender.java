@@ -10,7 +10,7 @@ public class WhatsappSender {
     // Find your Account Sid and Token at twilio.com/console
     private static final String ACCOUNT_SID = "AC8089600acca9fc93c63ba5bee993936f";
     private static final String AUTH_TOKEN = "941e609076b6204db1db10a32c1b0f77";
-    private static Miembro miembro;
+
 
     public static void main(Notificacion notificacion, Miembro miembro) {
         String cuerpo = notificacion.asunto;
