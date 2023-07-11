@@ -16,7 +16,7 @@ public class Comunidad {
   private String descripcion;
   private List<Miembro> miembros;
   private List<Miembro> administradores;
-  private List<Incidente> incidentesAbiertos; //todo ver si va o no
+  private List<Incidente> incidentesAbiertos;
 
 
   public void agregarMiembro(Miembro miembro) {miembros.add(miembro);}

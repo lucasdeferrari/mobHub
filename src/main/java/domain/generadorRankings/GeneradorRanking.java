@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @Setter
 @Getter
-public class GeneradorRanking { //todo para mi va singleton
+public class GeneradorRanking {
   private static List<Entidad> rankingMayorCantidadReportes; //de esta semana
   private static List<Entidad> rankingMayorPromedioCierre;
   private static List<Entidad> rankingMayorGradoImpacto;

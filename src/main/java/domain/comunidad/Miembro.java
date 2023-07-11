@@ -93,8 +93,8 @@ public class Miembro {
   {
     for (Comunidad comunidad : comunidadesPertenecientes) {
       if (!comunidad.existeIncidenteReportado(servicio)) {
-        Incidente incidente = new Incidente( //todo builder
-                comunidadesPertenecientes,
+        Incidente incidente = new Incidente(
+                comunidad,
                 this,
                 servicio,
                 establecimiento,
@@ -103,8 +103,7 @@ public class Miembro {
                 LocalDateTime.now()
         );
         comunidad.agregarIncidente(incidente, this);
-        GeneradorRanking.agregarIncidente(incidente); // generador de ranking seria una singleton que habria que llamar en algun momento
-        // aca habria que agregar el incidente a un repositorio de incidentes
+        GeneradorRanking.agregarIncidente(incidente);
       }
       servicio.denegar();
     }

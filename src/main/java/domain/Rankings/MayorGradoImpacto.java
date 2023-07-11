@@ -21,13 +21,9 @@ public class MayorGradoImpacto extends Ranking{
             .collect(Collectors.toList());
 
     List<Incidente> finalIncidentes = incidentes;
-    List<Integer> listaGradoImpacto = incidentes.stream()
-            .flatMap(incidente -> incidente.getComunidades().stream())
-            .distinct()
-            .map(comunidad -> gradoDeImpacto(comunidad, finalIncidentes))
-            .collect(Collectors.toList());
+    List<Integer> listaGradoImpacto = incidentes.stream().map(incidente -> incidente.getComunidad())
+            .map(comunidad -> gradoDeImpacto(comunidad,finalIncidentes)).collect(Collectors.toList());
 
-    // TODAVIA NO TENEMOS EL DETALLE DE COMO DEVUELVE LA LISTA DE LAS ENTIDADES
 
     List<Entidad> listaEntidadesVacia = new ArrayList<>();
     return listaEntidadesVacia;

@@ -11,9 +11,8 @@ public class EmailSender {
 
     private static final String username = "diseniodesistemas123@gmail.com";
     private static final String password = "utndisenio2023";
-    private static Miembro miembro;
 
-    public static void main(Notificacion notificacion) {
+    public static void main(Notificacion notificacion, Miembro miembro) {
 
 
         Properties props = new Properties();
@@ -45,7 +44,6 @@ public class EmailSender {
 
     public void notificar(Notificacion notificacion, Miembro unMiembro) {
         // Llamada al método main
-        miembro = unMiembro;
-        EmailSender.main(notificacion);
+        EmailSender.main(notificacion, unMiembro);
     }
 }

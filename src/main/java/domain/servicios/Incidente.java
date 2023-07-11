@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class Incidente {
     private String observaciones;
-    private List<Comunidad> comunidades; //TODO ver si va o no
+    private Comunidad comunidad;
     private Miembro quienAbrio;
     private Miembro quienCerro;
     private Servicio servicio;
@@ -28,8 +28,8 @@ public class Incidente {
         return horasTranscurridas;
     }
 
-    public Incidente(List<Comunidad> comunidades, Miembro quienAbrio, Servicio servicio, Establecimiento establecimiento, Entidad entidad, LocalDateTime fechaHoraApertura, LocalDateTime fechaHoraCierre) {
-        this.comunidades = comunidades;
+    public Incidente(Comunidad comunidad, Miembro quienAbrio, Servicio servicio, Establecimiento establecimiento, Entidad entidad, LocalDateTime fechaHoraApertura, LocalDateTime fechaHoraCierre) {
+        this.comunidad = comunidad;
         this.quienAbrio = quienAbrio;
         this.servicio = servicio;
         this.establecimiento = establecimiento;
