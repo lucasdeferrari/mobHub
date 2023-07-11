@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public abstract class FormatoExcel implements ExportadorInforme {
+public class FormatoExcel {
 
     public void exportarInforme(List<Entidad> listaRanking) {
         Workbook libro = new XSSFWorkbook();

@@ -12,7 +12,7 @@ public class WhatsappSender {
     private static final String AUTH_TOKEN = "941e609076b6204db1db10a32c1b0f77";
     private static Miembro miembro;
 
-    public static void main(Notificacion notificacion) {
+    public static void main(Notificacion notificacion, Miembro miembro) {
         String cuerpo = notificacion.asunto;
         cuerpo.concat("\n\n");
         cuerpo.concat(notificacion.cuerpo);
@@ -27,7 +27,6 @@ public class WhatsappSender {
     }
     public void notificar(Notificacion notificacion, Miembro unMiembro) {
         // Llamada al método main
-        miembro = unMiembro;
-        WhatsappSender.main(notificacion);
+        WhatsappSender.main(notificacion, unMiembro);
     }
 }
