@@ -25,7 +25,7 @@ public class Miembro {
   private String correoElectronico;
   private String telefono;
   private List<Comunidad> comunidadesPertenecientes;
-  private  List<Entidad> entidadesAsociadas;
+  private List<Entidad> entidadesAsociadas;
   private List<TipoDeServicio> serviciosAsociados;
   private Provincia localizacionProvincia;
   private Municipio localizacionMunicipio;

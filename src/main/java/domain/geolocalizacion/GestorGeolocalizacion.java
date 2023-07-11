@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class GestorGeolocalizacion {
 
-   private static List<Incidente> incidentesCerca = new ArrayList<>();
+   private static List<Incidente> incidentesCerca;
 
    public static void incidentesCercaDelMiembro(Miembro miembro, List<Incidente> incidentes) {
 
