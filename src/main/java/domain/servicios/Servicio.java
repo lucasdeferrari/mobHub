@@ -27,9 +27,7 @@ public class Servicio {
     setEstado(Estado.DENEGADO);
   }
 
-  public void disponible() {
-    setEstado(Estado.DISPONIBLE);
-  }
+  public void disponible() {setEstado(Estado.DISPONIBLE);}
 
 
 }

@@ -13,9 +13,13 @@ import java.util.Set;
 @Setter
 public class GestorGeolocalizacion {
 
-   private static List<Incidente> incidentesCerca;
+   private List<Incidente> incidentesCerca;
+   private double margen =0;
 
-   public static void incidentesCercaDelMiembro(Miembro miembro, List<Incidente> incidentes) {
+   public GestorGeolocalizacion(){
+      incidentesCerca = new ArrayList<>();
+   }
+   public void incidentesCercaDelMiembro(Miembro miembro, List<Incidente> incidentes) {
 
       double latitudMiembro = miembro.getUbicacionActual().getLatitud();
       double longitudMiembro = miembro.getUbicacionActual().getLongitud();
