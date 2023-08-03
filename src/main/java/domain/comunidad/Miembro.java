@@ -35,6 +35,7 @@ public class Miembro {
   private Ubicacion ubicacionActual;
   private List<Incidente> incidentesDeInteresPropio;
   private List<Rol> rolesServicios;
+  private LocalDateTime horarioElegido;
 
   //private Rol rol; // se puede cambiar entre roles con el setter
 
@@ -125,6 +126,10 @@ public class Miembro {
     List<Servicio> serviciosDeInteres = this.serviciosDeInteres();
 
     return serviciosDeInteres.contains(unIncidente.getServicio());
+  }
+
+  public Boolean esLaHora() {
+    return LocalDateTime.now() == horarioElegido;
   }
 
  // TimerTask task = new TimerTask() {

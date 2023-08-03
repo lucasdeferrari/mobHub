@@ -6,11 +6,8 @@ import domain.notificaciones.notificacion.Notificacion;
 import org.apache.commons.mail.EmailException;
 
 import java.time.LocalTime;
+import java.util.*;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,13 +15,11 @@ import java.util.stream.Collectors;
 
 public class AlertarSinApuro implements FormaNotificacion{
     private Timer timer;
-    private List<Notificacion> notificacionesAEnviar;
+    private Map<Miembro, List<Notificacion>> diccionarioNotificaciones;
     private LocalTime horarioDeNotificacion;
-    private Miembro miembro;
 
     public void notificar(Notificacion unaNotificacion, Miembro unMiembro) {
-        notificacionesAEnviar.add(unaNotificacion);
-        miembro = unMiembro;
+        diccionarioNotificaciones.get(unMiembro).add(unaNotificacion);
     }
 
     LocalTime horaDeInicio = LocalTime.of(0,0,0);
@@ -50,26 +45,31 @@ public class AlertarSinApuro implements FormaNotificacion{
 
     TimerTask task = new TimerTask() {
         public void run() {
-            if(esLaHora()) {
-                List<NotificacionApertura> notificacionesApertura = filtrarAlertarSinApuro(notificacionesAEnviar); //consigue todas las notificaciones SinApuro que dentro tienen los incidentes
+    Set<Miembro> miembros = diccionarioNotificaciones.keySet();
 
-                notificacionesApertura = notificacionesApertura.stream().filter(unaNotificacion-> unaNotificacion.getIncidenteAsociado().estadoAbierto())
-                        .collect(Collectors.toList());
+    Set<Miembro> miembrosAdecuados = miembros.stream().filter(unMiembro -> unMiembro.esLaHora()).collect(Collectors.toSet());
 
-                String nuevoCuerpo = "";
-                notificacionesApertura.forEach(unaNotificacion -> {nuevoCuerpo.concat(unaNotificacion.cuerpo); nuevoCuerpo.concat(" \n");});
+    miembrosAdecuados.forEach(unMiembro -> {
+        List<Notificacion> notificaciones = diccionarioNotificaciones.get(unMiembro);
 
+        notificaciones = notificaciones.stream().filter(unaNotificacion-> unaNotificacion.getIncidenteAsociado().estadoAbierto())
+                .collect(Collectors.toList());
 
-                NotificacionApertura notificacion = new NotificacionApertura(null);   //
-                notificacion.setAsunto("Esta listo su nuevo resumen de notificaciones.");
-                notificacion.setCuerpo(nuevoCuerpo);
-                
-                try {
-                    miembro.getMedioDeNotificacion().notificar(notificacion, miembro);
-                } catch (EmailException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+        String nuevoCuerpo = "";
+        notificaciones.forEach(unaNotificacion -> {nuevoCuerpo.concat(unaNotificacion.cuerpo); nuevoCuerpo.concat(" \n");});
+
+        NotificacionApertura notificacion = new NotificacionApertura(null);   //
+        notificacion.setAsunto("Esta listo su nuevo resumen de notificaciones.");
+        notificacion.setCuerpo(nuevoCuerpo);
+
+        try {
+            unMiembro.getMedioDeNotificacion().notificar(notificacion, unMiembro);
+        } catch (EmailException e) {
+            throw new RuntimeException(e);
+        }
+
+    });
+           
         }
     };
 
