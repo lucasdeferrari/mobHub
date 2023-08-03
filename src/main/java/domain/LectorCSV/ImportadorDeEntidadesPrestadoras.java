@@ -13,7 +13,8 @@ public class ImportadorDeEntidadesPrestadoras {
     String rutaArchivoEntidadesPrestadoras = ConfigReader.getPropertyValue("pathEntidadesPrestadoras");
 
     public void importarEntidadesPrestadoras() {
-        diccionarioDatosEntidades = ParserCSV.parserCSV(rutaArchivoEntidadesPrestadoras);
+        ParserCSV parserCSV = new ParserCSV();
+        diccionarioDatosEntidades = parserCSV.parserCSV(rutaArchivoEntidadesPrestadoras);
     }
 
 }

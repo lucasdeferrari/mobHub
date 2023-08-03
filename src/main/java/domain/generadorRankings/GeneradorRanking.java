@@ -19,15 +19,23 @@ import java.util.concurrent.TimeUnit;
 @Setter
 @Getter
 public class GeneradorRanking {
-  private static List<Entidad> rankingMayorCantidadReportes; //de esta semana
-  private static List<Entidad> rankingMayorPromedioCierre;
-  private static List<Entidad> rankingMayorGradoImpacto;
-  private static List<Incidente> incidentes;
-  private static ExportadorInforme exportadorInforme;
-  private Timer timer;
+   private List<Entidad> rankingMayorCantidadReportes; // de esta semana
+   private List<Entidad> rankingMayorPromedioCierre;
+   private List<Entidad> rankingMayorGradoImpacto;
+   private List<Incidente> incidentes;
+   private ExportadorInforme exportadorInforme;
+   private Timer timer;
 
   LocalTime horaDeInicio = LocalTime.of(0, 0, 0);
   // LA CLASE SE DEBE EJECUTAR POR PRIMERA VEZ UN DOMINGO
+
+  public GeneradorRanking(){
+    rankingMayorCantidadReportes = new ArrayList<>();
+    rankingMayorPromedioCierre = new ArrayList<>();
+    rankingMayorGradoImpacto = new ArrayList<>();
+    incidentes = new ArrayList<>();
+    exportadorInforme = new ExportadorInforme();
+  }
 
   public  void main(String[] args) {
     ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
@@ -62,18 +70,18 @@ public class GeneradorRanking {
     }
   };
 
-  public static void agregarIncidente(Incidente unIncidente) {
+  public void agregarIncidente(Incidente unIncidente) {
     incidentes.add(unIncidente);
   }
 
 
-  public static void devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
+  public void devolverInformeEntidadPrestadora(EntidadPrestadora entidadPrestadora, Ranking criterio) {
     List<Entidad> entidadesDeEmpresas = entidadPrestadora.getEntidades();
     entidadesDeEmpresas.retainAll(rankingSegunCriterio(criterio)); // Intersecta las listas
     exportadorInforme.exportarInforme(entidadesDeEmpresas);
   }
 
-  public static List<Entidad> rankingSegunCriterio(Ranking criterio) {
+  public List<Entidad> rankingSegunCriterio(Ranking criterio) {
     if (criterio instanceof MayorPromedioCierre) {
       return rankingMayorPromedioCierre;
     }

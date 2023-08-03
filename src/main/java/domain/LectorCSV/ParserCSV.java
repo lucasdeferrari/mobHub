@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ParserCSV {
 
-    public static Map<String, DatosCSV> parserCSV(String ruta_archivo) {// recibe el csv y lo lee.
+    public Map<String, DatosCSV> parserCSV(String ruta_archivo) {// recibe el csv y lo lee.
 
         Map<String, DatosCSV> diccionarioDatos = new HashMap<>();
 

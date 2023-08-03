@@ -15,7 +15,8 @@ public class ImportadorDeOrganismosDeControl {
     String ruta_archivo_org_control = ConfigReader.getPropertyValue("pathOrganismosDeControl");
 
     public void importarOrganismosDeControl() {
-        diccionarioDatosOrganismos = ParserCSV.parserCSV(ruta_archivo_org_control);
+        ParserCSV parserCSV = new ParserCSV();
+        diccionarioDatosOrganismos = parserCSV.parserCSV(ruta_archivo_org_control);
     }
 
 }

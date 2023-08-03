@@ -2,7 +2,6 @@ package domain.geolocalizacion;
 
 import domain.comunidad.Miembro;
 import domain.notificaciones.NotificarRevisionManual;
-
 import domain.servicios.Incidente;
 import lombok.Setter;
 
@@ -38,10 +37,10 @@ public class GestorGeolocalizacion {
       // VACIO LA LISTA DE INCIDENTES PARA QUE ARRANQUE VACIA LA PROXIMA
       incidentesCerca.clear();
 
-      GestorGeolocalizacion.notificarRevisionManual(miembro, incidentesSinRepetidos);
+      notificarRevisionManual(miembro, incidentesSinRepetidos);
    }
 
-   public static void notificarRevisionManual(Miembro miembro, List<Incidente> incidentes) {
+   public void notificarRevisionManual(Miembro miembro, List<Incidente> incidentes) {
 
       List<Miembro> miembros = new ArrayList<>();
       miembros.add(miembro);
