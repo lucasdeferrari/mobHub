@@ -36,7 +36,7 @@ public class FactoryIncidente {
                     LocalDateTime.now()
             );
             comunidad.agregarIncidente(incidente, miembro);
-            GeneradorRanking.agregarIncidente(incidente);
+            //GeneradorRanking.agregarIncidente(incidente);
         }
     }
 }

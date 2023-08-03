@@ -36,7 +36,7 @@ public class MayorGradoImpacto extends Ranking{
     for (Miembro unMiembro : comunidad.getMiembros()) {
       incidentes.forEach(unIncidente -> {
         TipoDeServicio tipoDeServicio = unIncidente.getServicio().getNombre();
-        if(unMiembro.getRolesServicios()[tipoDeServicio.ordinal()] == Rol.AFECTADO) {
+        if(unMiembro.getRolesServicios().get(tipoDeServicio.ordinal()) == Rol.AFECTADO) {
           listaMiembros.add(unMiembro);
         }
       });
