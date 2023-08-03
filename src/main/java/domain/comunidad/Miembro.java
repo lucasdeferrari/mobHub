@@ -38,6 +38,14 @@ public class Miembro {
 
   //private Rol rol; // se puede cambiar entre roles con el setter
 
+  public void setUbicacionActual(Ubicacion ubicacionActual) {
+    this.ubicacionActual = ubicacionActual;
+    List<Incidente> incidentesAbiertosDeLasComunidades = new ArrayList<>();
+    comunidadesPertenecientes.forEach(unaComunidad -> incidentesAbiertosDeLasComunidades.addAll(unaComunidad.getIncidentesAbiertos()));
+
+    GestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
+  }
+
   public Miembro(String nombre, String apellido, String correoElectronico) {
     this.nombre = nombre;
     this.apellido = apellido;
@@ -119,14 +127,14 @@ public class Miembro {
     return serviciosDeInteres.contains(unIncidente.getServicio());
   }
 
-  TimerTask task = new TimerTask() {
-    public void run() {
-      List<Incidente> incidentesAbiertosDeLasComunidades = new ArrayList<>();
-      comunidadesPertenecientes.forEach(unaComunidad -> incidentesAbiertosDeLasComunidades.addAll(unaComunidad.getIncidentesAbiertos()));
+ // TimerTask task = new TimerTask() {
+  //  public void run() {
+   //   List<Incidente> incidentesAbiertosDeLasComunidades = new ArrayList<>();
+  //    comunidadesPertenecientes.forEach(unaComunidad -> incidentesAbiertosDeLasComunidades.addAll(unaComunidad.getIncidentesAbiertos()));
 
-      GestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
-    }
-  };
+   //   GestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
+  //  }
+ // };
 
 
 }
