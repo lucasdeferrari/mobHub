@@ -4,13 +4,14 @@ import domain.comunidad.Miembro;
 import domain.notificaciones.NotificarRevisionManual;
 
 import domain.servicios.Incidente;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
+@Setter
 public class GestorGeolocalizacion {
 
    private static List<Incidente> incidentesCerca;
@@ -20,7 +21,6 @@ public class GestorGeolocalizacion {
       double latitudMiembro = miembro.getUbicacionActual().getLatitud();
       double longitudMiembro = miembro.getUbicacionActual().getLongitud();
 
-      double margen = 300; // Margen de ±300
 
       incidentes.forEach(incidente -> {
          double latitudEstablecimiento = incidente.getEstablecimiento().getUbicacion().getLatitud();
