@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Notificador {
 
-    public static void notificar(Incidente unIncidente, List<Miembro> unosMiembros){
+    public default void notificar(Incidente unIncidente, List<Miembro> unosMiembros){
 
 
     }

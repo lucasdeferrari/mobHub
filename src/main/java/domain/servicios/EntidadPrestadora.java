@@ -23,7 +23,8 @@ public class EntidadPrestadora {
     }
 
     public void obtenerInforme(){
-        GeneradorRanking.devolverInformeEntidadPrestadora(this, criterio);
+        GeneradorRanking generadorRanking = new GeneradorRanking();
+        generadorRanking.devolverInformeEntidadPrestadora(this, criterio);
     }
 
 }

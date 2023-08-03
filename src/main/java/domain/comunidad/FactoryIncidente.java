@@ -12,7 +12,7 @@ import java.util.List;
 // TODOS LOS STATIC soy luquitas y soy gay
 public class FactoryIncidente {
 
-    private static FactoryIncidente instance;
+    public static FactoryIncidente instance;
 
     private FactoryIncidente() {
     }

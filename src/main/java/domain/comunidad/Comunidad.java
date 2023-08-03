@@ -36,7 +36,8 @@ public class Comunidad {
     //para que no notifique al miembro que creo el incidente
     List <Miembro> listaSinElMiembro = miembrosALosQueLeInteresa.stream().filter(unMiembro -> unMiembro != miembroQueAbrio).collect(Collectors.toList());
 
-    NotificarAperturaAMiembros.notificar(unIncidente, listaSinElMiembro);
+    NotificarAperturaAMiembros notificador = new NotificarAperturaAMiembros();
+    notificador.notificar(unIncidente, listaSinElMiembro);
 
   }
 
@@ -45,8 +46,8 @@ public class Comunidad {
     incidentesAbiertos.remove(unIncidente);
     List <Miembro> listaSinElMiembro = miembros.stream().filter(unMiembro -> unMiembro != miembroQueCerro).collect(Collectors.toList());
 
-    NotificarCierreAMiembros.notificar(unIncidente, listaSinElMiembro);
+    NotificarCierreAMiembros notificador = new NotificarCierreAMiembros();
+    notificador.notificar(unIncidente, listaSinElMiembro);
   }
-
 
 }

@@ -52,7 +52,7 @@ import java.time.LocalDateTime;
               incidente1.getEntidad() == incidente2.getEntidad();
     }
 
-    private static boolean menosDe24Horas(Incidente incidente1, Incidente incidente2) {
+    private boolean menosDe24Horas(Incidente incidente1, Incidente incidente2) {
       LocalDateTime fechaApertura1 = incidente1.getFechaHoraApertura();
       LocalDateTime fechaApertura2 = incidente2.getFechaHoraApertura();
 

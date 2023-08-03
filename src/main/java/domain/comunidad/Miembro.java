@@ -44,7 +44,8 @@ public class Miembro {
     List<Incidente> incidentesAbiertosDeLasComunidades = new ArrayList<>();
     comunidadesPertenecientes.forEach(unaComunidad -> incidentesAbiertosDeLasComunidades.addAll(unaComunidad.getIncidentesAbiertos()));
 
-    GestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
+    GestorGeolocalizacion gestorGeolocalizacion = new GestorGeolocalizacion();
+    gestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
   }
 
   public Miembro(String nombre, String apellido, String correoElectronico) {
@@ -98,7 +99,8 @@ public class Miembro {
 
   public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio)
   {
-    FactoryIncidente.crearIncidente(comunidadesPertenecientes,this,  servicio, establecimiento, entidad);
+    FactoryIncidente factoryIncidente = FactoryIncidente.getInstance();
+    factoryIncidente.crearIncidente(comunidadesPertenecientes, this, servicio, establecimiento, entidad);
   }
 
   public void cerrarIncidente(Incidente incidente, Comunidad comunidad) {

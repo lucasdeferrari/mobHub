@@ -9,7 +9,7 @@ import java.util.List;
 
 public class NotificarAperturaAMiembros implements Notificador {
 
-    public static void notificar(Incidente unIncidente, List<Miembro> unosMiembros) {
+    public void notificar(Incidente unIncidente, List<Miembro> unosMiembros) {
 
         NotificacionApertura notificacion = new NotificacionApertura(unIncidente);
 

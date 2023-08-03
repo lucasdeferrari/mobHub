@@ -9,10 +9,10 @@ import java.util.Properties;
 
 public class EmailSender {
 
-    private static final String username = "diseniodesistemas123@gmail.com";
-    private static final String password = "utndisenio2023";
+    private String username = "diseniodesistemas123@gmail.com";
+    private String password = "utndisenio2023";
 
-    public static void main(Notificacion notificacion, Miembro miembro) {
+    public void main(Notificacion notificacion, Miembro miembro) {
 
 
         Properties props = new Properties();
@@ -43,7 +43,7 @@ public class EmailSender {
     }
 
     public void notificar(Notificacion notificacion, Miembro unMiembro) {
-        // Llamada al método main
-        EmailSender.main(notificacion, unMiembro);
+        EmailSender emailSender = new EmailSender();
+        emailSender.main(notificacion, unMiembro);
     }
 }

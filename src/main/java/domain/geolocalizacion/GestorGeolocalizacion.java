@@ -49,7 +49,8 @@ public class GestorGeolocalizacion {
       List<Miembro> miembros = new ArrayList<>();
       miembros.add(miembro);
 
-      incidentes.forEach(unIncidente -> NotificarRevisionManual.notificar(unIncidente, miembros));
+      NotificarRevisionManual notificador = new NotificarRevisionManual();
+      incidentes.forEach(unIncidente -> notificador.notificar(unIncidente, miembros));
 
       // VACIO LA LISTA PARA QUE NO QUEDE EL MIEMBRO ANTERIOR
       miembros.clear();
