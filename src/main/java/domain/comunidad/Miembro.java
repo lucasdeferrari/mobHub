@@ -34,7 +34,7 @@ public class Miembro {
   private FormaNotificacion formaNotificacion;
   private Ubicacion ubicacionActual;
   private List<Incidente> incidentesDeInteresPropio;
-  private Rol[] rolesServicios;
+  private List<Rol> rolesServicios;
 
   //private Rol rol; // se puede cambiar entre roles con el setter
 
@@ -49,21 +49,20 @@ public class Miembro {
 
   // SE LLAMA A ESTA FUNCION LUEGO DE CREAR UN MIEMBRO.
   public void definirRoles() {
-    Integer indice = 0;
+    int indice = 0;
 
-    for(Rol rol: rolesServicios) {
+    for (Rol rol : rolesServicios) {
       if (serviciosAsociados.contains(indice)) {
-        rol = Rol.AFECTADO;
-      }
-      else {
-        rol = Rol.OBSERVADOR;
+        rolesServicios.set(indice, Rol.AFECTADO);
+      } else {
+        rolesServicios.set(indice, Rol.OBSERVADOR);
       }
       indice++;
     }
   }
 
   public void cambiarRolManualmente(TipoDeServicio tipoDeServicio, Rol rol) {
-    rolesServicios[tipoDeServicio.ordinal()] = rol;
+    rolesServicios.set(tipoDeServicio.ordinal(), rol);
   }
 
   public Boolean esAdminEn(Comunidad comunidad) {
@@ -88,32 +87,15 @@ public class Miembro {
     return serviciosConProblemasSinRepetidos;
   }
 
-
   public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio)
   {
-    for (Comunidad comunidad : comunidadesPertenecientes) {
-      if (!comunidad.existeIncidenteReportado(servicio)) {
-        Incidente incidente = new Incidente(
-                comunidad,
-                this,
-                servicio,
-                establecimiento,
-                entidad,
-                LocalDateTime.now(),
-                LocalDateTime.now()
-        );
-        comunidad.agregarIncidente(incidente, this);
-        GeneradorRanking.agregarIncidente(incidente);
-      }
-      servicio.denegar();
-    }
+    FactoryIncidente.crearIncidente(comunidadesPertenecientes,this,  servicio, establecimiento, entidad);
   }
 
-  public void cerrarIncidente(Incidente incidente) {
+  public void cerrarIncidente(Incidente incidente, Comunidad comunidad) {
     incidente.setQuienCerro(this);
     incidente.setFechaHoraCierre(LocalDateTime.now());
-    comunidadesPertenecientes.forEach(unaComunidad -> unaComunidad.cerrarIncidente(incidente, this));
-    incidente.ponerDisponible();
+    comunidad.cerrarIncidente(incidente, this);
   }
 
   private Timer timer;

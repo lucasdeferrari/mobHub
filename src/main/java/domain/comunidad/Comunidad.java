@@ -49,10 +49,4 @@ public class Comunidad {
   }
 
 
-
-  public boolean existeIncidenteReportado(Servicio servicio) {
-    return incidentesAbiertos.stream().anyMatch(unIncidente -> unIncidente.tieneEsteServicio(servicio) );
-  }
-
-
 }

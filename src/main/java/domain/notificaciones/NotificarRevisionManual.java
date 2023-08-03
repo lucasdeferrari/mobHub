@@ -13,8 +13,5 @@ public class NotificarRevisionManual implements Notificador {
         NotificacionRevision notificacion = new NotificacionRevision(unIncidente);
 
         unosMiembros.forEach(unMiembro -> unMiembro.getFormaNotificacion().notificar(notificacion, unMiembro));
-
     }
-
-
 }
