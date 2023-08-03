@@ -111,18 +111,18 @@ public class Miembro {
 
   private Timer timer;
 
-  public void main(String[] args) {
-    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+  //public void main(String[] args) {
+    //ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
     // Programa la tarea para que se ejecute en la hora exacta
-    executor.schedule(() -> {
-      timer = new Timer();
-      timer.schedule(task, 0, 30);
-    }, 0, TimeUnit.MINUTES);
+    //executor.schedule(() -> {
+      //timer = new Timer();
+      //timer.schedule(task, 0, 30);
+    //}, 0, TimeUnit.MINUTES);
 
     // Cierra el executor después de ejecutar la tarea
-    executor.shutdown();
-  }
+   // executor.shutdown();
+ // }
 
   public Boolean leInteresaElIncidente(Incidente unIncidente) {
     List<Servicio> serviciosDeInteres = this.serviciosDeInteres();

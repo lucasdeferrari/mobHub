@@ -34,7 +34,6 @@ public class GeneradorRanking {
     rankingMayorPromedioCierre = new ArrayList<>();
     rankingMayorGradoImpacto = new ArrayList<>();
     incidentes = new ArrayList<>();
-    exportadorInforme = new ExportadorInforme();
   }
 
   public  void main(String[] args) {
