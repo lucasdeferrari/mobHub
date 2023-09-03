@@ -24,7 +24,7 @@ public class FactoryIncidente {
         return instance;
     }
 
-    public void crearIncidente(List<Comunidad> comunidades, Miembro miembro, Servicio servicio, Establecimiento establecimiento, Entidad entidad) {
+    public void crearIncidente(List<Comunidad> comunidades, Miembro miembro, Servicio servicio, Establecimiento establecimiento, Entidad entidad, String descripcion) {
         for (Comunidad comunidad : comunidades) {
             Incidente incidente = new Incidente(
                     comunidad,
@@ -32,6 +32,7 @@ public class FactoryIncidente {
                     servicio,
                     establecimiento,
                     entidad,
+                    descripcion,
                     LocalDateTime.now(),
                     LocalDateTime.now()
             );
