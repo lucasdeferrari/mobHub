@@ -18,6 +18,7 @@ public class Incidente {
     private Servicio servicio;
     private Establecimiento establecimiento;
     private Entidad entidad;
+    private String descripcion;
     private LocalDateTime fechaHoraApertura;
     private LocalDateTime fechaHoraCierre;
 
@@ -28,12 +29,13 @@ public class Incidente {
         return horasTranscurridas;
     }
 
-    public Incidente(Comunidad comunidad, Miembro quienAbrio, Servicio servicio, Establecimiento establecimiento, Entidad entidad, LocalDateTime fechaHoraApertura, LocalDateTime fechaHoraCierre) {
+    public Incidente(Comunidad comunidad, Miembro quienAbrio, Servicio servicio, Establecimiento establecimiento, Entidad entidad, String descripcion, LocalDateTime fechaHoraApertura, LocalDateTime fechaHoraCierre) {
         this.comunidad = comunidad;
         this.quienAbrio = quienAbrio;
         this.servicio = servicio;
         this.establecimiento = establecimiento;
         this.entidad = entidad;
+        this.descripcion = descripcion;
         this.fechaHoraApertura = fechaHoraApertura;
         this.fechaHoraCierre = fechaHoraCierre;
     }
