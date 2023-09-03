@@ -97,10 +97,10 @@ public class Miembro {
     return serviciosConProblemasSinRepetidos;
   }
 
-  public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio)
+  public void informarIncidente(Establecimiento establecimiento, Entidad entidad, Servicio servicio, String descripcion)
   {
     FactoryIncidente factoryIncidente = FactoryIncidente.getInstance();
-    factoryIncidente.crearIncidente(comunidadesPertenecientes, this, servicio, establecimiento, entidad);
+    factoryIncidente.crearIncidente(comunidadesPertenecientes, this, servicio, establecimiento, entidad, descripcion);
   }
 
   public void cerrarIncidente(Incidente incidente, Comunidad comunidad) {
