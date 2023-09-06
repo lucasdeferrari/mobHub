@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 public class ServicioGeoRef {
-  private ServicioGeoRef instancia = null;
+  private static ServicioGeoRef instancia = null;
   private int maximaCantidadRegistrosDefault = 200;
   private String urlApi = "https://apis.datos.gob.ar/georef/api/";
   private Retrofit retrofit;
@@ -21,7 +21,7 @@ public class ServicioGeoRef {
         .build();
   }
 
-  public ServicioGeoRef instancia(){
+  public static ServicioGeoRef instancia(){
     if(instancia== null){
       instancia = new ServicioGeoRef();
     }

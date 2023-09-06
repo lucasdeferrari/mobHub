@@ -9,16 +9,30 @@ import domain.services.geoRef.entidades.Provincia;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 
 @Getter
 @Setter
+@Entity
+@Table(name = "entidad")
 public class Entidad {
 
+  @Id
+  @GeneratedValue
+  private int id;
+
+  @Column
   private String nombre;
+  @Transient
   public List<Establecimiento> establecimientos;
+  @Transient
   private Provincia localizacionProvincia;
+  @Transient
   private Municipio localizacionMunicipio;
+  @Transient
   private Departamento localizacionDepartamento;
+  @Column
   private String tipoEntidad;
 /*
   tipoEntidad ": " nombre
@@ -26,6 +40,10 @@ public class Entidad {
 
   public Entidad(String nombre) {
     this.nombre = nombre;
+  }
+
+  public Entidad() {
+
   }
 
 

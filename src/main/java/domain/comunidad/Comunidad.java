@@ -6,17 +6,27 @@ import domain.servicios.Establecimiento;
 import domain.servicios.Incidente;
 import domain.servicios.Servicio;
 import lombok.Getter;
+import javax.persistence.*;
 
+import javax.persistence.*;
+import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
 public class Comunidad {
+
   private String nombre;
+
   private String descripcion;
+
   private List<Miembro> miembros;
+
   private List<Miembro> administradores;
+
   private List<Incidente> incidentesAbiertos;
+
+  private Integer id;
 
 
   public void agregarMiembro(Miembro miembro) {miembros.add(miembro);}

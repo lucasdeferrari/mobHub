@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
-    private String CONFIG_FILE = "paths.config";
+    private static String CONFIG_FILE = "paths.config";
 
-    public String getPropertyValue(String propertyName) {
+    public static String getPropertyValue(String propertyName) {
         Properties prop = new Properties();
         FileInputStream input = null;
 
