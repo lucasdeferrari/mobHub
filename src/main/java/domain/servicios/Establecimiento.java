@@ -1,18 +1,30 @@
 package domain.servicios;
 
+import domain.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class Establecimiento {
+@Table
+@Entity
+public class Establecimiento extends EntidadPersistente {
+
+  @Column
   private String nombre;
+  @OneToOne
   private Ubicacion ubicacion;
+  @Transient
   public List<Servicio> servicios;
+  @Transient
   private String tipoEstablecimiento;
+
+  // pensar si vamos a hacer la ubicacion como lat y long separado o q onda todo
+  // id entidad ?? todo
 
   public Establecimiento(String nombre, Ubicacion ubicacion) {
     this.nombre = nombre;

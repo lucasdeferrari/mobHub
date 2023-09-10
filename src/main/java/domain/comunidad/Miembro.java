@@ -1,6 +1,7 @@
 package domain.comunidad;
 
 
+import domain.Persistencia.EntidadPersistente;
 import domain.geolocalizacion.GestorGeolocalizacion;
 import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
 import domain.notificaciones.medioDeNotificaciones.MedioNotificacion;
@@ -12,6 +13,7 @@ import domain.servicios.Incidente;
 import domain.generadorRankings.GeneradorRanking;
 import lombok.Getter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -19,23 +21,44 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Getter
-public class Miembro {
+@Entity
+@Table
+public class Miembro extends EntidadPersistente {
+  @Column
   private String nombre;
+  @Column
   private String apellido;
+  @Column
   private String correoElectronico;
+  @Column
   private String telefono;
+  @ManyToMany
   private List<Comunidad> comunidadesPertenecientes;
+  @Transient
   private List<Entidad> entidadesAsociadas;
+  @Transient
   private List<TipoDeServicio> serviciosAsociados;
+  @OneToOne
   private Provincia localizacionProvincia;
+  @OneToOne
   private Municipio localizacionMunicipio;
+  @OneToOne
   private Departamento localizacionDepartamento;
+  @OneToOne
   private MedioNotificacion medioDeNotificacion;
+  @OneToOne
   private FormaNotificacion formaNotificacion;
+  @OneToOne
   private Ubicacion ubicacionActual;
+  @Transient
   private List<Incidente> incidentesDeInteresPropio;
+  @Transient
   private List<Rol> rolesServicios;
+  @Transient
   private LocalDateTime horarioElegido;
+
+  // hacer bien los OneToOne y el ManyToMany todo
+  // pensar si estan bien todas las cosas que estan transient todo
 
   //private Rol rol; // se puede cambiar entre roles con el setter
 

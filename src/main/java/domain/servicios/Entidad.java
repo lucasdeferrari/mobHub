@@ -3,6 +3,7 @@ package domain.servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.Persistencia.EntidadPersistente;
 import domain.services.geoRef.entidades.Departamento;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
@@ -16,24 +17,23 @@ import javax.persistence.*;
 @Table(name = "entidad")
 @Getter
 @Setter
-public class Entidad {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+public class Entidad extends EntidadPersistente {
 
   @Column
   private String nombre;
   @Transient
   public List<Establecimiento> establecimientos;
-  @Transient
+  @ManyToOne
   private Provincia localizacionProvincia;
-  @Transient
+  @ManyToOne
   private Municipio localizacionMunicipio;
-  @Transient
+  @ManyToOne
   private Departamento localizacionDepartamento;
   @Column
   private String tipoEntidad;
+
+  // FK A LA ENTIDAD PRESTADORA ?? todo
+  // hacer bien los ManyToOne todo
 
   public Entidad(String nombre) {
     this.nombre = nombre;

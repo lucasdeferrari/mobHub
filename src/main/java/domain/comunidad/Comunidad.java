@@ -1,5 +1,6 @@
 package domain.comunidad;
 
+import domain.Persistencia.EntidadPersistente;
 import domain.notificaciones.NotificarAperturaAMiembros;
 import domain.notificaciones.NotificarCierreAMiembros;
 import domain.servicios.Establecimiento;
@@ -14,20 +15,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
-public class Comunidad {
+@Entity
+@Table
+public class Comunidad extends EntidadPersistente {
 
+  @Column
   private String nombre;
 
+  @Column
   private String descripcion;
 
+  @ManyToMany
   private List<Miembro> miembros;
-
+  @Transient
   private List<Miembro> administradores;
-
+  @Transient
   private List<Incidente> incidentesAbiertos;
 
-  private Integer id;
-
+  // hacer bien el ManyToMany todo
 
   public void agregarMiembro(Miembro miembro) {miembros.add(miembro);}
   public void eliminarMiembro(Miembro miembro) {miembros.remove(miembro);}
