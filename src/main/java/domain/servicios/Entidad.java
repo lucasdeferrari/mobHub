@@ -12,14 +12,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 
-@Getter
-@Setter
 @Entity
 @Table(name = "entidad")
+@Getter
+@Setter
 public class Entidad {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
   @Column
@@ -34,9 +34,6 @@ public class Entidad {
   private Departamento localizacionDepartamento;
   @Column
   private String tipoEntidad;
-/*
-  tipoEntidad ": " nombre
- */
 
   public Entidad(String nombre) {
     this.nombre = nombre;
