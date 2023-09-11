@@ -1,6 +1,7 @@
 package domain.servicios;
 
 import domain.Persistencia.EntidadPersistente;
+import domain.Persistencia.LocalDateTimeConverter;
 import domain.comunidad.Comunidad;
 import domain.comunidad.Miembro;
 import lombok.Getter;
@@ -17,21 +18,29 @@ import java.util.List;
 public class Incidente extends EntidadPersistente {
     @Column
     private String observaciones;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
     private Comunidad comunidad;
     @OneToOne
+    @JoinColumn(name = "quienabrio_id", referencedColumnName = "id")
     private Miembro quienAbrio;
     @OneToOne
+    @JoinColumn(name = "quiencerro_id", referencedColumnName = "id")
     private Miembro quienCerro;
-    @Transient
+    @OneToOne
+    @JoinColumn(name = "servicio_id", referencedColumnName = "id")
     private Servicio servicio;
-    @Transient
+    @OneToOne
+    @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
     private Establecimiento establecimiento;
     @OneToOne
+    @JoinColumn(name = "entidad_id", referencedColumnName = "id")
     private Entidad entidad;
-    @Column
+    @Convert(converter = LocalDateTimeConverter.class)
+    @Column(name = "fechaHoraApertura", columnDefinition = "TIME")
     private LocalDateTime fechaHoraApertura;
-    @Column
+    @Convert(converter = LocalDateTimeConverter.class)
+    @Column(name = "fechaHoraCierre", columnDefinition = "TIME")
     private LocalDateTime fechaHoraCierre;
 
     // hacer el converter de la fecha todo

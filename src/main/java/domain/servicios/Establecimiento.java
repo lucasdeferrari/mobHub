@@ -16,11 +16,11 @@ public class Establecimiento extends EntidadPersistente {
 
   @Column
   private String nombre;
-  @OneToOne
+  @Embedded
   private Ubicacion ubicacion;
-  @Transient
+  @ManyToMany
   public List<Servicio> servicios;
-  @Transient
+  @Column
   private String tipoEstablecimiento;
 
   // pensar si vamos a hacer la ubicacion como lat y long separado o q onda todo

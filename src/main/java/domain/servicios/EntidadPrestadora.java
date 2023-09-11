@@ -19,9 +19,12 @@ public class EntidadPrestadora extends EntidadPersistente {
 
     @Column
     private String nombre;
-    @Transient
+    @OneToMany
     private List<Entidad> entidades;
     // NO SE QUE RELACION IRIA ACA TODO
+
+    @Convert(converter = RankingConverter.class)
+    @Column(columnDefinition = "VARCHAR(35)")
     private Ranking criterio;
 
     // FK AL ORG DE CONTROL ?? todo

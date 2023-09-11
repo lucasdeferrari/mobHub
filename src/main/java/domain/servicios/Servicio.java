@@ -4,10 +4,7 @@ import domain.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +13,11 @@ import java.util.List;
 @Entity
 @Table
 public class Servicio extends EntidadPersistente {
-  @OneToOne
+  @Enumerated(EnumType.STRING)
+  @Column(name = "nombre")
   private TipoDeServicio nombre;
-  @OneToOne
+  @Enumerated(EnumType.STRING)
+  @Column(name = "estado")
   private Estado estado;
   @Column
   private String descripcion;

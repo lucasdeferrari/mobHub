@@ -2,6 +2,9 @@ package domain.comunidad;
 
 
 import domain.Persistencia.EntidadPersistente;
+import domain.Persistencia.FormaNotificacionConverter;
+import domain.Persistencia.LocalTimeConverter;
+import domain.Persistencia.MedioNotificacionConverter;
 import domain.geolocalizacion.GestorGeolocalizacion;
 import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
 import domain.notificaciones.medioDeNotificaciones.MedioNotificacion;
@@ -41,7 +44,10 @@ public class Miembro extends EntidadPersistente {
   private List<Comunidad> comunidadesPertenecientes;
   @Transient
   private List<Entidad> entidadesAsociadas;
-  @Transient
+
+  @ElementCollection
+  @Enumerated(EnumType.STRING)
+  @CollectionTable(name = "servicios_miembro", joinColumns = @JoinColumn(name = "miembro_id",referencedColumnName = "id"))
   private List<TipoDeServicio> serviciosAsociados;
 
   @Embedded
@@ -49,9 +55,12 @@ public class Miembro extends EntidadPersistente {
 
   @Embedded
   private Municipio localizacionMunicipio;
-  @OneToOne
-  private Departamento localizacionDepartamento;
-  @OneToOne
+
+  @Embedded
+  private Localidad localizacionDepartamento;
+
+  @Convert(converter = MedioNotificacionConverter.class)
+  @Column(columnDefinition = "VARCHAR(20)")
   private MedioNotificacion medioDeNotificacion;
 
   @Convert(converter = FormaNotificacionConverter.class)
@@ -60,6 +69,7 @@ public class Miembro extends EntidadPersistente {
 
   @Embedded
   private Ubicacion ubicacionActual;
+
   @Transient
   private List<Incidente> incidentesDeInteresPropio;
 
