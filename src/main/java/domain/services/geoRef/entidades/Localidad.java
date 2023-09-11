@@ -5,11 +5,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
 @Embeddable
-public class Municipio {
-  @Transient
-  public int id;
-  @Column(name="municipio")
-  public String nombre;
+public class Localidad {
+    @Transient
+    public int id;
+    @Column(name = "localidad")
+    public String nombre;
 }
-
-// ESTAS COSAS DEBERIAN SER ENTIDADES ?? TODO

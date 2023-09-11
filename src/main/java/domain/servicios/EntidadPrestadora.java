@@ -1,8 +1,11 @@
 package domain.servicios;
 
+import java.beans.ConstructorProperties;
 import java.util.List;
 
 import domain.Persistencia.EntidadPersistente;
+import domain.Persistencia.LocalTimeConverter;
+import domain.Persistencia.RankingConverter;
 import domain.generadorRankings.GeneradorRanking;
 import domain.Rankings.Ranking;
 import lombok.Getter;

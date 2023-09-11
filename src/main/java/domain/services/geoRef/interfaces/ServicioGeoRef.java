@@ -66,17 +66,17 @@ public class ServicioGeoRef {
 
   // ---------- DEPARTAMENTOS -----------------
 
-  public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(Provincia provincia) throws IOException {
+  public ListadoDeLocalidades listadoDeDepartamentosDeProvincia(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
-    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id);
-    Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+    Call<ListadoDeLocalidades> requestListadoDeDepartamentos = georefService.departamentos(provincia.id);
+    Response<ListadoDeLocalidades> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
     return responseListadoDeDepartamentos.body();
   }
 
-  public ListadoDeDepartamentos listadoDeDepartamentosDeProvinciaSegunCamposConMaximo(Provincia provincia) throws IOException {
+  public ListadoDeLocalidades listadoDeDepartamentosDeProvinciaSegunCamposConMaximo(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
-    Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, maximaCantidadRegistrosDefault , "id, nombre");
-    Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+    Call<ListadoDeLocalidades> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, maximaCantidadRegistrosDefault , "id, nombre");
+    Response<ListadoDeLocalidades> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
     return responseListadoDeDepartamentos.body();
   }
 

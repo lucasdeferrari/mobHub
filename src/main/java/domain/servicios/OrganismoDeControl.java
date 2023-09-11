@@ -2,10 +2,7 @@ package domain.servicios;
 
 import domain.Persistencia.EntidadPersistente;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -14,11 +11,20 @@ import java.util.List;
 public class OrganismoDeControl extends EntidadPersistente {
     @Column
     private String nombre;
-    @Transient
-    private List<EntidadPrestadora> entidadadesPrestadoras;
-    @Transient
-    private List<TipoDeServicio> serviciosAControlar;
 
+    @OneToMany
+    private List<EntidadPrestadora> entidadadesPrestadoras;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "servicios_organismoDeControl", joinColumns = @JoinColumn(name = "organismoDeControl_id",referencedColumnName = "id"))
+    private List<TipoDeServicio> serviciosAControlar;
+/*
+    @ElementCollection(targetClass = EstadoPedido.class)
+    @Enumerated(EnumType.STRING) // Puedes usar EnumType.ORDINAL si prefieres números enteros
+    @CollectionTable(name = "estados_pedido", joinColumns = @JoinColumn(name = "pedido_id"))
+    private List<EstadoPedido> estados;
+ */
     //TODO
 
     public void eliminarEntidadPrestadora(EntidadPrestadora entidad) {

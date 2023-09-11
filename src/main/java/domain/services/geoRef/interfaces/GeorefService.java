@@ -1,5 +1,5 @@
 package domain.services.geoRef.interfaces;
-import domain.services.geoRef.entidades.ListadoDeDepartamentos;
+import domain.services.geoRef.entidades.ListadoDeLocalidades;
 import domain.services.geoRef.entidades.ListadoDeProvincias;
 import domain.services.geoRef.entidades.ListadoDeMunicipios;
 
@@ -15,13 +15,13 @@ public interface  GeorefService {
     Call<ListadoDeProvincias> provincias(@Query("campos") String campos);
 
     @GET("departamentos")
-    Call<ListadoDeDepartamentos> departamentos(@Query("provincia") int idProvincia);
+    Call<ListadoDeLocalidades> departamentos(@Query("provincia") int idProvincia);
 
     @GET("departamentos")
-    Call<ListadoDeDepartamentos> departamentos(@Query("provincia") int idProvincia, @Query("campos") String campos );
+    Call<ListadoDeLocalidades> departamentos(@Query("provincia") int idProvincia, @Query("campos") String campos );
 
     @GET("departamentos")
-    Call<ListadoDeDepartamentos> departamentos(@Query("provincia") int idProvincia, @Query("max") int max, @Query("campos") String campos );
+    Call<ListadoDeLocalidades> departamentos(@Query("provincia") int idProvincia, @Query("max") int max, @Query("campos") String campos );
 
     @GET("municipios")
     Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia);

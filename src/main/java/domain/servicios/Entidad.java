@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.Persistencia.EntidadPersistente;
-import domain.services.geoRef.entidades.Departamento;
+
+import domain.services.geoRef.entidades.Localidad;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 import lombok.Getter;
@@ -21,19 +22,24 @@ public class Entidad extends EntidadPersistente {
 
   @Column
   private String nombre;
-  @Transient
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   public List<Establecimiento> establecimientos;
-  @ManyToOne
+
+  @Embedded
   private Provincia localizacionProvincia;
-  @ManyToOne
+  @Embedded
   private Municipio localizacionMunicipio;
-  @ManyToOne
-  private Departamento localizacionDepartamento;
+  @Embedded
+  private Localidad localizacionLocalidad;
   @Column
   private String tipoEntidad;
+  //@ManyToOne
+  //@JoinColumn(name = "entidadPrestador_id", referencedColumnName = "id")
+ // private EntidadPrestadora entidadPrestadora;
 
-  // FK A LA ENTIDAD PRESTADORA ?? todo
   // hacer bien los ManyToOne todo
+  // CONVERTER PARA PROV, MUN, LOC todo
 
   public Entidad(String nombre) {
     this.nombre = nombre;

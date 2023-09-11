@@ -6,7 +6,7 @@ import domain.geolocalizacion.GestorGeolocalizacion;
 import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
 import domain.notificaciones.medioDeNotificaciones.MedioNotificacion;
 import domain.servicios.*;
-import domain.services.geoRef.entidades.Departamento;
+import domain.services.geoRef.entidades.Localidad;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
@@ -15,6 +15,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -26,36 +27,61 @@ import java.util.concurrent.TimeUnit;
 public class Miembro extends EntidadPersistente {
   @Column
   private String nombre;
+
   @Column
   private String apellido;
+
   @Column
   private String correoElectronico;
+
   @Column
   private String telefono;
+
   @ManyToMany
   private List<Comunidad> comunidadesPertenecientes;
   @Transient
   private List<Entidad> entidadesAsociadas;
   @Transient
   private List<TipoDeServicio> serviciosAsociados;
-  @OneToOne
+
+  @Embedded
   private Provincia localizacionProvincia;
-  @OneToOne
+
+  @Embedded
   private Municipio localizacionMunicipio;
   @OneToOne
   private Departamento localizacionDepartamento;
   @OneToOne
   private MedioNotificacion medioDeNotificacion;
-  @OneToOne
+
+  @Convert(converter = FormaNotificacionConverter.class)
+  @Column(columnDefinition = "VARCHAR(20)")
   private FormaNotificacion formaNotificacion;
-  @OneToOne
+
+  @Embedded
   private Ubicacion ubicacionActual;
   @Transient
   private List<Incidente> incidentesDeInteresPropio;
-  @Transient
-  private List<Rol> rolesServicios;
-  @Transient
-  private LocalDateTime horarioElegido;
+
+  @ElementCollection
+  @CollectionTable(name = "roles_servicios", joinColumns = @JoinColumn(name = "entity_id"))
+  @MapKeyEnumerated(EnumType.STRING) // Anotación para el tipo de clave (EnumType.STRING)
+  @MapKeyColumn(name = "tipoServicio")
+  @Column(name = "rol")
+  private Map<TipoDeServicio, Rol> rolesServicios = new HashMap<>();
+
+
+
+
+  //private List<Rol_Servicio> rolXServicio = new ArrayList<>();
+
+  @Convert(converter = LocalTimeConverter.class)
+  @Column(columnDefinition = "TIME")
+  private LocalTime horarioElegido;
+
+  public Miembro() {
+
+  }
 
   // hacer bien los OneToOne y el ManyToMany todo
   // pensar si estan bien todas las cosas que estan transient todo
@@ -71,10 +97,11 @@ public class Miembro extends EntidadPersistente {
     gestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
   }
 
-  public Miembro(String nombre, String apellido, String correoElectronico) {
+  public Miembro(String nombre, String apellido, String correoElectronico, String telefono) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.correoElectronico = correoElectronico;
+    this.telefono = telefono;
     //this.comunidadesPertenecientes = comunidadesPertenecientes; // cambiar
     //this.entidadesAsociadas = entidadesAsociadas;// cambiar
     //this.serviciosAsociados = serviciosAsociados;// cambiar
@@ -82,20 +109,18 @@ public class Miembro extends EntidadPersistente {
 
   // SE LLAMA A ESTA FUNCION LUEGO DE CREAR UN MIEMBRO.
   public void definirRoles() {
-    int indice = 0;
 
-    for (Rol rol : rolesServicios) {
-      if (serviciosAsociados.contains(indice)) {
-        rolesServicios.set(indice, Rol.AFECTADO);
+    for (TipoDeServicio clave : rolesServicios.keySet()) {
+      if (serviciosAsociados.contains(clave)) {
+        rolesServicios.put(clave, Rol.AFECTADO);
       } else {
-        rolesServicios.set(indice, Rol.OBSERVADOR);
+        rolesServicios.put(clave, Rol.OBSERVADOR);
       }
-      indice++;
     }
   }
 
   public void cambiarRolManualmente(TipoDeServicio tipoDeServicio, Rol rol) {
-    rolesServicios.set(tipoDeServicio.ordinal(), rol);
+    rolesServicios.put(tipoDeServicio, rol);
   }
 
   public Boolean esAdminEn(Comunidad comunidad) {
@@ -132,6 +157,7 @@ public class Miembro extends EntidadPersistente {
     comunidad.cerrarIncidente(incidente, this);
   }
 
+  @Transient
   private Timer timer;
 
   //public void main(String[] args) {
@@ -154,7 +180,7 @@ public class Miembro extends EntidadPersistente {
   }
 
   public Boolean esLaHora() {
-    return LocalDateTime.now() == horarioElegido;
+    return LocalTime.now() == horarioElegido;
   }
 
  // TimerTask task = new TimerTask() {
