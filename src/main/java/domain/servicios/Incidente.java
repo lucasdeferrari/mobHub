@@ -37,11 +37,15 @@ public class Incidente extends EntidadPersistente {
     @JoinColumn(name = "entidad_id", referencedColumnName = "id")
     private Entidad entidad;
     @Convert(converter = LocalDateTimeConverter.class)
-    @Column(name = "fechaHoraApertura", columnDefinition = "TIME")
+    @Column(name = "fechaHoraApertura", columnDefinition = "DATETIME")
     private LocalDateTime fechaHoraApertura;
     @Convert(converter = LocalDateTimeConverter.class)
-    @Column(name = "fechaHoraCierre", columnDefinition = "TIME")
+    @Column(name = "fechaHoraCierre", columnDefinition = "DATETIME")
     private LocalDateTime fechaHoraCierre;
+
+    public Incidente() {
+
+    }
 
     // hacer el converter de la fecha todo
     // hacer bien el oneToOne todo

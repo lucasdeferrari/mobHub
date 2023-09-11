@@ -23,12 +23,20 @@ public class Establecimiento extends EntidadPersistente {
   @Column
   private String tipoEstablecimiento;
 
+  @ManyToOne
+  @JoinColumn(name = "entidad_id", referencedColumnName = "id")
+  private Entidad entidadALaQuePertenece;
+
   // pensar si vamos a hacer la ubicacion como lat y long separado o q onda todo
   // id entidad ?? todo
 
   public Establecimiento(String nombre, Ubicacion ubicacion) {
     this.nombre = nombre;
     this.ubicacion = ubicacion;
+  }
+
+  public Establecimiento() {
+
   }
 
   public void agregarServicio(Servicio servicio) {

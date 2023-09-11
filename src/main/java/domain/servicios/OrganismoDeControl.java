@@ -12,12 +12,14 @@ public class OrganismoDeControl extends EntidadPersistente {
     @Column
     private String nombre;
 
-    @OneToMany
+    @OneToMany(mappedBy = "organismoDeControl", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<EntidadPrestadora> entidadadesPrestadoras;
+
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "servicios_organismoDeControl", joinColumns = @JoinColumn(name = "organismoDeControl_id",referencedColumnName = "id"))
+    @CollectionTable(name = "tipoServicios_organismoDeControl", joinColumns = @JoinColumn(name = "organismoDeControl_id",referencedColumnName = "id"))
+    @Column(name = "servicioAControlar", unique = true)
     private List<TipoDeServicio> serviciosAControlar;
 /*
     @ElementCollection(targetClass = EstadoPedido.class)

@@ -49,6 +49,7 @@ public class Miembro extends EntidadPersistente {
   @ElementCollection
   @Enumerated(EnumType.STRING)
   @CollectionTable(name = "servicios_miembro", joinColumns = @JoinColumn(name = "miembro_id",referencedColumnName = "id"))
+  @Column(unique = true)
   private List<TipoDeServicio> serviciosAsociados;
 
   @Embedded
@@ -74,11 +75,7 @@ public class Miembro extends EntidadPersistente {
   @Transient
   private List<Incidente> incidentesDeInteresPropio;
 
-  @ElementCollection
-  @CollectionTable(name = "roles_servicios", joinColumns = @JoinColumn(name = "entity_id"))
-  @MapKeyEnumerated(EnumType.STRING) // Anotación para el tipo de clave (EnumType.STRING)
-  @MapKeyColumn(name = "tipoServicio")
-  @Column(name = "rol")
+  @Transient
   private Map<TipoDeServicio, Rol> rolesServicios = new HashMap<>();
 
 

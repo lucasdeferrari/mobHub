@@ -13,12 +13,15 @@ import java.util.List;
 @Entity
 @Table
 public class Servicio extends EntidadPersistente {
+
   @Enumerated(EnumType.STRING)
   @Column(name = "nombre")
   private TipoDeServicio nombre;
+
   @Enumerated(EnumType.STRING)
   @Column(name = "estado")
   private Estado estado;
+
   @Column
   private String descripcion;
 
@@ -26,6 +29,10 @@ public class Servicio extends EntidadPersistente {
     this.nombre = nombre;
     this.estado = estado;
     this.descripcion = descripcion;
+  }
+
+  public Servicio() {
+
   }
 
   public boolean estaDenegado() {

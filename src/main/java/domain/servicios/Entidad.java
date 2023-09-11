@@ -23,7 +23,7 @@ public class Entidad extends EntidadPersistente {
   @Column
   private String nombre;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany( mappedBy = "entidadALaQuePertenece",cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
   public List<Establecimiento> establecimientos;
 
   @Embedded
@@ -34,6 +34,9 @@ public class Entidad extends EntidadPersistente {
   private Localidad localizacionLocalidad;
   @Column
   private String tipoEntidad;
+  @ManyToOne
+  @JoinColumn(name="entidadPrestadora_id", referencedColumnName = "id")
+  private EntidadPrestadora entidadPrestadora;
   //@ManyToOne
   //@JoinColumn(name = "entidadPrestador_id", referencedColumnName = "id")
  // private EntidadPrestadora entidadPrestadora;

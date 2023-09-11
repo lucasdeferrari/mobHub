@@ -19,9 +19,13 @@ public class EntidadPrestadora extends EntidadPersistente {
 
     @Column
     private String nombre;
-    @OneToMany
+    @OneToMany(mappedBy = "entidadPrestadora", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Entidad> entidades;
     // NO SE QUE RELACION IRIA ACA TODO
+
+    @ManyToOne
+    @JoinColumn(name="organismo_id", referencedColumnName = "id")
+    private OrganismoDeControl organismoDeControl;
 
     @Convert(converter = RankingConverter.class)
     @Column(columnDefinition = "VARCHAR(35)")
