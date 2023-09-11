@@ -42,7 +42,8 @@ public class Miembro extends EntidadPersistente {
 
   @ManyToMany
   private List<Comunidad> comunidadesPertenecientes;
-  @Transient
+
+  @ManyToMany
   private List<Entidad> entidadesAsociadas;
 
   @ElementCollection
