@@ -49,3 +49,4 @@ public class Establecimiento extends EntidadPersistente {
   } // devuelve una lista con los servicios que hay que agregar a los servicios con interes
 
 }
+
