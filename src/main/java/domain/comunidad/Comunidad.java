@@ -7,6 +7,8 @@ import domain.servicios.Establecimiento;
 import domain.servicios.Incidente;
 import domain.servicios.Servicio;
 import lombok.Getter;
+import org.apache.poi.ss.formula.eval.UnaryMinusEval;
+
 import javax.persistence.*;
 
 import javax.persistence.*;
@@ -27,9 +29,12 @@ public class Comunidad extends EntidadPersistente {
 
   @ManyToMany
   private List<Miembro> miembros;
-  @Transient
+
+  @ManyToMany()
+  @JoinTable(name = "administrador_comunidad")
   private List<Miembro> administradores;
-  @Transient
+
+  @OneToMany(mappedBy = "comunidad")
   private List<Incidente> incidentesAbiertos;
 
   // hacer bien el ManyToMany todo
@@ -37,6 +42,7 @@ public class Comunidad extends EntidadPersistente {
   public void agregarMiembro(Miembro miembro) {miembros.add(miembro);}
   public void eliminarMiembro(Miembro miembro) {miembros.remove(miembro);}
   public Integer cantidadMiembro(){return miembros.size();}
+
   public Boolean esAdmin(Miembro miembro) {
     return administradores.contains(miembro);
   }
@@ -66,3 +72,4 @@ public class Comunidad extends EntidadPersistente {
   }
 
 }
+
