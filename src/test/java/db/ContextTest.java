@@ -1,8 +1,8 @@
 package db;
 
 
+import domain.Repositorios.Comunidad.RepositorioComunidad;
 import domain.comunidad.Comunidad;
-import domain.comunidad.ComunidadRepository;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Test;
 
@@ -17,18 +17,20 @@ public class ContextTest implements SimplePersistenceTest {
 
   @Test
   void contextUpWithTransaction() throws Exception {
+    Comunidad comunidad3 = new Comunidad();
+    comunidad3.setNombre("norberto3");
+    comunidad3.setDescripcion("Descripción de la Comunidad 3");
+
+    Comunidad comunidad4 = new Comunidad();
+    comunidad4.setNombre("comunidad4");
+    comunidad4.setDescripcion("Descripción de la Comunidad 4");
+
+    RepositorioComunidad repositorioComunidad = new RepositorioComunidad();
+
     withTransaction(() -> {
+      Comunidad comunidadGuardada3 = repositorioComunidad.guardar(comunidad3);
+      Comunidad comunidadGuardada4 = repositorioComunidad.guardar(comunidad4);
+
     });
   }
-
-  @Test
-  void cualquierNombre() {
-    ComunidadRepository comunidad = new ComunidadRepository();
-
-    Comunidad comunidad1 = new Comunidad();
-    comunidad1.setNombre("gonzalo69");
-    
-    comunidad.insert(comunidad1);
-  }
-
 }

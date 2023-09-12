@@ -30,6 +30,7 @@ public class Comunidad extends EntidadPersistente {
   private String descripcion;
 
   @ManyToMany
+  @JoinTable(name="miembros_comunidad")
   private List<Miembro> miembros;
 
   @ManyToMany()

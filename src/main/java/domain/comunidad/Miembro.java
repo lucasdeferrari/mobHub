@@ -40,7 +40,7 @@ public class Miembro extends EntidadPersistente {
   @Column
   private String telefono;
 
-  @ManyToMany
+  @Transient
   private List<Comunidad> comunidadesPertenecientes;
 
   @ManyToMany
