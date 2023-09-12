@@ -23,15 +23,18 @@ public class MedioNotificacionConverter implements AttributeConverter<MedioNotif
 
     @Override
     public MedioNotificacion convertToEntityAttribute(String medioNotificacion) {
+        MedioNotificacion medioNotificacion1 = null;
+
         if(medioNotificacion == "Whatsapp") {
-            AdapterWhatsApp medioConvertido = new AdapterWhatsApp();
-            return medioConvertido;
+            medioNotificacion1 = new AdapterWhatsApp();
         }
         else if (medioNotificacion == "Email") {
-            AdapterEmail medioConvertido = new AdapterEmail();
-            return medioConvertido;
+            medioNotificacion1 = new AdapterEmail();
         }
 
-        else return null;
+        else
+            medioNotificacion1 = null;
+
+        return medioNotificacion1;
     }
 }

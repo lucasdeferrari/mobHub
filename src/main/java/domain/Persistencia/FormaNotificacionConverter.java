@@ -26,15 +26,18 @@ public class FormaNotificacionConverter implements AttributeConverter<FormaNotif
 
     @Override
     public FormaNotificacion convertToEntityAttribute(String formaNotificacion) {
+        FormaNotificacion formaNotificacion2 = null;
+
         if(formaNotificacion == "Cuando sucede") {
-            AlertarCuandoSucede formaConvertida = new AlertarCuandoSucede();
-            return formaConvertida;
+            formaNotificacion2 = new AlertarCuandoSucede();
         }
         else if (formaNotificacion == "Sin apuro") {
-            AlertarSinApuro formaConvertida = new AlertarSinApuro();
-            return formaConvertida;
+            formaNotificacion2 = new AlertarSinApuro();
         }
 
-        else return null;
+        else
+            formaNotificacion2 = null;
+
+        return formaNotificacion2;
     }
 }

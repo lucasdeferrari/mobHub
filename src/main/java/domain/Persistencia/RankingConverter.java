@@ -25,20 +25,22 @@ public class RankingConverter implements AttributeConverter<Ranking, String> {
 
     @Override
     public Ranking convertToEntityAttribute(String ranking) {
+        Ranking ranking1 = null;
+
         if(ranking == "MayorCantidadReportes") {
-            MayorCantidadReportes rankingConvertido = new MayorCantidadReportes();
-            return rankingConvertido;
+            ranking1 = new MayorCantidadReportes();
         }
         else if (ranking == "MayorGradoImpacto") {
-            MayorGradoImpacto rankingConvertido = new MayorGradoImpacto();
-            return rankingConvertido;
+            ranking1 = new MayorGradoImpacto();
         }
 
         else if (ranking == "MayorPromedioCierre") {
-            MayorPromedioCierre rankingConvertido = new MayorPromedioCierre();
-            return rankingConvertido;
+            ranking1 = new MayorPromedioCierre();
         }
 
-        else return null;
+        else
+            ranking1 = null;
+
+        return ranking1;
     }
 }
