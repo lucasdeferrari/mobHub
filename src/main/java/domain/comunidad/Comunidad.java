@@ -7,6 +7,7 @@ import domain.servicios.Establecimiento;
 import domain.servicios.Incidente;
 import domain.servicios.Servicio;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.poi.ss.formula.eval.UnaryMinusEval;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
+@Setter
 @Entity
 @Table
 public class Comunidad extends EntidadPersistente {
