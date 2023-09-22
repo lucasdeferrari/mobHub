@@ -31,7 +31,7 @@ public class Comunidad extends EntidadPersistente {
   @MapKeyJoinColumn(name = "miembro_id") // La clave del mapa será un Miembro
   @Enumerated(EnumType.STRING) // El valor del mapa será un RolComunidad
   @Column(name = "rol_comunidad")
-  private Map<Miembro, RolComunidad> miembros;
+  private Map<Miembro, RolComunidad> miembros = new HashMap<>();
 
 
   @OneToMany(mappedBy = "comunidad")
@@ -39,7 +39,9 @@ public class Comunidad extends EntidadPersistente {
 
   // hacer bien el ManyToMany todo
 
-  public void agregarMiembro(Miembro miembro, RolComunidad rolComunidad) {miembros.put(miembro, rolComunidad);}
+  public void agregarMiembro(Miembro miembro, RolComunidad rolComunidad) {
+    miembros.put(miembro, rolComunidad);
+    miembro.getComunidadesPertenecientes().put(this,rolComunidad);}
   public void eliminarMiembro(Miembro miembro) {miembros.remove(miembro);}
   public Integer cantidadMiembro(){return miembros.size();}
 

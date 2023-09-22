@@ -14,6 +14,7 @@ import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ import java.util.*;
 @Table
 public class Miembro extends EntidadPersistente {
   @Column
+  @Setter
   private String nombre;
 
   @Column
@@ -37,7 +39,8 @@ public class Miembro extends EntidadPersistente {
   private String telefono;
 
   @Transient
-  private Map<Comunidad, RolComunidad> comunidadesPertenecientes;
+  @Getter
+  private Map<Comunidad, RolComunidad> comunidadesPertenecientes = new HashMap<>();
 
   @ManyToMany
   private List<Entidad> entidadesAsociadas;
@@ -59,10 +62,12 @@ public class Miembro extends EntidadPersistente {
 
   @Convert(converter = MedioNotificacionConverter.class)
   @Column(columnDefinition = "VARCHAR(20)")
+  @Setter
   private MedioNotificacion medioDeNotificacion;
 
   @Convert(converter = FormaNotificacionConverter.class)
   @Column(columnDefinition = "VARCHAR(20)")
+  @Setter
   private FormaNotificacion formaNotificacion;
 
   @Embedded
