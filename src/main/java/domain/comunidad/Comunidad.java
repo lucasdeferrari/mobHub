@@ -8,12 +8,9 @@ import domain.servicios.Incidente;
 import domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.poi.ss.formula.eval.UnaryMinusEval;
 
 import javax.persistence.*;
 
-import javax.persistence.*;
-import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,25 +26,27 @@ public class Comunidad extends EntidadPersistente {
   @Column
   private String descripcion;
 
-  @ManyToMany
-  @JoinTable(name="miembros_comunidad")
-  private List<Miembro> miembros;
+  @ElementCollection
+  @CollectionTable(name = "comunidad_miembros", joinColumns = @JoinColumn(name = "comunidad_id"))
+  @MapKeyJoinColumn(name = "miembro_id") // La clave del mapa será un Miembro
+  @Enumerated(EnumType.STRING) // El valor del mapa será un RolComunidad
+  @Column(name = "rol_comunidad")
+  private Map<Miembro, RolComunidad> miembros;
 
-  @ManyToMany()
-  @JoinTable(name = "administrador_comunidad")
-  private List<Miembro> administradores;
 
   @OneToMany(mappedBy = "comunidad")
   private List<Incidente> incidentesAbiertos;
 
   // hacer bien el ManyToMany todo
 
-  public void agregarMiembro(Miembro miembro) {miembros.add(miembro);}
+  public void agregarMiembro(Miembro miembro, RolComunidad rolComunidad) {miembros.put(miembro, rolComunidad);}
   public void eliminarMiembro(Miembro miembro) {miembros.remove(miembro);}
   public Integer cantidadMiembro(){return miembros.size();}
 
-  public Boolean esAdmin(Miembro miembro) {
-    return administradores.contains(miembro);
+
+  public boolean esAdmin(Miembro miembro) {
+    return miembros.entrySet().stream()
+            .anyMatch(entry -> entry.getKey().equals(miembro) && entry.getValue() == RolComunidad.ADMINISTRADOR);
   }
 
   public void agregarServicio(Servicio servicio, Establecimiento establecimiento) {
@@ -55,10 +54,17 @@ public class Comunidad extends EntidadPersistente {
   }
 
   public void agregarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {
-    List<Miembro> miembrosALosQueLeInteresa = miembros.stream().filter(unMiembro -> unMiembro.leInteresaElIncidente(unIncidente)).collect(Collectors.toList());
-    incidentesAbiertos.add(unIncidente);
+    Map<Miembro, RolComunidad> miembrosInteresados = miembros.entrySet().stream()
+            .filter(entry -> entry.getKey().leInteresaElIncidente(unIncidente))
+            .collect(Collectors.toMap(
+                    Map.Entry::getKey,   // Función para mapear a claves (en este caso, el Miembro)
+                    Map.Entry::getValue  // Función para mapear a valores (en este caso, el Rol)
+            ));    incidentesAbiertos.add(unIncidente);
+
     //para que no notifique al miembro que creo el incidente
-    List <Miembro> listaSinElMiembro = miembrosALosQueLeInteresa.stream().filter(unMiembro -> unMiembro != miembroQueAbrio).collect(Collectors.toList());
+    Map<Miembro, RolComunidad> listaSinElMiembro = miembrosInteresados.entrySet().stream()
+            .filter(entry -> entry.getKey() != miembroQueAbrio)
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
     NotificarAperturaAMiembros notificador = new NotificarAperturaAMiembros();
     notificador.notificar(unIncidente, listaSinElMiembro);
@@ -68,7 +74,9 @@ public class Comunidad extends EntidadPersistente {
   public void cerrarIncidente(Incidente unIncidente, Miembro miembroQueCerro) {
 
     incidentesAbiertos.remove(unIncidente);
-    List <Miembro> listaSinElMiembro = miembros.stream().filter(unMiembro -> unMiembro != miembroQueCerro).collect(Collectors.toList());
+    Map<Miembro, RolComunidad> listaSinElMiembro = miembros.entrySet().stream()
+            .filter(entry -> !entry.getKey().equals(miembroQueCerro))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
     NotificarCierreAMiembros notificador = new NotificarCierreAMiembros();
     notificador.notificar(unIncidente, listaSinElMiembro);

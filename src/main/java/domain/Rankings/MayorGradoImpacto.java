@@ -2,7 +2,7 @@ package domain.Rankings;
 
 import domain.comunidad.Comunidad;
 import domain.comunidad.Miembro;
-import domain.comunidad.Rol;
+import domain.comunidad.RolServicio;
 import domain.servicios.Incidente;
 import domain.servicios.Entidad;
 import domain.servicios.TipoDeServicio;
@@ -33,10 +33,10 @@ public class MayorGradoImpacto extends Ranking{
 
     List<Miembro> listaMiembros = new ArrayList<>();
 
-    for (Miembro unMiembro : comunidad.getMiembros()) {
+    for (Miembro unMiembro : comunidad.getMiembros().keySet()) {
       incidentes.forEach(unIncidente -> {
         TipoDeServicio tipoDeServicio = unIncidente.getServicio().getNombre();
-        if(unMiembro.getRolesServicios().get(tipoDeServicio.ordinal()) == Rol.AFECTADO) {
+        if(unMiembro.getRolesServicios().get(tipoDeServicio.ordinal()) == RolServicio.AFECTADO) {
           listaMiembros.add(unMiembro);
         }
       });

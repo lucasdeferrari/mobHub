@@ -1,6 +1,6 @@
 package domain.comunidad;
 
-public enum Rol {
+public enum RolServicio {
     AFECTADO,
     OBSERVADOR
 }

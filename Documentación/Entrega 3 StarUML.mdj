@@ -1795,7 +1795,7 @@
 											"top": 567,
 											"width": 390.52685546875,
 											"height": 13,
-											"text": "+cambiarRol(miembro: Miembro, rol: Rol): void",
+											"text": "+cambiarRol(miembro: Miembro, rolServicio: Rol): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4274,7 +4274,7 @@
 											"top": 1793,
 											"width": 543.0166015625,
 											"height": 13,
-											"text": "+cambiarRolManualmente(tipoDeServicio: TipoServicio, rol: Rol): void",
+											"text": "+cambiarRolManualmente(tipoDeServicio: TipoServicio, rolServicio: Rol): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -23548,7 +23548,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGJQLv8+dsrTp4="
 									},
-									"name": "rol",
+									"name": "rolServicio",
 									"type": "Rol"
 								},
 								{
@@ -24410,7 +24410,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGJQmG1BrYS1GE="
 									},
-									"name": "rol",
+									"name": "rolServicio",
 									"type": {
 										"$ref": "AAAAAAGJQMG/Qj+w0UY="
 									}

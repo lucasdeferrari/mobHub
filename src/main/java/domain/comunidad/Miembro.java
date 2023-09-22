@@ -13,16 +13,12 @@ import domain.services.geoRef.entidades.Localidad;
 import domain.services.geoRef.entidades.Municipio;
 import domain.services.geoRef.entidades.Provincia;
 import domain.servicios.Incidente;
-import domain.generadorRankings.GeneradorRanking;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 @Getter
 @Entity
@@ -41,7 +37,7 @@ public class Miembro extends EntidadPersistente {
   private String telefono;
 
   @Transient
-  private List<Comunidad> comunidadesPertenecientes;
+  private Map<Comunidad, RolComunidad> comunidadesPertenecientes;
 
   @ManyToMany
   private List<Entidad> entidadesAsociadas;
@@ -76,7 +72,7 @@ public class Miembro extends EntidadPersistente {
   private List<Incidente> incidentesDeInteresPropio;
 
   @Transient
-  private Map<TipoDeServicio, Rol> rolesServicios = new HashMap<>();
+  private Map<TipoDeServicio, RolServicio> rolesServicios = new HashMap<>();
 
 
 
@@ -99,7 +95,7 @@ public class Miembro extends EntidadPersistente {
   public void setUbicacionActual(Ubicacion ubicacionActual) {
     this.ubicacionActual = ubicacionActual;
     List<Incidente> incidentesAbiertosDeLasComunidades = new ArrayList<>();
-    comunidadesPertenecientes.forEach(unaComunidad -> incidentesAbiertosDeLasComunidades.addAll(unaComunidad.getIncidentesAbiertos()));
+    comunidadesPertenecientes.forEach((unaComunidad, unRol) -> incidentesAbiertosDeLasComunidades.addAll(unaComunidad.getIncidentesAbiertos()));
 
     GestorGeolocalizacion gestorGeolocalizacion = new GestorGeolocalizacion();
     gestorGeolocalizacion.incidentesCercaDelMiembro(Miembro.this, incidentesAbiertosDeLasComunidades);
@@ -120,15 +116,15 @@ public class Miembro extends EntidadPersistente {
 
     for (TipoDeServicio clave : rolesServicios.keySet()) {
       if (serviciosAsociados.contains(clave)) {
-        rolesServicios.put(clave, Rol.AFECTADO);
+        rolesServicios.put(clave, RolServicio.AFECTADO);
       } else {
-        rolesServicios.put(clave, Rol.OBSERVADOR);
+        rolesServicios.put(clave, RolServicio.OBSERVADOR);
       }
     }
   }
 
-  public void cambiarRolManualmente(TipoDeServicio tipoDeServicio, Rol rol) {
-    rolesServicios.put(tipoDeServicio, rol);
+  public void cambiarRolManualmente(TipoDeServicio tipoDeServicio, RolServicio rolServicio) {
+    rolesServicios.put(tipoDeServicio, rolServicio);
   }
 
   public Boolean esAdminEn(Comunidad comunidad) {
