@@ -25,14 +25,14 @@
 //
 //        Ubicacion ubicacion = new Ubicacion(1F,1F);
 //
-//        Servicio servicio1 = new Servicio(BANIO, DENEGADO, "un serivicio muy lindo");
-//        Servicio servicio2 = new Servicio(ESCALERA_MECANICA, DISPONIBLE, "un servico muy fachero");
-//        Servicio servicio3 = new Servicio(RAMPA,DENEGADO,"rampa muy alta");
+//        Servicio.java servicio1 = new Servicio.java(BANIO, DENEGADO, "un serivicio muy lindo");
+//        Servicio.java servicio2 = new Servicio.java(ESCALERA_MECANICA, DISPONIBLE, "un servico muy fachero");
+//        Servicio.java servicio3 = new Servicio.java(RAMPA,DENEGADO,"rampa muy alta");
 //
-//        List <Servicio> servicios1 = List.of(servicio1,servicio2);
-//        List <Servicio> servicios2 = List.of(servicio1,servicio3);
-//        List <Servicio> servicios3 = List.of(servicio2,servicio3);
-//        List <Servicio> servicios4 = List.of(servicio1,servicio2);
+//        List <Servicio.java> servicios1 = List.of(servicio1,servicio2);
+//        List <Servicio.java> servicios2 = List.of(servicio1,servicio3);
+//        List <Servicio.java> servicios3 = List.of(servicio2,servicio3);
+//        List <Servicio.java> servicios4 = List.of(servicio1,servicio2);
 //
 //        Establecimiento establecimiento1 =new Establecimiento("establecimiento1", ubicacion, servicios1);
 //        Establecimiento establecimiento2= new Establecimiento("establecimiento2", ubicacion, servicios2);
@@ -54,10 +54,10 @@
 //        //Miembro miembro = new Miembro("lucas", "deferrari", "neus@gmail.com", comunidades, entidades, tiposDeServicio);
 //
 //        // Llamar al método bajo prueba.java
-//        //List<Servicio> resultado = miembro.serviciosDeInteres();
+//        //List<Servicio.java> resultado = miembro.serviciosDeInteres();
 //
 //        // Verificar el resultado esperado
-//        //List<Servicio> resultadoEsperado = List.of(servicio1, servicio3);
+//        //List<Servicio.java> resultadoEsperado = List.of(servicio1, servicio3);
 //       // assertEquals(resultadoEsperado, resultado);
 //    }
 //}

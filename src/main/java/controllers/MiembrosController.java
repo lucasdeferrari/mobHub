@@ -1,7 +1,7 @@
 package controllers;
 
 import domain.Repositorios.Miembro.RepositorioMiembro;
-import domain.Repositorios.Servicio.RepositorioServicio;
+import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.servicios.Servicio;
 import io.javalin.http.Context;
