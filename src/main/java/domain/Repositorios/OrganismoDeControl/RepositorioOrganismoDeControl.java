@@ -1,10 +1,8 @@
 package domain.Repositorios.OrganismoDeControl;
 
 
-import domain.servicios.OrganismoDeControl;
+import domain.entidades.servicios.OrganismoDeControl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class RepositorioOrganismoDeControl implements OrganismoDeControlCRUD {

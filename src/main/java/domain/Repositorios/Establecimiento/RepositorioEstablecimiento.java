@@ -1,10 +1,7 @@
 package domain.Repositorios.Establecimiento;
 
-import domain.servicios.EntidadPrestadora;
-import domain.servicios.Establecimiento;
+import domain.entidades.servicios.Establecimiento;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class RepositorioEstablecimiento implements EstablecimientoCRUD {

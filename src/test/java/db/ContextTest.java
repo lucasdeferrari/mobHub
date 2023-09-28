@@ -3,11 +3,11 @@ package db;
 
 import domain.Repositorios.Comunidad.RepositorioComunidad;
 import domain.Repositorios.Miembro.RepositorioMiembro;
-import domain.comunidad.Comunidad;
-import domain.comunidad.Miembro;
-import domain.comunidad.RolComunidad;
-import domain.notificaciones.formaDeNotificacion.AlertarSinApuro;
-import domain.notificaciones.medioDeNotificaciones.AdapterWhatsApp;
+import domain.entidades.comunidad.Comunidad;
+import domain.entidades.comunidad.Miembro;
+import domain.entidades.comunidad.RolComunidad;
+import domain.entidades.notificaciones.formaDeNotificacion.AlertarSinApuro;
+import domain.entidades.notificaciones.medioDeNotificaciones.AdapterWhatsApp;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Test;
 

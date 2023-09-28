@@ -1,7 +1,7 @@
 package domain.Repositorios.OrganismoDeControl;
 
 
-import domain.servicios.OrganismoDeControl;
+import domain.entidades.servicios.OrganismoDeControl;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;

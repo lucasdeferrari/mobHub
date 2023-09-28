@@ -1,10 +1,8 @@
 package domain.Repositorios.Servicio;
 
 
-import domain.servicios.Servicio;
+import domain.entidades.servicios.Servicio;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class RepositorioServicio implements ServicioCRUD{

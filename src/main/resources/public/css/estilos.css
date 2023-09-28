@@ -1,0 +1,69 @@
+/* Estilos para el fondo de la página completa */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    background: #577399 !important; /* Color de fondo azul con !important */
+    width: 1280px; /* Ancho fijo */
+    height: 832px; /* Alto fijo */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Sombra */
+}
+
+/* Estilos para la barra de navegación */
+
+.navbar {
+    width: 100%;
+    background: #BDD5EA; /* Color de fondo de la barra de navegación */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    padding: 0 20px;
+    min-height: 56px; /* Asegura una altura mínima */
+}
+/* Estilos para el logotipo */
+.logo img {
+    width: 119.627px;
+    height: 69.061px;
+    transform: rotate(-0.311deg);
+    flex-shrink: 0;
+    background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+}
+/* Estilos para el menú de navegación */
+
+.menu ul,
+.extra-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+}
+
+.menu ul li,
+.extra-options ul li {
+    margin-right: 30px;
+}
+
+.menu ul li:last-child,
+.extra-options ul li:last-child {
+    margin-right: 0;
+}
+
+/* Estilos para los enlaces de menú */
+.menu a,
+.extra-options a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.menu a:hover,
+.extra-options a:hover {
+    text-decoration: underline;
+}
+
+/* Alineación a la derecha para las opciones adicionales */
+.extra-options {
+    margin-left: auto;
+}

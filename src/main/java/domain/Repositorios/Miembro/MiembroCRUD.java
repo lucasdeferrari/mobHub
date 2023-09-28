@@ -1,6 +1,6 @@
 package domain.Repositorios.Miembro;
 
-import domain.comunidad.Miembro;
+import domain.entidades.comunidad.Miembro;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 

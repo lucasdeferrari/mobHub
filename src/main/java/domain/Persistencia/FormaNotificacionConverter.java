@@ -1,19 +1,11 @@
 package domain.Persistencia;
 
-import domain.comunidad.Miembro;
-import domain.notificaciones.formaDeNotificacion.AlertarCuandoSucede;
-import domain.notificaciones.formaDeNotificacion.AlertarSinApuro;
-import domain.notificaciones.formaDeNotificacion.FormaNotificacion;
-import domain.notificaciones.medioDeNotificaciones.AdapterEmail;
-import domain.notificaciones.medioDeNotificaciones.AdapterWhatsApp;
-import domain.notificaciones.medioDeNotificaciones.MedioNotificacion;
-import domain.notificaciones.notificacion.Notificacion;
-import org.apache.commons.mail.EmailException;
+import domain.entidades.notificaciones.formaDeNotificacion.AlertarCuandoSucede;
+import domain.entidades.notificaciones.formaDeNotificacion.AlertarSinApuro;
+import domain.entidades.notificaciones.formaDeNotificacion.FormaNotificacion;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.sql.Time;
-import java.time.LocalTime;
 
 @Converter(autoApply = true)
 public class FormaNotificacionConverter implements AttributeConverter<FormaNotificacion, String> {

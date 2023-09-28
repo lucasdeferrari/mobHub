@@ -1,13 +1,13 @@
 package testExcel;
 
-import domain.generadorRankings.FormatoExcel;
+import domain.entidades.generadorRankings.FormatoExcel;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.servicios.Entidad;
+import domain.entidades.servicios.Entidad;
 
 
 public class FormatoExcelTest {

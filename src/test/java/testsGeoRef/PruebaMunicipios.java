@@ -1,10 +1,10 @@
 package testsGeoRef;
 
-import domain.services.geoRef.entidades.ListadoDeMunicipios;
-import domain.services.geoRef.entidades.ListadoDeProvincias;
-import domain.services.geoRef.entidades.Municipio;
-import domain.services.geoRef.entidades.Provincia;
-import domain.services.geoRef.interfaces.ServicioGeoRef;
+import domain.entidades.geoRef.entidades.ListadoDeMunicipios;
+import domain.entidades.geoRef.entidades.ListadoDeProvincias;
+import domain.entidades.geoRef.entidades.Municipio;
+import domain.entidades.geoRef.entidades.Provincia;
+import domain.entidades.geoRef.interfaces.ServicioGeoRef;
 
 import java.io.IOException;
 import java.util.Optional;

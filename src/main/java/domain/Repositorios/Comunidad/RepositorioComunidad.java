@@ -1,15 +1,10 @@
 package domain.Repositorios.Comunidad;
 
-import domain.comunidad.Comunidad;
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import org.springframework.stereotype.Component;
+import domain.entidades.comunidad.Comunidad;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository

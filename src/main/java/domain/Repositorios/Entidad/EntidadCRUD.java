@@ -1,6 +1,6 @@
 package domain.Repositorios.Entidad;
 
-import domain.servicios.Entidad;
+import domain.entidades.servicios.Entidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;

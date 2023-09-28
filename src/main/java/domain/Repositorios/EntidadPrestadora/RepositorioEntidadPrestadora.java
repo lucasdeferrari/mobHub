@@ -1,9 +1,7 @@
 package domain.Repositorios.EntidadPrestadora;
 
-import domain.servicios.EntidadPrestadora;
+import domain.entidades.servicios.EntidadPrestadora;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class RepositorioEntidadPrestadora implements EntidadPrestadoraCRUD {

@@ -1,10 +1,8 @@
 package domain.Repositorios.Incidente;
 
 
-import domain.servicios.Incidente;
+import domain.entidades.servicios.Incidente;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class RepositorioIncidente implements IncidenteCRUD {

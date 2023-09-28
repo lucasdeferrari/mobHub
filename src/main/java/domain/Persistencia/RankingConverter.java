@@ -1,20 +1,12 @@
 package domain.Persistencia;
 
-import domain.Rankings.MayorCantidadReportes;
-import domain.Rankings.MayorGradoImpacto;
-import domain.Rankings.MayorPromedioCierre;
-import domain.Rankings.Ranking;
-import domain.comunidad.Miembro;
-import domain.notificaciones.medioDeNotificaciones.AdapterEmail;
-import domain.notificaciones.medioDeNotificaciones.AdapterWhatsApp;
-import domain.notificaciones.medioDeNotificaciones.MedioNotificacion;
-import domain.notificaciones.notificacion.Notificacion;
-import org.apache.commons.mail.EmailException;
+import domain.entidades.Rankings.MayorCantidadReportes;
+import domain.entidades.Rankings.MayorGradoImpacto;
+import domain.entidades.Rankings.MayorPromedioCierre;
+import domain.entidades.Rankings.Ranking;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.sql.Time;
-import java.time.LocalTime;
 
 @Converter(autoApply = true)
 public class RankingConverter implements AttributeConverter<Ranking, String> {

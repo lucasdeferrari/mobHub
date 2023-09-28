@@ -1,10 +1,8 @@
 package domain.Repositorios.Miembro;
 
-import domain.comunidad.Miembro;
+import domain.entidades.comunidad.Miembro;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class RepositorioMiembro implements MiembroCRUD {

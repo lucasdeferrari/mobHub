@@ -1,10 +1,7 @@
 package domain.Repositorios.Entidad;
 
-import domain.Repositorios.Entidad.EntidadCRUD;
-import domain.servicios.Entidad;
+import domain.entidades.servicios.Entidad;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class RepositorioEntidad implements EntidadCRUD {

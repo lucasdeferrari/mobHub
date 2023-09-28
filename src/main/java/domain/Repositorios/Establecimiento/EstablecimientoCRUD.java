@@ -1,7 +1,7 @@
 package domain.Repositorios.Establecimiento;
 
 
-import domain.servicios.Establecimiento;
+import domain.entidades.servicios.Establecimiento;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;

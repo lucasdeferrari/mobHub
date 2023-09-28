@@ -1,7 +1,7 @@
 package domain.Repositorios.Incidente;
 
 
-import domain.servicios.Incidente;
+import domain.entidades.servicios.Incidente;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;
