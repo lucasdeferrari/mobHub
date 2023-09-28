@@ -1,11 +1,12 @@
 package domain.entidades.servicios;
 
 import domain.Persistencia.EntidadPersistente;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-
+@Setter
 @Entity
 @Table
 public class OrganismoDeControl extends EntidadPersistente {
