@@ -1,5 +1,8 @@
 package server;
 
+import controllers.FactoryController;
+import controllers.ServiciosController;
+
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Router {

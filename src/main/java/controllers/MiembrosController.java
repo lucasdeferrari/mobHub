@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MiembrosController implements ICrudViewsHandler{
-    private RepositorioMiembro repositorioMiembro
+    private RepositorioMiembro repositorioMiembro;
     public MiembrosController(RepositorioMiembro repositorio){
         this.repositorioMiembro = repositorio;
     }
