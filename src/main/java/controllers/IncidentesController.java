@@ -27,6 +27,10 @@ public class IncidentesController implements ICrudViewsHandler {
     private RepositorioMiembro repositorioMiembro;
     public IncidentesController(RepositorioIncidente repositorioDeIncidentes, RepositorioComunidad repositorioComunidad, RepositorioServicio repositorioServicio, RepositorioEstablecimiento repositorioEstablecimiento, RepositorioMiembro repositorioMiembro) {
         this.repositorioIncidente = repositorioDeIncidentes;
+        this.repositorioComunidad = repositorioComunidad;
+        this.repositorioEstablecimiento = repositorioEstablecimiento;
+        this.repositorioServicio = repositorioServicio;
+        this.repositorioMiembro = repositorioMiembro;
     }
 
     @Override
@@ -73,7 +77,9 @@ public class IncidentesController implements ICrudViewsHandler {
     @Override
     public void update(Context context) {
         Incidente incidente = (Incidente) this.repositorioIncidente.buscarPorId(Long.parseLong(context.pathParam("id")));
-        this.asignarParametros(incidente, context);
+        context.sessionAttribute("nombreUsuario");
+        Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("nombreUsuario");
+        miembro.cerrarIncidente(incidente);
         this.repositorioIncidente.actualizar(incidente);
         context.redirect("/incidentes");
     }
@@ -89,6 +95,20 @@ public class IncidentesController implements ICrudViewsHandler {
         if(!Objects.equals(context.formParam("nombre"), "")) {
             incidente.setNombre(context.formParam("nombre"));
         }
+        if(!Objects.equals(context.formParam("observaciones"), "")) {
+            incidente.setObservaciones(context.formParam("observaciones"));
+        }
+        if(!Objects.equals(context.formParam("comunidad"), "")) {
+            incidente.setComunidad(repositorioComunidad.buscarPorId(Long.parseLong(context.formParam("comunidad"))));
+        }
+        if(!Objects.equals(context.formParam("establecimiento"), "")) {
+            incidente.setEstablecimiento(repositorioEstablecimiento.buscarPorId(Long.parseLong(context.formParam("establecimiento"))));
+        }
+        if(!Objects.equals(context.formParam("servicio"), "")) {
+            incidente.setServicio(repositorioServicio.buscarPorId(Long.parseLong(context.formParam("servicio"))));
+        }
+
     }
+
 }
 

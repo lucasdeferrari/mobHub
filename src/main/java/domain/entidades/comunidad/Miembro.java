@@ -160,10 +160,10 @@ public class Miembro extends EntidadPersistente {
     factoryIncidente.crearIncidente(comunidadesPertenecientes, this, servicio, establecimiento, entidad, descripcion);
   }
 
-  public void cerrarIncidente(Incidente incidente, Comunidad comunidad) {
+  public void cerrarIncidente(Incidente incidente) {
     incidente.setQuienCerro(this);
     incidente.setFechaHoraCierre(LocalDateTime.now());
-    comunidad.cerrarIncidente(incidente, this);
+    incidente.getComunidad().cerrarIncidente(incidente, this);
   }
 
   @Transient

@@ -16,13 +16,14 @@ public class FactoryController {
         switch (nombre) {
 
             case "Servicios": controller = new ServiciosController(new RepositorioServicio()); break;
-            case "Incidentes": controller = new IncidentesController(new RepositorioIncidente()); break;
+            case "Incidentes": controller = new IncidentesController(new RepositorioIncidente(), new RepositorioComunidad(), new RepositorioServicio(), new RepositorioEstablecimiento(), new RepositorioMiembro()); break;
             case "Miembros": controller = new MiembrosController(new RepositorioMiembro()); break;
             case "Comunidades": controller = new ComunidadesController(new RepositorioComunidad()); break;
             case "Entidades": controller = new EntidadesController(new RepositorioEntidad()); break;
             case "Establecimientos": controller = new EstablecimientosController(new RepositorioEstablecimiento()); break;
             case "OrganismosDeControl": controller = new OrganismosDeControlController(new RepositorioOrganismoDeControl()); break;
             case "EntidadesPrestadoras": controller = new EntidadesPrestadorasController(new RepositorioEntidadPrestadora()); break;
+            //case "InicioSesion": controller =    new
         }
 
         return controller;

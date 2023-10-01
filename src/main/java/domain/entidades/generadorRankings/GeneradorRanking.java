@@ -28,6 +28,7 @@ public class GeneradorRanking {
    private List<Incidente> incidentes;
    private ExportadorInforme exportadorInforme;
    private Timer timer;
+   private static GeneradorRanking instancia = null;
 
   LocalTime horaDeInicio = LocalTime.of(0, 0, 0);
   // LA CLASE SE DEBE EJECUTAR POR PRIMERA VEZ UN DOMINGO
@@ -38,7 +39,12 @@ public class GeneradorRanking {
     rankingMayorGradoImpacto = new ArrayList<>();
     incidentes = new ArrayList<>();
   }
-
+  public static GeneradorRanking getInstance() {
+    if (instancia == null) {
+      instancia = new GeneradorRanking();
+    }
+    return instancia;
+  }
   public  void main(String[] args) {
     ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
     // Calcula el retraso hasta la hora exacta

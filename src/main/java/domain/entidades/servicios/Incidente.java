@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 @Table
 public class Incidente extends EntidadPersistente {
     @Column
+    private String nombre;
+    @Column
     private String observaciones;
     @ManyToOne
     @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
