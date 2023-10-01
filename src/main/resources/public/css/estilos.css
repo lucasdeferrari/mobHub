@@ -4,8 +4,8 @@ html, body {
     padding: 0;
     font-family: "DM Sans", sans-serif;
     background: #577399 !important; /* Color de fondo azul con !important */
-    width: 1280px; /* Ancho fijo */
-    height: 832px; /* Alto fijo */
+    width: 100%; /* Ancho al 100% para que sea responsive */
+    height: auto; /* Altura automática para adaptarse al contenido */
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Sombra */
 }
 
@@ -17,7 +17,7 @@ html, body {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     align-items: center; /* Centrar verticalmente */
-    padding: 0 20px;
+    padding: 20px;
     min-height: 56px; /* Asegura una altura mínima */
 }
 /* Estilos para el logotipo */
@@ -66,4 +66,14 @@ html, body {
 /* Alineación a la derecha para las opciones adicionales */
 .extra-options {
     margin-left: auto;
+}
+.rectangle {
+    width: 40%;
+    height: 75%;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #BDD5EA;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-left: 340px;
+    margin-top: 6%;
 }
