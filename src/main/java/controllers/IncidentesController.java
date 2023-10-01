@@ -36,8 +36,8 @@ public class IncidentesController implements ICrudViewsHandler {
     @Override
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
-        List<Incidente> servicios = this.repositorioIncidente.buscarTodos();
-        model.put("incidentes", servicios);
+        List<Incidente> incidentes = this.repositorioIncidente.buscarTodos();
+        model.put("incidentes", incidentes);
         context.render("incidentes.hbs", model);
     }
 
