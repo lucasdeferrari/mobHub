@@ -1,6 +1,12 @@
 package controllers;
 
+import domain.Repositorios.Comunidad.RepositorioComunidad;
+import domain.Repositorios.Establecimiento.RepositorioEstablecimiento;
 import domain.Repositorios.Incidente.RepositorioIncidente;
+import domain.Repositorios.Miembro.RepositorioMiembro;
+import domain.Repositorios.Servicio.RepositorioServicio;
+import domain.entidades.comunidad.Comunidad;
+import domain.entidades.comunidad.Miembro;
 import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import io.javalin.http.Context;
@@ -15,8 +21,11 @@ import java.util.Objects;
 
 public class IncidentesController implements ICrudViewsHandler {
     private RepositorioIncidente repositorioIncidente;
-
-    public IncidentesController(RepositorioIncidente repositorioDeIncidentes) {
+    private RepositorioComunidad repositorioComunidad;
+    private RepositorioEstablecimiento repositorioEstablecimiento;
+    private RepositorioServicio repositorioServicio;
+    private RepositorioMiembro repositorioMiembro;
+    public IncidentesController(RepositorioIncidente repositorioDeIncidentes, RepositorioComunidad repositorioComunidad, RepositorioServicio repositorioServicio, RepositorioEstablecimiento repositorioEstablecimiento, RepositorioMiembro repositorioMiembro) {
         this.repositorioIncidente = repositorioDeIncidentes;
     }
 

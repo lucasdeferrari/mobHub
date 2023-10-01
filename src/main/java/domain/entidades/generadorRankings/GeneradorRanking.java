@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Setter
 @Getter
 public class GeneradorRanking {
+  @Getter
    private List<Entidad> rankingMayorCantidadReportes; // de esta semana
    private List<Entidad> rankingMayorPromedioCierre;
    private List<Entidad> rankingMayorGradoImpacto;
