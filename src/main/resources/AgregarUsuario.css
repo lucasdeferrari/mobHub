@@ -10,65 +10,56 @@ body {
 
 .container {
     text-align: center;
+    width: 400px;
 }
 
-.login-box {
+.add-user-box {
     background-color: #BDD5EA;
     padding: 20px;
-    border-radius: 25px;
+    border-radius: 35px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
+    text-align: left; /* Alinear el contenido a la izquierda */
 }
 
-.login-box h2 {
-    margin-top: 15;
+.add-user-box h1 {
     color: #495867;
+    margin-bottom: 20px;
+    border-radius: 2;
+    text-align: center; /* Centrar el título horizontalmente */
 }
 
-.input-box {
+.input-section {
     margin-bottom: 20px;
 }
 
-label {
-    display: block;
-    margin-bottom: 15px;
+.input-section h3 {
     font-weight: bold;
+    margin-top: 10px;
+    color: #495867;
 }
 
-input[type="text"],
-input[type="password"] {
+select {
     width: 100%;
     padding: 10px;
-    border: 0px solid #6785ad;
-    border-radius: 90px;
+    border: 1px solid #577399;
+    border-radius: 28px;
     outline: none;
-    max-width: 400px;
+    margin-bottom: 15px;
 }
 
 button {
-    background-color: #F7F7FF;
-    color: #495867;
+    background-color: #254C99;
+    color: #fff;
     border: none;
     border-radius: 15px;
-    padding: 10px 20px;
+    padding: 15px 20px;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-left: 35% ;
 }
 
 button:hover {
-    
-    background-color: #577399;
+    background-color:  #3366CC;
 }
-
-p a {
-    
-    text-decoration: none;
-    color: #495867;
-}
-
-p a:hover {
-    text-decoration: underline;
-}
-

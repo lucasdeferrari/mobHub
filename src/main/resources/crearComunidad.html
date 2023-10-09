@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Comunidad</title>
+    <link rel="stylesheet" type="text/css" href="crearComunidad.css"> <!-- Enlace a tu archivo CSS personalizado -->
+</head>
+<body>
+    <div class="container">
+        <div class="rankings-box">
+            <h2>Crear Comunidad</h2>
+
+            <form action="procesar_comunidad.php" method="post">
+                <div class="input-section">
+                    <label for="nombre-comunidad">Nombre de la Comunidad:</label>
+                    <input type="text" id="nombre-comunidad" placeholder="Introduzca el nombre" name="nombre-comunidad" required>
+                </div>
+
+                <div class="input-section">
+                    <label for="descripcion-comunidad">Descripción de la Comunidad:</label>
+                    <input type="text" id="descripcion-comunidad" placeholder="Introduzca la descripción" name="descripcion-comunidad">
+                </div>
+
+                <div class="button-section">
+                    <button type="submit">Crear Comunidad</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

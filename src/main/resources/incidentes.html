@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incidentes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="incidentes.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Incidentes</h1>
+        <!-- Botón "Seleccionar Todos" arriba de la tabla -->
+        <div class="filtro-box">
+           
+            <select id="filtro">
+                <option value="" disabled selected>Filtrar por...</option>
+                <option value="nombre">Nombre</option>
+                <option value="servicio">Servicio</option>
+                <option value="establecimiento">Establecimiento</option>
+                <option value="comunidad">Comunidad</option>
+            </select>
+            <input type="text" id="busqueda" placeholder="Buscar..." />
+            <button id="buscar">Buscar</button>
+        </div>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Servicio</th>
+                        <th>Establecimiento</th>
+                        <th>Comunidad</th>
+                        <th>Cerrar Incidente</th> <!-- Nueva columna -->
+                    </tr>
+                </thead>
+                <tbody id="tabla-incidentes">
+                    <!-- Los incidentes se cargarán aquí de forma dinámica -->
+                </tbody>
+            </table>
+        </div>
+        <!-- Botón "Cerrar Seleccionados" debajo de la tabla -->
+        <button id="cerrarSeleccionados">Cerrar Seleccionados</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="incidentes.js"></script>
+</body>
+</html>

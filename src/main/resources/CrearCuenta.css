@@ -1,3 +1,4 @@
+/* Estilos generales para el body y la página */
 body {
     font-family: Arial, sans-serif;
     background-color: #577399;
@@ -8,10 +9,12 @@ body {
     margin: 0;
 }
 
+/* Estilos para el contenedor principal */
 .container {
     text-align: center;
 }
 
+/* Estilos para el cuadro de login */
 .login-box {
     background-color: #BDD5EA;
     padding: 20px;
@@ -21,31 +24,36 @@ body {
     margin: 0 auto;
 }
 
-.login-box h2 {
-    margin-top: 15;
+/* Estilos para el título */
+.login-box .title {
     color: #495867;
+    text-align: center; /* Alinea el título al centro */
 }
 
+/* Estilos para las casillas de entrada de texto */
 .input-box {
     margin-bottom: 20px;
+    text-align: left; /* Alinea los títulos a la izquierda */
 }
 
 label {
-    display: block;
-    margin-bottom: 15px;
     font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
     width: 100%;
     padding: 10px;
-    border: 0px solid #6785ad;
-    border-radius: 90px;
+    border: 1px solid #6785ad;
+    border-radius: 15px;
     outline: none;
     max-width: 400px;
 }
 
+/* Estilos para el botón */
 button {
     background-color: #F7F7FF;
     color: #495867;
@@ -58,12 +66,11 @@ button {
 }
 
 button:hover {
-    
     background-color: #577399;
 }
 
+/* Estilos para los enlaces de texto */
 p a {
-    
     text-decoration: none;
     color: #495867;
 }
@@ -72,3 +79,9 @@ p a:hover {
     text-decoration: underline;
 }
 
+/* Estilos para el mensaje de error */
+.error-message {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+}

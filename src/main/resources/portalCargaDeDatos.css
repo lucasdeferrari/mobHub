@@ -12,7 +12,7 @@ body {
     text-align: center;
 }
 
-.login-box {
+.upload-box {
     background-color: #BDD5EA;
     padding: 20px;
     border-radius: 25px;
@@ -21,8 +21,13 @@ body {
     margin: 0 auto;
 }
 
-.login-box h2 {
-    margin-top: 15;
+.upload-box h2 {
+    margin-top: 15px;
+    color: #495867;
+}
+
+.upload-box h5 {
+    margin-top: 15px;
     color: #495867;
 }
 
@@ -36,8 +41,7 @@ label {
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"] {
+input[type="file"] {
     width: 100%;
     padding: 10px;
     border: 0px solid #6785ad;
@@ -58,12 +62,10 @@ button {
 }
 
 button:hover {
-    
-    background-color: #577399;
+    background-color: #E1EAF8;
 }
 
 p a {
-    
     text-decoration: none;
     color: #495867;
 }
@@ -72,3 +74,17 @@ p a:hover {
     text-decoration: underline;
 }
 
+button.subir-button {
+    background-color: #3366CC; 
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button.subir-button:hover {
+    background-color: #254C99; 
+}
