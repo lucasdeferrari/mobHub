@@ -1,7 +1,7 @@
 package controllers;
 
 import domain.Repositorios.Establecimiento.RepositorioEstablecimiento;
-import domain.Repositorios.Servicio.RepositorioOrganismoDeControl;
+import domain.Repositorios.OrganismoDeControl.RepositorioOrganismoDeControl;
 import domain.entidades.servicios.Establecimiento;
 import domain.entidades.servicios.Servicio;
 import io.javalin.http.Context;

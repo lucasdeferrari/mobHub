@@ -76,7 +76,7 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
 
     private void asignarParametros(EntidadPrestadora entidadPrestadora, Context context) {
         if(!Objects.equals(context.formParam("nombre"), "")) {
-            entidadPrestadora.setNombre(context.formParam("nombre"));
+           // entidadPrestadora.setNombre(context.formParam("nombre")); //TODO
         }
     }
 }

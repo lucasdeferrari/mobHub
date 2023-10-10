@@ -78,7 +78,7 @@ public class IncidentesController implements ICrudViewsHandler {
     public void update(Context context) {
         Incidente incidente = (Incidente) this.repositorioIncidente.buscarPorId(Long.parseLong(context.pathParam("id")));
         context.sessionAttribute("nombreUsuario");
-        Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("nombreUsuario");
+        Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("nombreUsuario")));
         miembro.cerrarIncidente(incidente);
         this.repositorioIncidente.actualizar(incidente);
         context.redirect("/incidentes");

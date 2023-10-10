@@ -1,10 +1,9 @@
-package domain.entidades.geoRef.interfaces;
+package componentesExternos.geoRef.interfaces;
 
-import domain.entidades.geoRef.entidades.*;
-import domain.entidades.geoRef.entidades.ListadoDeLocalidades;
-import domain.entidades.geoRef.entidades.ListadoDeMunicipios;
-import domain.entidades.geoRef.entidades.ListadoDeProvincias;
-import domain.entidades.geoRef.entidades.Provincia;
+import componentesExternos.geoRef.entidades.ListadoDeLocalidades;
+import componentesExternos.geoRef.entidades.ListadoDeMunicipios;
+import componentesExternos.geoRef.entidades.ListadoDeProvincias;
+import componentesExternos.geoRef.entidades.Provincia;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -12,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
-public class ServicioGeoRef {
+public class ServicioGeoRef{
   private static ServicioGeoRef instancia = null;
   private int maximaCantidadRegistrosDefault = 200;
   private String urlApi = "https://apis.datos.gob.ar/georef/api/";

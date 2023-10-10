@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class Comunidad extends EntidadPersistente {
 
   @Column
+  @Setter
   private String nombre;
 
   @Column

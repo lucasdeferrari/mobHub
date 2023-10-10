@@ -76,7 +76,7 @@ public class ServiciosController implements ICrudViewsHandler {
 
     private void asignarParametros(Servicio servicio, Context context) {
         if(!Objects.equals(context.formParam("nombre"), "")) {
-            servicio.setNombre(context.formParam("nombre"));
+            //servicio.setNombre(context.formParam("nombre")); //TODO
         }
     }
 }

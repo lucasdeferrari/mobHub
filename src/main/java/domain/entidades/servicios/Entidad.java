@@ -5,9 +5,9 @@ import java.util.List;
 
 import domain.Persistencia.EntidadPersistente;
 
-import domain.entidades.geoRef.entidades.Localidad;
-import domain.entidades.geoRef.entidades.Municipio;
-import domain.entidades.geoRef.entidades.Provincia;
+import componentesExternos.geoRef.entidades.Localidad;
+import componentesExternos.geoRef.entidades.Municipio;
+import componentesExternos.geoRef.entidades.Provincia;
 import lombok.Getter;
 import lombok.Setter;
 

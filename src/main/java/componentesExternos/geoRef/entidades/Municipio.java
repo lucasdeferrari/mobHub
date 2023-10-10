@@ -1,4 +1,4 @@
-package domain.entidades.geoRef.entidades;
+package componentesExternos.geoRef.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

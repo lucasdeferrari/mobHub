@@ -1,4 +1,4 @@
-package domain.entidades.geoRef.entidades;
+package componentesExternos.geoRef.entidades;
 
 import java.util.List;
 import java.util.Optional;
