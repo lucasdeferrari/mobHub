@@ -93,8 +93,6 @@ public class MicroservicioTest {
         comunidades.add(comunidad);
         comunidades.add(comunidad2);
 
-
-
         List<Comunidad> comunidadesRetornadas = fusionComunidades.sendCommunitiesToApi(comunidad, comunidades);
 
         if (comunidadesRetornadas != null) {

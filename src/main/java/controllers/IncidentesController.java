@@ -46,7 +46,7 @@ public class IncidentesController implements ICrudViewsHandler {
         Incidente incidente = (Incidente) this.repositorioIncidente.buscarPorId(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
         model.put("incidente", incidente);
-        context.render("incidentes/incidentes.hbs", model);
+        context.render("incidentes.hbs", model);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class IncidentesController implements ICrudViewsHandler {
         Incidente incidente = null;
         Map<String, Object> model = new HashMap<>();
         model.put("incidente", incidente);
-        context.render("incidentes/incidente.hbs", model);
+        context.render("incidentes.hbs", model);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class IncidentesController implements ICrudViewsHandler {
         Incidente incidente = (Incidente) this.repositorioIncidente.buscarPorId(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
         model.put("incidente", incidente);
-        context.render("incidentes/incidente.hbs", model);
+        context.render("incidentes.hbs", model);
     }
 
     @Override

@@ -1,11 +1,6 @@
 package server;
 
-import controllers.FactoryController;
-import controllers.IncidentesController;
-import controllers.MiembrosController;
-import controllers.RankingsController;
-import controllers.ServiciosController;
-import domain.entidades.comunidad.Miembro;
+import controllers.*;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
