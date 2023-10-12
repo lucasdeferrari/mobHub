@@ -10,8 +10,8 @@ public class ControladorDeEstrategiaValidacion {
     estrategiasDeValidacion.add(estrategia);
   }
 
-  public boolean verificarContrasenia(Usuario usuario) { //que usuario sea paramtro (?
-    String contrasenia = usuario.getContrasenia();
+  public boolean verificarContrasenia(String contrasenia) {
+
     return  estrategiasDeValidacion.stream().allMatch(b -> b.verificarContrasenia(contrasenia));
   }
 

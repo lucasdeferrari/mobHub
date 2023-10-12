@@ -67,9 +67,27 @@ public class MicroservicioTest {
 
         Comunidad comunidad = new Comunidad();
         comunidad.setNombre("comunidad1");
+        comunidad.agregarMiembro(miembro1, RolComunidad.AFECTADO);
+        comunidad.setGradoDeConfianza(3);
+        comunidad.agregarIncidente(incidente1,miembro1);
+        comunidad.agregarIncidente(incidente2,miembro2);
+        comunidad.agregarIncidente(incidente3,miembro3);
+        comunidad.agregarIncidente(incidente4,miembro1);
+        comunidad.agregarServiciosParaAPI();
+        comunidad.agregarEstablecimientosParaAPI();
 
         Comunidad comunidad2 = new Comunidad();
         comunidad2.setNombre("comunidad2");
+        comunidad2.agregarMiembro(miembro2,RolComunidad.AFECTADO);
+        comunidad2.agregarMiembro(miembro3,RolComunidad.ADMINISTRADOR);
+        comunidad.setGradoDeConfianza(2);
+        comunidad.agregarIncidente(incidente2,miembro3);
+        comunidad.agregarIncidente(incidente3,miembro1);
+        comunidad.agregarIncidente(incidente1,miembro3);
+        comunidad.agregarIncidente(incidente4,miembro1);
+        comunidad2.agregarServiciosParaAPI();
+        comunidad2.agregarEstablecimientosParaAPI();
+
 
         List<Comunidad> comunidades = new ArrayList<>();
         comunidades.add(comunidad);

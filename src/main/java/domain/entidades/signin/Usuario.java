@@ -1,9 +1,11 @@
 package domain.entidades.signin;
 
 import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-
+@Setter
 @Getter
 public class Usuario {
   private String nombre;

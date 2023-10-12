@@ -69,6 +69,7 @@ public class MicroservicioG16 implements MicroservicioAdapter {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Excepción al realizar la solicitud POST");
+            System.out.println(e.getMessage());
             return null;
         }
     }
