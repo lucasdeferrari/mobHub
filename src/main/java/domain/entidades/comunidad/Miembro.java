@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 @Getter
+@Setter
 @Entity
 @Table
 public class Miembro extends EntidadPersistente {
@@ -39,17 +40,20 @@ public class Miembro extends EntidadPersistente {
   private String telefono;
 
   @Transient
+  private Integer gradoDeConfianza;
+
+  @Transient
   @Getter
   private Map<Comunidad, RolComunidad> comunidadesPertenecientes = new HashMap<>();
 
   @ManyToMany
-  private List<Entidad> entidadesAsociadas;
+  private List<Entidad> entidadesAsociadas = new ArrayList<>();
 
   @ElementCollection
   @Enumerated(EnumType.STRING)
   @CollectionTable(name = "servicios_miembro", joinColumns = @JoinColumn(name = "miembro_id",referencedColumnName = "id"))
   @Column(unique = true)
-  private List<TipoDeServicio> serviciosAsociados;
+  private List<TipoDeServicio> serviciosAsociados = new ArrayList<>();
 
   @Embedded
   private Provincia localizacionProvincia;
@@ -74,7 +78,7 @@ public class Miembro extends EntidadPersistente {
   private Ubicacion ubicacionActual;
 
   @Transient
-  private List<Incidente> incidentesDeInteresPropio;
+  private List<Incidente> incidentesDeInteresPropio = new ArrayList<>();
 
   @Transient
   private Map<TipoDeServicio, RolServicio> rolesServicios = new HashMap<>();
@@ -91,9 +95,6 @@ public class Miembro extends EntidadPersistente {
   public Miembro() {
 
   }
-
-  // hacer bien los OneToOne y el ManyToMany todo
-  // pensar si estan bien todas las cosas que estan transient todo
 
   //private Rol rol; // se puede cambiar entre roles con el setter
 

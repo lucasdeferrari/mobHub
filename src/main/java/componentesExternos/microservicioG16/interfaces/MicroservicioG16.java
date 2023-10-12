@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MicroservicioG16 implements MicroservicioAdapter {
+
+    public MicroservicioG16() {}
+
     @Override
     public Comunidad getComunidad(String comunidadId) {
         return null;

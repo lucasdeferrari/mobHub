@@ -8,8 +8,7 @@ import domain.entidades.servicios.Servicio;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-// TODO HACERLO SINGLETON
-// TODOS LOS STATIC soy luquitas y soy gay
+
 public class FactoryIncidente {
 
     public static FactoryIncidente instance;

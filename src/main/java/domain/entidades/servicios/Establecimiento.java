@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,7 @@ public class Establecimiento extends EntidadPersistente {
   @Embedded
   private Ubicacion ubicacion;
   @ManyToMany
-  public List<Servicio> servicios;
+  public List<Servicio> servicios = new ArrayList<>();
   @Column
   private String tipoEstablecimiento;
 
