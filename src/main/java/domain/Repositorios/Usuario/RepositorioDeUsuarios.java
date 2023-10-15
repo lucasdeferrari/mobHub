@@ -1,6 +1,9 @@
 package domain.Repositorios.Usuario;
 
 import domain.entidades.signin.Usuario;
+
+import javax.persistence.EntityTransaction;
+import javax.transaction.Transactional;
 import java.util.List;
 
 

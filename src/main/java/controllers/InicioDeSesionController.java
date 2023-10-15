@@ -2,6 +2,7 @@ package controllers;
 
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.signin.ControladorDeEstrategiaValidacion;
+import domain.entidades.signin.EstrategiaValidacion;
 import domain.entidades.signin.Usuario;
 import domain.entidades.signin.estrategiasDeValidacion.*;
 import io.javalin.http.Context;
@@ -40,12 +41,13 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
             Usuario user = new Usuario();
 
-        user.setNombre(context.formParam("nombre"));
-        String contrasenia = context.formParam("contrasena");
-        user.setApellido(context.formParam("apellido"));
-        user.setEmail(context.formParam("email"));
-        user.setNombreUsuario(context.formParam("usuario"));
-        String confPassword = context.formParam("confirmar-contrasena");
+            user.setNombre(context.formParam("nombre"));
+            String contrasenia = context.formParam("contrasena");
+            user.setApellido(context.formParam("apellido"));
+            user.setEmail(context.formParam("email"));
+            user.setNombreUsuario(context.formParam("usuario"));
+            user.setContrasenia(context.formParam("contrasena"));
+            String confPassword = context.formParam("confirmar-contrasena");
 
             ControladorDeEstrategiaValidacion controller = new ControladorDeEstrategiaValidacion();
             EstrategiaValidacion e1 = new ValidacionTieneMayuscula();
