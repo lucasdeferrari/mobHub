@@ -3,8 +3,13 @@ package controllers;
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.signin.ControladorDeEstrategiaValidacion;
 import domain.entidades.signin.Usuario;
+import domain.entidades.signin.estrategiasDeValidacion.*;
 import io.javalin.http.Context;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import server.utils.ICrudViewsHandler;
+import org.hibernate.Session;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +37,8 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
     @Override
     public void save(Context context) {
-        Usuario user = new Usuario();
+
+            Usuario user = new Usuario();
 
         user.setNombre(context.formParam("nombre"));
         String contrasenia = context.formParam("contrasena");
@@ -41,14 +47,21 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         user.setNombreUsuario(context.formParam("usuario"));
         String confPassword = context.formParam("confirmar-contrasena");
 
-        ControladorDeEstrategiaValidacion controller = new ControladorDeEstrategiaValidacion();
+            ControladorDeEstrategiaValidacion controller = new ControladorDeEstrategiaValidacion();
+            EstrategiaValidacion e1 = new ValidacionTieneMayuscula();
+            controller.agregarEstrategia(e1);
 
-        if (controller.verificarContrasenia(contrasenia)) {
+            if (controller.verificarContrasenia(contrasenia)) {
                 repoUsuarios.guardar(user);
-        } else {
-            context.result("La contraseña no es segura");
-        }
+                Usuario usuarioGuardado = repoUsuarios.buscarPorId(user.getId());
+                context.sessionAttribute("id", usuarioGuardado.getId());
+                context.redirect("/inicio");
+            } else {
+                context.result("La contraseña no es segura");
+            }
+
     }
+
 
 
     @Override
@@ -72,14 +85,14 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
         if (usuario.getContrasenia().equals(password)) {
             // Autenticación exitosa, establecer una sesión
-            context.sessionAttribute("username", username);
-            context.result("Inicio de sesión exitoso, redireccionando a la página principal.");
-            context.redirect("/inicio");
+            //context.result("Inicio de sesión exitoso, redireccionando a la página principal.");
+            context.redirect("/incidentes");
         } else {
             // Autenticación fallida, mostrar un mensaje de error
             context.result("Inicio de sesión fallido. Por favor, verifica tus credenciales.");
         }
     }
+
 
     public void vista(Context context){
         context.render("/CrearCuenta.hbs");

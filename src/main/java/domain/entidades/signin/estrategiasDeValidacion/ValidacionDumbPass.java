@@ -5,7 +5,7 @@ import com.unicodelabs.jdp.core.exceptions.IsNullException;
 import domain.entidades.signin.EstrategiaValidacion;
 import java.io.IOException;
 
-class ValidacionDumbPass implements EstrategiaValidacion {
+public class ValidacionDumbPass implements EstrategiaValidacion {
 
   public boolean verificarContrasenia(String contrasenia) {
     boolean valido = false;

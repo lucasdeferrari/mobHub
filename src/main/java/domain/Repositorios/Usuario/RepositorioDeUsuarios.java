@@ -10,8 +10,15 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
 
     @Override
     public Usuario guardar(Usuario usuario) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(usuario);
+        tx.commit();
+
         return usuario;
+
     }
 
     @Override

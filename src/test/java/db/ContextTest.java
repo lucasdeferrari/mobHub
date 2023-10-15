@@ -3,11 +3,13 @@ package db;
 
 import domain.Repositorios.Comunidad.RepositorioComunidad;
 import domain.Repositorios.Miembro.RepositorioMiembro;
+import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.comunidad.Comunidad;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.RolComunidad;
 import domain.entidades.notificaciones.formaDeNotificacion.AlertarSinApuro;
 import domain.entidades.notificaciones.medioDeNotificaciones.AdapterWhatsApp;
+import domain.entidades.signin.Usuario;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +24,14 @@ public class ContextTest implements SimplePersistenceTest {
 
   @Test
   void contextUpWithTransaction() throws Exception {
+    Usuario usuario1 = new Usuario();
+    usuario1.setNombreUsuario("nombre");
+    usuario1.setContrasenia("contrasenia");
+    usuario1.setEmail("email@gmail.com");
+    usuario1.setNombre("julio");
+    usuario1.setApellido("perez");
+
+
     Comunidad comunidad3 = new Comunidad();
     comunidad3.setNombre("norberto3");
     comunidad3.setDescripcion("Descripción de la Comunidad 3");
@@ -43,8 +53,11 @@ public class ContextTest implements SimplePersistenceTest {
 
     RepositorioComunidad repositorioComunidad = new RepositorioComunidad();
     RepositorioMiembro repositorioMiembro = new RepositorioMiembro();
+    RepositorioDeUsuarios repoUsuarios = new RepositorioDeUsuarios();
 
     withTransaction(() -> {
+      Usuario usuarioGuardado1 = repoUsuarios.guardar(usuario1);
+
       Comunidad comunidadGuardada3 = repositorioComunidad.guardar(comunidad3);
       Comunidad comunidadGuardada4 = repositorioComunidad.guardar(comunidad4);
 

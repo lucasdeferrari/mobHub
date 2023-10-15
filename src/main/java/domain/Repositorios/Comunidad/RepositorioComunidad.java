@@ -4,6 +4,7 @@ import domain.entidades.comunidad.Comunidad;
 import org.springframework.stereotype.Repository;
 
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 

@@ -2,13 +2,20 @@ package domain.Repositorios.Establecimiento;
 
 import domain.entidades.servicios.Establecimiento;
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioEstablecimiento implements EstablecimientoCRUD {
 
     @Override
     public Establecimiento guardar(Establecimiento establecimiento) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(establecimiento);
+        tx.commit();
+
         return establecimiento;
     }
 
