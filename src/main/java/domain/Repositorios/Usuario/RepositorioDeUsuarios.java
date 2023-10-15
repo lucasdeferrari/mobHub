@@ -22,8 +22,8 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
     }
 
     @Override
-    public Usuario buscarPorNombre(String nombreUsuario) {
-        return entityManager().find(Usuario.class,nombreUsuario);
+    public Usuario buscarPorId(int id) {
+        return entityManager().find(Usuario.class,id);
     }
 
     @Override

@@ -81,7 +81,8 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         String username = context.formParam("usuario");
         String password = context.formParam("contrasena");
         // Realizar la autenticación aquí (por ejemplo, verificar credenciales en una base de datos)
-        Usuario usuario= this.repoUsuarios.buscarPorNombre(username);
+        int id = context.sessionAttribute("id");
+        Usuario usuario= this.repoUsuarios.buscarPorId(id);
 
         if (usuario.getContrasenia().equals(password)) {
             // Autenticación exitosa, establecer una sesión
