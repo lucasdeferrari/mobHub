@@ -5,7 +5,9 @@ import java.util.List;
 
 
 public class RepositorioDeUsuarios implements UsuarioCRUD {
-    
+
+    public RepositorioDeUsuarios() {}
+
     @Override
     public Usuario guardar(Usuario usuario) {
         entityManager().persist(usuario);

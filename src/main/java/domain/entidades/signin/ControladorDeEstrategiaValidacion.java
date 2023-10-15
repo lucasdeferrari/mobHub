@@ -1,10 +1,11 @@
 package domain.entidades.signin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorDeEstrategiaValidacion {
 
-  private List<EstrategiaValidacion> estrategiasDeValidacion;
+  private List<EstrategiaValidacion> estrategiasDeValidacion = new ArrayList<>();
 
   public void agregarEstrategiaDeValidacion(EstrategiaValidacion estrategia) {
     estrategiasDeValidacion.add(estrategia);
