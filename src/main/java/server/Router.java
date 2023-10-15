@@ -19,23 +19,23 @@ public class Router {
 
         Server.app().routes(() -> {
            // get("/", (FactoryController.controller("InicioSesion")::show));
-            get("crearUsuario", ((MiembrosController)FactoryController.controller(("Miembros")))::create);
-            post("crearUsuario", ((MiembrosController)FactoryController.controller("Miembros"))::save);
+            get("/crearUsuario", ((MiembrosController)FactoryController.controller(("Miembros")))::create);
+            post("/crearUsuario", ((MiembrosController)FactoryController.controller("Miembros"))::save);
 
-            get("incidentes", ((IncidentesController)FactoryController.controller("Incidentes"))::index);
+            get("/incidentes", ((IncidentesController)FactoryController.controller("Incidentes"))::index);
 
             get("/inicio", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::index);
             post("/inicio", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::iniciarSesion);
 
-            get("crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::vista);
-            post("crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::save);
+            get("/crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::vista);
+            post("/crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::save);
 
-            get("incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::create);
-            post("incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::save);
+            get("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::create);
+            post("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::save);
 
-            get("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
-            post("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
-            get("rankings", ((RankingsController)FactoryController.controller("Rankings"))::show);
+            get("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
+            post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
+            get("/rankings", ((RankingsController)FactoryController.controller("Rankings"))::show);
 
            // get("entidadesYOrganismos", ())
 

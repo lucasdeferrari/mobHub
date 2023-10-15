@@ -44,13 +44,9 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         ControladorDeEstrategiaValidacion controller = new ControladorDeEstrategiaValidacion();
 
         if (controller.verificarContrasenia(contrasenia)) {
-            if (contrasenia.equals(confPassword)) {
                 repoUsuarios.guardar(user);
-            } else {
-                context.result("La contraseña y la confirmación no coinciden");
-            }
         } else {
-            context.result("La contraseña no es válida");
+            context.result("La contraseña no es segura");
         }
     }
 
