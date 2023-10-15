@@ -3,13 +3,20 @@ package domain.Repositorios.Servicio;
 
 import domain.entidades.servicios.Servicio;
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioServicio implements ServicioCRUD{
 
     @Override
     public Servicio guardar(Servicio servicio) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(servicio);
+        tx.commit();
+
         return servicio;
     }
 

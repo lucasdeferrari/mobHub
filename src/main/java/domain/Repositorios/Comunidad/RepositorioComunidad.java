@@ -14,7 +14,13 @@ public class RepositorioComunidad implements ComunidadCRUD {
 
     @Override
     public Comunidad guardar(Comunidad comunidad) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(comunidad);
+        tx.commit();
+
         return comunidad;
     }
 

@@ -37,7 +37,9 @@ public class Router {
             post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
             get("/rankings", ((RankingsController)FactoryController.controller("Rankings"))::show);
 
-           // get("entidadesYOrganismos", ())
+
+
+            // get("entidadesYOrganismos", ())
 
             //get("servicios", ((ServiciosController) FactoryController.controller("Servicios"))::index);
             //get("servicios/crear", ((ServiciosController) FactoryController.controller("Servicios"))::create);

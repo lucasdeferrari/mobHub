@@ -3,13 +3,20 @@ package domain.Repositorios.OrganismoDeControl;
 
 import domain.entidades.servicios.OrganismoDeControl;
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioOrganismoDeControl implements OrganismoDeControlCRUD {
 
     @Override
     public OrganismoDeControl guardar(OrganismoDeControl organismoDeControl) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(organismoDeControl);
+        tx.commit();
+
         return organismoDeControl;
     }
 

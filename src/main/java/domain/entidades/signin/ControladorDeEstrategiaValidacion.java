@@ -3,7 +3,7 @@ package domain.entidades.signin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorDeEstrategiaValidacion {
+public class ControladorDeEstrategiaValidacion{
 
   private List<EstrategiaValidacion> estrategiasDeValidacion = new ArrayList<>();
 

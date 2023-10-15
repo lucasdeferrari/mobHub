@@ -3,13 +3,20 @@ package domain.Repositorios.Miembro;
 import domain.entidades.comunidad.Miembro;
 
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioMiembro implements MiembroCRUD {
 
     @Override
     public Miembro guardar(Miembro miembro) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(miembro);
+        tx.commit();
+
         return miembro;
     }
 
