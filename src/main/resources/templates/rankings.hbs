@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección y Lista Dinámica</title>
+    <link rel="stylesheet" type="text/css" href="css/rankings.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Rankings</h1> <!-- Título agregado -->
+            <h2>Tipo de Ranking</h2>
+            <select id="seleccion" onchange="mostrarLista()" >
+                <option value="opcion1">Opción 1</option>
+                <option value="opcion2">Opción 2</option>
+                <option value="opcion3">Opción 3</option>
+            </select>
+
+            <div id="lista" class="dynamic-list">
+                <!-- Los elementos de la lista se generarán aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarLista() {
+            var seleccion = document.getElementById("seleccion");
+            var lista = document.getElementById("lista");
+
+            // Limpia el contenido actual de la lista
+            lista.innerHTML = "";
+
+            // Obtiene el valor seleccionado
+            var opcionSeleccionada = seleccion.value;
+
+            // Crea y muestra la lista en función de la opción seleccionada
+            if (opcionSeleccionada === "opcion1") {
+                var listaHTML = "<ul>";
+                for (var i = 1; i <= 200; i++) {
+                    listaHTML += "<li>Elemento " + i + "</li>";
+                }
+                listaHTML += "</ul>";
+                lista.innerHTML = listaHTML;
+            } else if (opcionSeleccionada === "opcion2") {
+                lista.innerHTML = "<ul><li>Elemento A</li><li>Elemento B</li></ul>";
+            } else if (opcionSeleccionada === "opcion3") {
+                lista.innerHTML = "<ul><li>Item X</li><li>Item Y</li><li>Item Z</li></ul>";
+            }
+        }
+
+        // Llama a la función mostrarLista() al cargar la página para que muestre la lista inicial
+        mostrarLista();
+    </script>
+</body>
+</html>

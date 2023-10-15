@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/crearUsuario.css"> <!-- Enlace a tu archivo CSS personalizado -->
+</head>
+<body>
+    <div class="container">
+        <div class="create-user-box">
+            <h2 class="create-user-title">Crear Usuario</h2>
+            <div class="column">
+                <h3>Nombre</h3>
+                <input type="text" id="nombre" placeholder="Ingrese su nombre" name="nombre" required>
+                
+                <h3>Apellido</h3>
+                <input type="text" id="apellido" placeholder="Ingrese su apellido" name="apellido" required>
+
+                <h3>Email</h3>
+                <input type="email" id="email" placeholder="Ingrese su email" name="email" required>
+
+                <h3>Teléfono</h3>
+                <input type="tel" id="telefono" placeholder="Ingrese su teléfono" name="telefono" required>
+            </div>
+            <div class="column2">
+                <h3>Provincia</h3>
+                <select id="provincia" name="provincia">
+                    <option value="provincia1">Provincia 1</option>
+                    <option value="provincia2">Provincia 2</option>
+                    <option value="provincia3">Provincia 3</option>
+                </select>
+                
+                <h3>Departamento</h3>
+                <select id="departamento" name="departamento">
+                    <option value="departamento1">Departamento 1</option>
+                    <option value="departamento2">Departamento 2</option>
+                    <option value="departamento3">Departamento 3</option>
+                </select>
+
+                <h3>Localidad</h3>
+                <select id="localidad" name="localidad">
+                    <option value="localidad1">Localidad 1</option>
+                    <option value="localidad2">Localidad 2</option>
+                    <option value="localidad3">Localidad 3</option>
+                </select>
+
+                <button type="submit">Crear Usuario</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
