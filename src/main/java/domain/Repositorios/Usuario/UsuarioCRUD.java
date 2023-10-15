@@ -8,7 +8,7 @@ import java.util.List;
 public interface UsuarioCRUD extends WithSimplePersistenceUnit {
 
         Usuario guardar(Usuario usuario);
-        Usuario buscarPorNombre(String nombreUsuario);
+        Usuario buscarPorId(int id);
         List<Usuario> buscarTodos();
         void actualizar(Usuario usuario);
         void eliminar(String nombreUsuario);

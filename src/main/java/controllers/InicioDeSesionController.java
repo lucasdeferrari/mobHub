@@ -89,7 +89,7 @@ public class InicioDeSesionController implements ICrudViewsHandler {
             context.redirect("/incidentes");
         } else {
             // Autenticación fallida, mostrar un mensaje de error
-            context.result("Inicio de sesión fallido. Por favor, verifica tus credenciales.");
+            context.result("Inicio de sesion fallido. Por favor, verifica tus credenciales.");
         }
     }
 

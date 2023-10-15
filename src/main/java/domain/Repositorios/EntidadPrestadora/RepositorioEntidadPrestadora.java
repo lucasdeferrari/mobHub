@@ -2,13 +2,20 @@ package domain.Repositorios.EntidadPrestadora;
 
 import domain.entidades.servicios.EntidadPrestadora;
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioEntidadPrestadora implements EntidadPrestadoraCRUD {
 
     @Override
     public EntidadPrestadora guardar(EntidadPrestadora entidadPrestadora) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(entidadPrestadora);
+        tx.commit();
+
         return entidadPrestadora;
     }
 

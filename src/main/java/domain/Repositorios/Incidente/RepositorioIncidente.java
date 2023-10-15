@@ -3,13 +3,20 @@ package domain.Repositorios.Incidente;
 
 import domain.entidades.servicios.Incidente;
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioIncidente implements IncidenteCRUD {
 
     @Override
     public Incidente guardar(Incidente incidente) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+
         entityManager().persist(incidente);
+        tx.commit();
+
         return incidente;
     }
 
