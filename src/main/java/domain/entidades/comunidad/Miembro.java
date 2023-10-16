@@ -88,8 +88,6 @@ public class Miembro extends EntidadPersistente {
   private Map<TipoDeServicio, RolServicio> rolesServicios = new HashMap<>();
 
 
-
-
   //private List<Rol_Servicio> rolXServicio = new ArrayList<>();
 
   @Convert(converter = LocalTimeConverter.class)

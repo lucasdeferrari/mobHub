@@ -10,44 +10,51 @@
     <body>
     <div class="container">
         <div class="add-user-box">
-            <h1>Agregar Usuario</h1> <!-- Título agregado -->
-            
+            <h1>Agregar Usuario</h1>
+
             <div class="input-section">
                 <h3>Seleccione un Usuario:</h3>
                 <select id="selector-usuario">
-                    <option value="usuario1">Usuario 1</option>
-                    <option value="usuario2">Usuario 2</option>
-                    <option value="usuario3">Usuario 3</option>
+                    {{#each miembros}}
+                        <option value="{{this.id}}">{{this.nombre}}</option>
+                    {{/each}}
                 </select>
             </div>
 
             <div class="input-section">
                 <h3>Comunidad:</h3>
                 <select id="selector-comunidad">
-                    <option value="comunidad1">Comunidad 1</option>
-                    <option value="comunidad2">Comunidad 2</option>
-                    <option value="comunidad3">Comunidad 3</option>
+                    {{#each miembros}}
+                        {{#each comunidadesPertenecientes}}
+                            <option value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
+                    {{/each}}
                 </select>
             </div>
 
             <div class="input-section">
                 <h3>Establezca su Rol:</h3>
                 <select id="selector-rol">
-                    <option value="rol1">Rol 1</option>
-                    <option value="rol2">Rol 2</option>
-                    <option value="rol3">Rol 3</option>
+                    {{#each miembros}}
+                        {{#each rolesServicios}}
+                            <option value="{{@key}}">{{this}}</option>
+                        {{/each}}
+                    {{/each}}
                 </select>
             </div>
 
             <div class="input-section">
                 <h3>Establezca su Función:</h3>
                 <select id="selector-funcion">
-                    <option value="funcion1">Función 1</option>
-                    <option value="funcion2">Función 2</option>
-                    <option value="funcion3">Función 3</option>
+                        {{#each miembros}}
+                            option value="{{#if (esAdmin)}}true{{else}}false{{/if}}">Administrador</option> // esto hace lo q vos queres ale sgun chatgpt
+                <option value="admin">Administrador </option>
+
+                <option value="miembro">Miembro</option>
+                        {{/each}}
                 </select>
             </div>
-            
+
             <div class="button-section">
                 <button type="submit">Agregar</button>
             </div>

@@ -57,6 +57,7 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
         Map<String, Object> model = new HashMap<>();
         model.put("entidadPrestadora", entidadPrestadora);
         context.render("entidadPrestadora/entidadPrestadora.hbs", model);
+
     }
 
     @Override
