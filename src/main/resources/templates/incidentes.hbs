@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/incidentes.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Agrega la referencia a tu archivo "incidentes.js" aquí -->
-    <script src="incidentes.js"></script>
+    <script src="js/incidentes.js"></script>
 </head>
 <body>
 <div class="container">
@@ -41,14 +41,21 @@
             </thead>
             <tbody id="tabla-incidentes">
             {{#each incidentes}}
-                <tr>
-                    <td>{{nombre}}</td>
-                    <td>{{servicio}}</td>
-                    <td>{{establecimiento}}</td>
-                    <td>{{comunidad}}</td>
-                    <td><button class="cerrar-incidente" data-id="{{id}}">Cerrar</button></td>
+                <tr data-id="{{this.id}}">
+                    <td><a href="/incidentes/{{this.id}}">{{this.nombre}}</a></td>
+                    <td>{{this.servicio.nombre}}</td>
+                    <td>{{this.establecimiento.nombre}}</td>
+                    <td>{{this.comunidad.nombre}}</td>
+                    <td>
+                        {{#if fechaCierre}}
+                            <span>Cerrado</span>
+                        {{else}}
+                            <input type="checkbox" data-id="{{this.id}}">
+                        {{/if}}
+                    </td>
                 </tr>
             {{/each}}
+
             </tbody>
         </table>
     </div>

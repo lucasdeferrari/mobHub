@@ -44,7 +44,6 @@ public class Incidente extends EntidadPersistente {
     @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "fechaHoraCierre", columnDefinition = "DATETIME")
     private LocalDateTime fechaHoraCierre;
-
     public Incidente() {
 
     }
@@ -76,7 +75,7 @@ public class Incidente extends EntidadPersistente {
     }
 
     public Boolean estadoAbierto() {
-        return (fechaHoraCierre == null);
+return (fechaHoraCierre == null);
     }
 
     public boolean tieneEsteServicio(Servicio unServicio) {

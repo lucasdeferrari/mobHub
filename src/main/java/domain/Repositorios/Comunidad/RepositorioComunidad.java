@@ -1,6 +1,7 @@
 package domain.Repositorios.Comunidad;
 
 import domain.entidades.comunidad.Comunidad;
+import domain.entidades.servicios.Incidente;
 import org.springframework.stereotype.Repository;
 
 
@@ -15,7 +16,7 @@ public class RepositorioComunidad implements ComunidadCRUD {
     @Override
     public Comunidad guardar(Comunidad comunidad) {
         EntityTransaction tx = entityManager().getTransaction();
-        if(!tx.isActive())
+        if (!tx.isActive())
             tx.begin();
 
         entityManager().persist(comunidad);
@@ -31,7 +32,7 @@ public class RepositorioComunidad implements ComunidadCRUD {
 
     @Override
     public List<Comunidad> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Entidad e", Comunidad.class)
+        return entityManager().createQuery("SELECT e FROM Comunidad e", Comunidad.class)
                 .getResultList();
     }
 
@@ -46,5 +47,10 @@ public class RepositorioComunidad implements ComunidadCRUD {
         if (comunidad != null) {
             entityManager().remove(comunidad);
         }
+    }
+
+    public Comunidad buscarPorNombre(String nombre) {
+        return entityManager().createQuery("SELECT i FROM Comunidad i WHERE i.nombre = :nombre ", Comunidad.class)
+                .getSingleResult();
     }
 }

@@ -1,5 +1,6 @@
 package domain.Repositorios.Establecimiento;
 
+import domain.entidades.comunidad.Comunidad;
 import domain.entidades.servicios.Establecimiento;
 
 import javax.persistence.EntityTransaction;
@@ -41,5 +42,9 @@ public class RepositorioEstablecimiento implements EstablecimientoCRUD {
         if (establecimiento != null) {
             entityManager().remove(establecimiento);
         }
+    }
+    public Establecimiento buscarPorNombre(String nombre) {
+        return entityManager().createQuery("SELECT i FROM Establecimiento i WHERE i.nombre = :nombre ", Establecimiento.class)
+                .getSingleResult();
     }
 }

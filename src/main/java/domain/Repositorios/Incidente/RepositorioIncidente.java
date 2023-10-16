@@ -27,7 +27,7 @@ public class RepositorioIncidente implements IncidenteCRUD {
 
     @Override
     public List<Incidente> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Entidad e", Incidente.class)
+        return entityManager().createQuery("SELECT i FROM Incidente i", Incidente.class)
                 .getResultList();
     }
 

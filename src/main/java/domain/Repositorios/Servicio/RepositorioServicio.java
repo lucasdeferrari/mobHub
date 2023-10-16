@@ -1,6 +1,7 @@
 package domain.Repositorios.Servicio;
 
 
+import domain.entidades.comunidad.Comunidad;
 import domain.entidades.servicios.Servicio;
 
 import javax.persistence.EntityTransaction;
@@ -27,7 +28,7 @@ public class RepositorioServicio implements ServicioCRUD{
 
     @Override
     public List<Servicio> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Entidad e", Servicio.class)
+        return entityManager().createQuery("SELECT e FROM Servicio e", Servicio.class)
                 .getResultList();
     }
 
@@ -42,5 +43,9 @@ public class RepositorioServicio implements ServicioCRUD{
         if (servicio != null) {
             entityManager().remove(servicio);
         }
+    }
+    public Servicio buscarPorNombre(String nombre) {
+        return entityManager().createQuery("SELECT i FROM Servicio i WHERE i.nombre = :nombre ", Servicio.class)
+                .getSingleResult();
     }
 }
