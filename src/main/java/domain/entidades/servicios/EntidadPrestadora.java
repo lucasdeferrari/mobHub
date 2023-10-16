@@ -4,6 +4,7 @@ import java.util.List;
 
 import domain.Persistencia.EntidadPersistente;
 import domain.Persistencia.RankingConverter;
+import domain.entidades.signin.RolUsuario;
 import domain.entidades.generadorRankings.GeneradorRanking;
 import domain.entidades.Rankings.Ranking;
 import lombok.Getter;

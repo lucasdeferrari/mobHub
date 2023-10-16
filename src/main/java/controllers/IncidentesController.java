@@ -25,6 +25,8 @@ public class IncidentesController implements ICrudViewsHandler {
     private RepositorioEstablecimiento repositorioEstablecimiento;
     private RepositorioServicio repositorioServicio;
     private RepositorioMiembro repositorioMiembro;
+
+
     public IncidentesController(RepositorioIncidente repositorioDeIncidentes, RepositorioComunidad repositorioComunidad, RepositorioServicio repositorioServicio, RepositorioEstablecimiento repositorioEstablecimiento, RepositorioMiembro repositorioMiembro) {
         this.repositorioIncidente = repositorioDeIncidentes;
         this.repositorioComunidad = repositorioComunidad;

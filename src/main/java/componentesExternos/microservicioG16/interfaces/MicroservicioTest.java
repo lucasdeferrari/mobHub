@@ -50,18 +50,22 @@ public class MicroservicioTest {
         establecimiento3.setNombre("e3");
 
         Incidente incidente1 = new Incidente();
+        incidente1.setNombre("incidente 1");
         incidente1.setEstablecimiento(establecimiento1);
         incidente1.setServicio(servicio1);
 
         Incidente incidente2 = new Incidente();
+        incidente2.setNombre("incidente 2");
         incidente2.setEstablecimiento(establecimiento2);
         incidente2.setServicio(servicio2);
 
         Incidente incidente3 = new Incidente();
+        incidente3.setNombre("incidente 3");
         incidente1.setEstablecimiento(establecimiento3);
         incidente3.setServicio(servicio3);
 
         Incidente incidente4 = new Incidente();
+        incidente4.setNombre("incidente 4");
         incidente1.setEstablecimiento(establecimiento1);
         incidente4.setServicio(servicio1);
 

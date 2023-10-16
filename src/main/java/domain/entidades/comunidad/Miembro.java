@@ -8,6 +8,7 @@ import domain.Persistencia.MedioNotificacionConverter;
 import componentesExternos.geoRef.entidades.Localidad;
 import componentesExternos.geoRef.entidades.Municipio;
 import componentesExternos.geoRef.entidades.Provincia;
+import domain.entidades.signin.RolUsuario;
 import domain.entidades.geolocalizacion.GestorGeolocalizacion;
 import domain.entidades.notificaciones.formaDeNotificacion.FormaNotificacion;
 import domain.entidades.notificaciones.medioDeNotificaciones.MedioNotificacion;
@@ -26,6 +27,9 @@ import java.util.*;
 @Entity
 @Table
 public class Miembro extends EntidadPersistente {
+  @Column
+  private RolUsuario rol = RolUsuario.MIEMBRO;
+
   @Column
   @Setter
   private String nombre;

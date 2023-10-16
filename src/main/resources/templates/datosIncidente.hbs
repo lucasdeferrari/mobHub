@@ -49,10 +49,14 @@
                     <div class="info-box">Nombre del Reportante</div>
                 </div>
 
-                <div class="input-section">
-                    <h3>Cerrado por:</h3>
-                    <div class="info-box">Nombre del Encargado del Cierre</div>
-                </div>
+                {{#if fechaCierre}}
+                    <div class="input-section">
+                        <h3>{{this.quienCerro.nombre}}</h3>
+                        <div class="info-box">Nombre del Encargado del Cierre</div>
+                    </div>
+                {{/if}}
+
+
             </div>
         </div>
     </div>

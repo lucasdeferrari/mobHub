@@ -1,6 +1,7 @@
 package domain.entidades.servicios;
 
 import domain.Persistencia.EntidadPersistente;
+import domain.entidades.signin.RolUsuario;
 import lombok.Setter;
 
 import javax.persistence.*;

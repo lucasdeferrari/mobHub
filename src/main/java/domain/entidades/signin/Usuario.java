@@ -4,9 +4,7 @@ import domain.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Setter
@@ -14,17 +12,33 @@ import java.util.List;
 @Table
 @Entity
 public class Usuario extends EntidadPersistente {
+
   @Column
   private String nombre;
+
   @Column
   private String nombreUsuario;
+
   @Column
   private String contrasenia;
+
   @Column
   private String apellido;
+
   @Column
   private String email;
 
+  @Column
+  @Enumerated(EnumType.STRING)
+  private RolUsuario rolUsuario = RolUsuario.MIEMBRO;
+  @Column
+  private String telefono;
+  @Column
+  private String provincia;
+  @Column
+  private String localidad;
+  @Column
+  private String departamento;
 
 
 }

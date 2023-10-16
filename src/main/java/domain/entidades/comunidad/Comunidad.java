@@ -79,12 +79,18 @@ public class Comunidad extends EntidadPersistente {
   }
 
   public void agregarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {
+    System.out.println("antes del coso");
+    incidentesAbiertos.forEach(unIncidente1 -> System.out.println(unIncidente1.getNombre()));
+
     Map<Miembro, RolComunidad> miembrosInteresados = miembrosNuestro.entrySet().stream()
             .filter(entry -> entry.getKey().leInteresaElIncidente(unIncidente))
             .collect(Collectors.toMap(
                     Map.Entry::getKey,   // Función para mapear a claves (en este caso, el Miembro)
                     Map.Entry::getValue  // Función para mapear a valores (en este caso, el Rol)
             ));    incidentesAbiertos.add(unIncidente);
+
+    System.out.println("despues del coso");
+    incidentesAbiertos.forEach(unIncidente1 -> System.out.println(unIncidente1.getNombre()));
 
     //para que no notifique al miembro que creo el incidente
     Map<Miembro, RolComunidad> listaSinElMiembro = miembrosInteresados.entrySet().stream()

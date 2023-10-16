@@ -56,7 +56,8 @@ public class InicioDeSesionController implements ICrudViewsHandler {
             if (controller.verificarContrasenia(contrasenia)) {
                 repoUsuarios.guardar(user);
                 Usuario usuarioGuardado = repoUsuarios.buscarPorId(user.getId());
-                context.sessionAttribute("id", usuarioGuardado.getId());
+                Integer id = usuarioGuardado.getId();
+                context.sessionAttribute("id", id);
                 context.redirect("/inicio");
             } else {
                 context.result("La contraseña no es segura");
