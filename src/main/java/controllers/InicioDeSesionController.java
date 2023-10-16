@@ -33,6 +33,9 @@ public class InicioDeSesionController implements ICrudViewsHandler {
     public void index(Context context) {
         context.render("InicioSesion.hbs");
     }
+    public void olvidarContrasenia(Context context) {
+        context.render("OlvidarContrasenia.hbs");
+    }
     @Override
     public void show(Context context) {
         //OrganismoDeControl organismoDeControl = (OrganismoDeControl) this.repositorioOrganismoDeControl.buscarPorId(Long.parseLong(context.pathParam("id")));
