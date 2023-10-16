@@ -31,6 +31,8 @@ public class RepositorioIncidente implements IncidenteCRUD {
                 .getResultList();
     }
 
+
+
     @Override
     public void actualizar(Incidente incidente) {
         entityManager().merge(incidente);

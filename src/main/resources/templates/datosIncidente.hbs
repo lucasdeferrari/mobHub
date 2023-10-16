@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{{#partial "contenido" }}
+<!DOCTYPE html> <!--  No se si hay que borrar esto -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +29,7 @@
                 </div>
 
                 <div class="input-section">
-                    <h3>Entidad:</h3>
+                    <h3>{{this.Entidad.nombre}}:</h3>
                     <div class="info-box">Nombre de la Entidad</div>
                 </div>
             </div>
@@ -62,3 +63,5 @@
     </div>
 </body>
 </html>
+{{/partial}}
+{{> templates/base }}

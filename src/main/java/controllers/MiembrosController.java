@@ -48,12 +48,22 @@ public class MiembrosController implements ICrudViewsHandler{
         context.render("miembro.hbs", model);
     }
     @Override
-    public void save(Context context) {
-        Miembro miembro = new Miembro();
-        this.asignarParametros(miembro, context);
-        this.repositorioMiembro.guardar(miembro);
-        context.status(HttpStatus.CREATED);
-        context.redirect("/miembro");
+    public void save(@NotNull Context context) {
+        //-------------------------------------
+        RolUsuario rolUsuario = AuthMiddleware.getUserRoleType(context);
+        //
+        if(rolUsuario != RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+            throw new AccessDeniedException();
+        }
+
+            Miembro miembro = new Miembro();
+            this.asignarParametros(miembro, context);
+            this.repositorioMiembro.guardar(miembro);
+            context.status(HttpStatus.CREATED);
+            context.redirect("/miembro");
+
+        //-------------------------------------
+
     }
 
     @Override

@@ -1,4 +1,3 @@
-/* Estilos para el fondo de la página completa */
 html, body {
     margin: 0;
     padding: 0;
@@ -17,18 +16,10 @@ html, body {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     align-items: center; /* Centrar verticalmente */
-    padding: 20px;
-    min-height: 56px; /* Asegura una altura mínima */
+    padding: 20%;
+    min-height: 10%; /* Asegura una altura mínima */
 }
 
-/* Estilo del logotipo */
-.logo img {
-    width: 119.627px;
-    height: 69.061px;
-    transform: rotate(-0.311deg);
-    flex-shrink: 0;
-    cursor: pointer; /* Cambio del cursor a "mano" para indicar clicabilidad */
-}
 
 /* Estilos para el menú de navegación */
 .menu ul,
@@ -72,7 +63,7 @@ html, body {
 .menu-toggle-label {
     display: block; /* Mostrar el ícono de las barras */
     cursor: pointer;
-  font-size: 20px;
+    font-size: 20px;
     padding: 5px 30px; /* Ajusta el margen derecho aquí */
 }
 .menu-toggle-label span {
@@ -102,7 +93,7 @@ html, body {
     .menu-toggle-label {
         display: block;
     }
-    
+
     .menu ul {
         display: none;
         flex-direction: column;
