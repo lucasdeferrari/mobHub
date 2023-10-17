@@ -1,32 +1,20 @@
 package componentesExternos.microservicioG16.interfaces;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.google.gson.Gson;
+
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.Comunidad;
-import domain.entidades.comunidad.RolComunidad;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-
-
 import java.util.*;
-
 
 public class Test2 {
     List<Comunidad> comunidades;
-
-    Comunidad comunidad ;
+    Comunidad comunidad;
     public static void main(String[] args) {
 
         Comunidad comunidad = new Comunidad();
@@ -75,6 +63,7 @@ public class Test2 {
         MicroservicioG16 fusionComunidades = new MicroservicioG16();
 
         List<Comunidad> comunidadesRetornadas = fusionComunidades.sendCommunitiesToApi(comunidad, comunidades);
+
         if (comunidadesRetornadas != null) {
             System.out.println("Comunidades retornadas por el servidor:");
             for (Comunidad c : comunidadesRetornadas) {

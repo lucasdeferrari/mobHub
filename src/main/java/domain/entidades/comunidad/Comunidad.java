@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comunidad extends EntidadPersistente {
 
   @Column
@@ -44,17 +43,11 @@ public class Comunidad extends EntidadPersistente {
   @OneToMany(mappedBy = "comunidad")
   private List<Incidente> incidentesAbiertos;
 
-  @Transient
-  @JsonProperty("establecimientos")
-  private List<Establecimiento> establecimientos;
 
   @Transient
   @JsonProperty("miembros")
   private List<Miembro> miembros;
 
-  @Transient
-  @JsonProperty("servicios")
-  private List<Servicio> servicios;
 
   @Transient
   @JsonProperty("gradoDeConfianza")
@@ -80,12 +73,18 @@ public class Comunidad extends EntidadPersistente {
     establecimiento.agregarServicio(servicio);
   }
 
-  public void agregarServiciosParaAPI() {
+  @JsonProperty("servicios")
+  public List<Servicio> agregarServiciosParaAPI() {
+    List<Servicio> servicios = new ArrayList<>();
     incidentesAbiertos.forEach(unIncidente -> servicios.add(unIncidente.getServicio()));
+    return servicios;
   }
 
-  public void agregarEstablecimientosParaAPI() {
+  @JsonProperty("establecimientos")
+  public List<Establecimiento> agregarEstablecimientosParaAPI() {
+    List<Establecimiento> establecimientos = new ArrayList<>();
     incidentesAbiertos.forEach(unIncidente -> establecimientos.add(unIncidente.getEstablecimiento()));
+    return establecimientos;
   }
 
   public void agregarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {
@@ -125,8 +124,6 @@ public class Comunidad extends EntidadPersistente {
 
   public Comunidad() {
     miembros = new ArrayList<>();
-    servicios = new ArrayList<>();
-    establecimientos = new ArrayList<>();
     incidentesAbiertos = new ArrayList<>();
     miembrosNuestro = new HashMap<>();
   }

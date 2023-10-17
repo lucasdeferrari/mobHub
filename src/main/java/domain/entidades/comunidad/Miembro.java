@@ -1,9 +1,7 @@
 package domain.entidades.comunidad;
 
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import domain.Persistencia.EntidadPersistente;
 import domain.Persistencia.FormaNotificacionConverter;
 import domain.Persistencia.LocalTimeConverter;

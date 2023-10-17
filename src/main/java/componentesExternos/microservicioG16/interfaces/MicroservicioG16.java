@@ -58,8 +58,8 @@ public class MicroservicioG16 implements MicroservicioAdapter {
 
             if (response.getStatusCodeValue() == 200) {
                 System.out.println("Solicitud POST exitosa: " + response.getBody());
-                Comunidad[] comunidadesArray = objectMapper.readValue(response.getBody(), Comunidad[].class);
-                return Arrays.asList(comunidadesArray);
+                List<Comunidad> comunidadesList = objectMapper.readValue(response.getBody(), new TypeReference<List<Comunidad>>(){});
+                return comunidadesList;
 
             } else {
                 System.out.println("Error en la solicitud POST: " + response.getStatusCodeValue());
