@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class MayorGradoImpacto extends Ranking{
 
   @Override
-  public List<Entidad> generar(List<Incidente> incidentes) {
+  public List<Incidente> generarGradoImpacto(List<Incidente> incidentes) {
 
     incidentes = incidentes.stream()
             .filter(unincidente -> esIncidenteDeEstaSemana(unincidente))
@@ -42,6 +42,6 @@ public class MayorGradoImpacto extends Ranking{
     }
     return listaMiembros.size();
   }
-
+  public List<Entidad> generar(List<Incidente> listaIncidentes) {return null;}
 }
 

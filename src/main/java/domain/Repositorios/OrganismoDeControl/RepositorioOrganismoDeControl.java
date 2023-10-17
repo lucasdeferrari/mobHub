@@ -1,6 +1,7 @@
 package domain.Repositorios.OrganismoDeControl;
 
 
+import domain.entidades.servicios.Entidad;
 import domain.entidades.servicios.OrganismoDeControl;
 
 import javax.persistence.EntityTransaction;
@@ -27,8 +28,7 @@ public class RepositorioOrganismoDeControl implements OrganismoDeControlCRUD {
 
     @Override
     public List<OrganismoDeControl> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Entidad e", OrganismoDeControl.class)
-                .getResultList();
+        return entityManager().createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
     }
 
     @Override

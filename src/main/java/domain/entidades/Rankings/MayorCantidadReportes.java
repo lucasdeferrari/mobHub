@@ -61,4 +61,5 @@ import java.time.LocalDateTime;
 
       return horasEntreIncidentes < 24;
     }
+    public List<Incidente> generarGradoImpacto(List<Incidente> listaIncidentes) {return null;}
   }

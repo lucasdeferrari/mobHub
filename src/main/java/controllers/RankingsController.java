@@ -55,7 +55,7 @@ public class RankingsController implements ICrudViewsHandler{
 
     }
 
-    public List<Entidad> buscarPorId(Long id) {
+    public List buscarPorId(Long id) {
         if (id == 0) {
             return GeneradorRanking.getInstance().getRankingMayorCantidadReportes();
         }

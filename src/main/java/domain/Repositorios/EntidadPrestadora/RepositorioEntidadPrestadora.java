@@ -1,6 +1,7 @@
 package domain.Repositorios.EntidadPrestadora;
 
 import domain.entidades.servicios.EntidadPrestadora;
+import domain.entidades.servicios.Establecimiento;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -26,8 +27,7 @@ public class RepositorioEntidadPrestadora implements EntidadPrestadoraCRUD {
 
     @Override
     public List<EntidadPrestadora> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Entidad e", EntidadPrestadora.class)
-                .getResultList();
+        return entityManager().createQuery("from " + EntidadPrestadora.class.getName()).getResultList();
     }
 
     @Override

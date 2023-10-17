@@ -71,7 +71,7 @@ public class GeneradorRanking {
       Ranking criterio3 = new MayorGradoImpacto();
 
       rankingMayorCantidadReportes =  criterio1.generar(incidentes);
-      rankingMayorGradoImpacto = criterio2.generar(incidentes);
+      rankingMayorGradoImpacto = criterio2.generarGradoImpacto(incidentes);
       rankingMayorPromedioCierre = criterio3.generar(incidentes);
 
       incidentes.clear();
@@ -89,7 +89,7 @@ public class GeneradorRanking {
     exportadorInforme.exportarInforme(entidadesDeEmpresas);
   }
 
-  public List<Entidad> rankingSegunCriterio(Ranking criterio) {
+  public List rankingSegunCriterio(Ranking criterio) {
     if (criterio instanceof MayorPromedioCierre) {
       return rankingMayorPromedioCierre;
     }

@@ -2,6 +2,7 @@ package domain.Repositorios.Servicio;
 
 
 import domain.entidades.comunidad.Comunidad;
+import domain.entidades.servicios.OrganismoDeControl;
 import domain.entidades.servicios.Servicio;
 
 import javax.persistence.EntityTransaction;

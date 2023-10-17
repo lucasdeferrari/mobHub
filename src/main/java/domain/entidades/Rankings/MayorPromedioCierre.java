@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MayorPromedioCierre extends Ranking {
-
   @Override
   public List<Entidad> generar(List<Incidente> incidentes) {
     Map<Entidad, Double> promedioTiempoCierre = new HashMap<>();
@@ -46,7 +45,7 @@ public class MayorPromedioCierre extends Ranking {
     return entidadesOrdenadas;
   }
 
-
+  public List<Incidente> generarGradoImpacto(List<Incidente> listaIncidentes) {return null;}
 }
 
 // aca
