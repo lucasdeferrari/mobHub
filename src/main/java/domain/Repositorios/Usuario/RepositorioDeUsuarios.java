@@ -1,5 +1,6 @@
 package domain.Repositorios.Usuario;
 
+import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.Usuario;
 
 import javax.persistence.EntityTransaction;
@@ -31,9 +32,22 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
         return entityManager().find(Usuario.class,id);
     }
 
+
+    public Usuario buscarPorNombre(String nombre) {
+        return entityManager()
+                .createQuery("SELECT i FROM Usuario i WHERE i.nombre = :nombre", Usuario.class)
+                .setParameter("nombre", nombre)
+                .getSingleResult();
+    }
+    public Usuario buscarPorUsername(String nombre) {
+        return entityManager()
+                .createQuery("SELECT i FROM Usuario i WHERE i.nombreUsuario = :nombre", Usuario.class)
+                .setParameter("nombre", nombre)
+                .getSingleResult();
+    }
     @Override
     public List<Usuario> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Entidad e", Usuario.class)
+        return entityManager().createQuery("SELECT e FROM Usuario e", Usuario.class)
                 .getResultList();
     }
 

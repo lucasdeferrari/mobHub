@@ -3,8 +3,10 @@ package controllers;
 import componentesExternos.geoRef.entidades.Localidad;
 import componentesExternos.geoRef.entidades.Municipio;
 import componentesExternos.geoRef.entidades.Provincia;
+import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.comunidad.Comunidad;
+import domain.entidades.comunidad.Miembro;
 import domain.entidades.servicios.Establecimiento;
 import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
@@ -26,8 +28,10 @@ import java.util.Objects;
 
 public class InicioDeSesionController implements ICrudViewsHandler {
     private RepositorioDeUsuarios repoUsuarios;
-
-    public InicioDeSesionController(RepositorioDeUsuarios repoUsuarios) {this.repoUsuarios = repoUsuarios;
+    private RepositorioMiembro repositorioMiembro;
+    public InicioDeSesionController(RepositorioDeUsuarios repoUsuarios, RepositorioMiembro repositorioDeMiembro) {
+        this.repoUsuarios = repoUsuarios;
+        this.repositorioMiembro = repositorioDeMiembro;
     }
 
 
@@ -57,12 +61,14 @@ public class InicioDeSesionController implements ICrudViewsHandler {
             ControladorDeEstrategiaValidacion controller = new ControladorDeEstrategiaValidacion();
             EstrategiaValidacion e1 = new ValidacionTieneMayuscula();
             controller.agregarEstrategia(e1); // TODO poner las otras validaciones y que funcionen
+
             asignarParametros(user, context);
             if (controller.verificarContrasenia(contrasenia)) {
-                repoUsuarios.guardar(user);
-                Usuario usuarioGuardado = repoUsuarios.buscarPorId(user.getId());
-                Integer id = usuarioGuardado.getId();
-                context.sessionAttribute("id", id);
+                Usuario usuarioGuardado =  repoUsuarios.guardar(user);
+                Miembro miembro = new Miembro();
+                asignarParametrosMiembro(miembro, context);
+                repositorioMiembro.guardar(miembro); //esto porque el rol primero es el de miembro
+                //context.cachedSessionAttribute("id", usuarioGuardado.getId());
                 context.redirect("/inicio");
             } else {
                 context.result("La contraseña no es segura");
@@ -87,14 +93,15 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         String username = context.formParam("usuario");
         String password = context.formParam("contrasena");
         // Realizar la autenticación aquí (por ejemplo, verificar credenciales en una base de datos)
-        Integer id = (Integer)context.sessionAttribute("id");
-       // if(!(username.isEmpty()) && !(password.isEmpty())){
-            Usuario usuario= this.repoUsuarios.buscarPorId(id);
-            if (usuario.getContrasenia().equals(password)) {
+        System.out.println(username);
+        Usuario usuario= this.repoUsuarios.buscarPorUsername(context.formParam("usuario"));
+
+        if (usuario.getContrasenia().equals(password)) {
                 // Autenticación exitosa, establecer una sesión
                 //context.result("Inicio de sesión exitoso, redireccionando a la página principal.");
+                context.sessionAttribute("id", usuario.getId());
                 context.redirect("/incidentes");
-            } else {
+        } else {
                 // Autenticación fallida, mostrar un mensaje de error
                 context.result("Inicio de sesion fallido. Por favor, verifica tus credenciales.");
             }
@@ -104,17 +111,6 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
 
     public void vista(Context context){
-        Map<String, Object> modelProvincia = new HashMap<>();
-        Map<String, Object> modelDepartamento = new HashMap<>();
-        Map<String, Object> modelLocalidad = new HashMap<>();
-        //List<Provincia> provincias = repositorio.buscarTodos();
-        //List<Municipio> departamento = repositorio.buscarTodos();
-        //List<Localidad> localidades = repositorio.buscarTodos();
-
-        //modelProvincia.put("provincias", provincias);
-        //modelDepartamento.put("departamentos", departamento);
-        //modelLocalidad.put("localidades", localidades);
-
         context.render("/CrearCuenta.hbs");
     }
 
@@ -128,26 +124,24 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         if(!Objects.equals(context.formParam("email"), "")) {
             usuario.setEmail(context.formParam("email"));
         }
-        if(!Objects.equals(context.formParam("establecimiento"), "")) {
+        if(!Objects.equals(context.formParam("usuario"), "")) {
             usuario.setNombreUsuario(context.formParam("usuario"));
         }
-        if(!Objects.equals(context.formParam("servicio"), "")) {
+        if(!Objects.equals(context.formParam("contrasena"), "")) {
             usuario.setContrasenia(context.formParam("contrasena"));
         }
-        if(!Objects.equals(context.formParam("provincia"), "")) {
-            usuario.setContrasenia(context.formParam("contrasena"));
+
+
+    }
+    private void asignarParametrosMiembro(Miembro usuario, Context context) {
+        if(!Objects.equals(context.formParam("nombre"), "")) {
+            usuario.setNombre(context.formParam("nombre"));
         }
-        if(!Objects.equals(context.formParam("telefono"), "")) {
-            usuario.setTelefono(context.formParam("telefono"));
+        if(!Objects.equals(context.formParam("apellido"), "")) {
+            usuario.setApellido(context.formParam("apellido"));
         }
-        if(!Objects.equals(context.formParam("provincia"), "")) {
-         //   usuario.setProvincia(context.formParam("provincia"));
-        }
-        if(!Objects.equals(context.formParam("departamento"), "")) {
-           // usuario.setDepartamento(context.formParam("departamento"));
-        }
-        if(!Objects.equals(context.formParam("localidad"), "")) {
-            //usuario.setLocalidad(context.formParam("localidad"));
+        if(!Objects.equals(context.formParam("correoElectronico"), "")) {
+            usuario.setCorreoElectronico(context.formParam("email"));
         }
     }
 }

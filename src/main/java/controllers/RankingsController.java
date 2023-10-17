@@ -7,6 +7,7 @@ import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.generadorRankings.GeneradorRanking;
 import domain.entidades.servicios.Entidad;
+import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
@@ -18,6 +19,11 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RankingsController implements ICrudViewsHandler{
+    GeneradorRanking generador;
+
+    public RankingsController(GeneradorRanking generador){
+        generador = generador;
+    }
 
     @Override
     public void index(Context context){
@@ -25,9 +31,14 @@ public class RankingsController implements ICrudViewsHandler{
     }
     @Override
     public void show(Context context) {
-        List<Entidad> ranking = this.buscarPorId(Long.parseLong(context.pathParam("id")));
+        List<Entidad> ranking1 =  generador.getRankingMayorPromedioCierre();
+        List<Entidad> ranking2 = generador.getRankingMayorCantidadReportes();
+        List<Incidente> ranking3 = generador.getRankingMayorGradoImpacto();
+
         Map<String, Object> model = new HashMap<>();
-        model.put("ranking", ranking);
+        model.put("ranking1", ranking1);
+        model.put("ranking2", ranking2);
+        model.put("ranking3", ranking3);
         context.render("rankings.hbs", model);
     }
 

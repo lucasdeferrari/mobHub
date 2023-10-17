@@ -1,6 +1,7 @@
 package domain.Repositorios.Establecimiento;
 
 import domain.entidades.comunidad.Comunidad;
+import domain.entidades.servicios.Entidad;
 import domain.entidades.servicios.Establecimiento;
 
 import javax.persistence.EntityTransaction;
@@ -27,8 +28,7 @@ public class RepositorioEstablecimiento implements EstablecimientoCRUD {
 
     @Override
     public List<Establecimiento> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Establecimiento e", Establecimiento.class)
-                .getResultList();
+        return entityManager().createQuery("from " + Establecimiento.class.getName()).getResultList();
     }
 
     @Override
@@ -44,7 +44,9 @@ public class RepositorioEstablecimiento implements EstablecimientoCRUD {
         }
     }
     public Establecimiento buscarPorNombre(String nombre) {
-        return entityManager().createQuery("SELECT i FROM Establecimiento i WHERE i.nombre = :nombre ", Establecimiento.class)
+        return entityManager()
+                .createQuery("SELECT i FROM Establecimiento i WHERE i.nombre = :nombre", Establecimiento.class)
+                .setParameter("nombre", nombre) // Establece el valor del parámetro "nombre"
                 .getSingleResult();
     }
 }

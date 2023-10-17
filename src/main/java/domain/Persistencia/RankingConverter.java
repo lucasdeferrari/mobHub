@@ -14,25 +14,20 @@ public class RankingConverter implements AttributeConverter<Ranking, String> {
     public String convertToDatabaseColumn(Ranking ranking) {
         return ranking.getClass().getName();
     }
-
+    
     @Override
     public Ranking convertToEntityAttribute(String ranking) {
         Ranking ranking1 = null;
 
-        if(ranking == "MayorCantidadReportes") {
+        if ("MayorCantidadReportes".equals(ranking)) {
             ranking1 = new MayorCantidadReportes();
-        }
-        else if (ranking == "MayorGradoImpacto") {
+        } else if ("MayorGradoImpacto".equals(ranking)) {
             ranking1 = new MayorGradoImpacto();
-        }
-
-        else if (ranking == "MayorPromedioCierre") {
+        } else if ("MayorPromedioCierre".equals(ranking)) {
             ranking1 = new MayorPromedioCierre();
         }
 
-        else
-            ranking1 = null;
-
         return ranking1;
     }
+
 }

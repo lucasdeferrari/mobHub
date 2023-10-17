@@ -10,6 +10,7 @@ import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.Repositorios.OrganismoDeControl.RepositorioOrganismoDeControl;
 import domain.Repositorios.Servicio.RepositorioServicio;
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
+import domain.entidades.generadorRankings.GeneradorRanking;
 
 public class FactoryController {
     public static Object controller(String nombre) {
@@ -24,8 +25,8 @@ public class FactoryController {
             case "Establecimientos": controller = new EstablecimientosController(new RepositorioEstablecimiento()); break;
             case "OrganismosDeControl": controller = new OrganismosDeControlController(new RepositorioOrganismoDeControl()); break;
             case "EntidadesPrestadoras": controller = new EntidadesPrestadorasController(new RepositorioEntidadPrestadora()); break;
-            case "InicioSesion": controller =  new InicioDeSesionController(new RepositorioDeUsuarios());break;
-
+            case "InicioSesion": controller =  new InicioDeSesionController(new RepositorioDeUsuarios(), new RepositorioMiembro());break;
+            case "Rankings": controller = new RankingsController(GeneradorRanking.getInstance());
         }
 
         return controller;

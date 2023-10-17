@@ -11,25 +11,25 @@ import javax.persistence.Converter;
 public class FormaNotificacionConverter implements AttributeConverter<FormaNotificacion, String> {
     @Override
     public String convertToDatabaseColumn(FormaNotificacion formaNotificacion) {
-        String nombreFormaNotifiacion = (formaNotificacion.getClass().getName()) == "AlertarCuandoSucede" ? "Cuando sucede" : "Sin apuro";
-
-        return formaNotificacion == null? null : nombreFormaNotifiacion;
+        if (formaNotificacion == null) {
+            return null;
+        } else {
+            String nombreFormaNotificacion = formaNotificacion.getClass().getName().equals("AlertarCuandoSucede") ? "Cuando sucede" : "Sin apuro";
+            return nombreFormaNotificacion;
+        }
     }
 
     @Override
     public FormaNotificacion convertToEntityAttribute(String formaNotificacion) {
         FormaNotificacion formaNotificacion2 = null;
 
-        if(formaNotificacion == "Cuando sucede") {
+        if ("Cuando sucede".equals(formaNotificacion)) {
             formaNotificacion2 = new AlertarCuandoSucede();
-        }
-        else if (formaNotificacion == "Sin apuro") {
+        } else if ("Sin apuro".equals(formaNotificacion)) {
             formaNotificacion2 = new AlertarSinApuro();
         }
 
-        else
-            formaNotificacion2 = null;
-
         return formaNotificacion2;
     }
+
 }

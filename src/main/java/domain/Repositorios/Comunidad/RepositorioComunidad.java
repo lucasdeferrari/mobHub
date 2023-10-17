@@ -2,6 +2,7 @@ package domain.Repositorios.Comunidad;
 
 import domain.entidades.comunidad.Comunidad;
 import domain.entidades.servicios.Incidente;
+import domain.entidades.servicios.Servicio;
 import org.springframework.stereotype.Repository;
 
 
@@ -50,7 +51,9 @@ public class RepositorioComunidad implements ComunidadCRUD {
     }
 
     public Comunidad buscarPorNombre(String nombre) {
-        return entityManager().createQuery("SELECT i FROM Comunidad i WHERE i.nombre = :nombre ", Comunidad.class)
+        return entityManager()
+                .createQuery("SELECT i FROM Comunidad i WHERE i.nombre = :nombre", Comunidad.class)
+                .setParameter("nombre", nombre) // Establece el valor del parámetro "nombre"
                 .getSingleResult();
     }
 }

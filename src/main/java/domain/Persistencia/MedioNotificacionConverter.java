@@ -11,25 +11,27 @@ import javax.persistence.Converter;
 public class MedioNotificacionConverter implements AttributeConverter<MedioNotificacion, String> {
     @Override
     public String convertToDatabaseColumn(MedioNotificacion medioNotificacion) {
-        String nombreMedioNotifiacion = (medioNotificacion.getClass().getName()) == "AdapterWhatsApp" ? "Whatsapp" : "Email";
+        if (medioNotificacion == null) {
+            return null;
+        }
 
-        return medioNotificacion == null? null : nombreMedioNotifiacion;
+        String nombreMedioNotificacion = (medioNotificacion instanceof AdapterWhatsApp) ? "Whatsapp" : "Email";
+        return nombreMedioNotificacion;
     }
+
+
 
     @Override
     public MedioNotificacion convertToEntityAttribute(String medioNotificacion) {
         MedioNotificacion medioNotificacion1 = null;
 
-        if(medioNotificacion == "Whatsapp") {
+        if ("Whatsapp".equals(medioNotificacion)) {
             medioNotificacion1 = new AdapterWhatsApp();
-        }
-        else if (medioNotificacion == "Email") {
+        } else if ("Email".equals(medioNotificacion)) {
             medioNotificacion1 = new AdapterEmail();
         }
 
-        else
-            medioNotificacion1 = null;
-
         return medioNotificacion1;
     }
+
 }

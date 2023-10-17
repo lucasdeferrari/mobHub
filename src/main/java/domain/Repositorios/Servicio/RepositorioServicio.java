@@ -29,8 +29,7 @@ public class RepositorioServicio implements ServicioCRUD {
 
     @Override
     public List<Servicio> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Servicio e", Servicio.class)
-                .getResultList();
+        return entityManager().createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
     }
 
     @Override
@@ -45,8 +44,13 @@ public class RepositorioServicio implements ServicioCRUD {
             entityManager().remove(servicio);
         }
     }
+
     public Servicio buscarPorNombre(String nombre) {
-        return entityManager().createQuery("SELECT i FROM Servicio i WHERE i.nombre = :nombre ", Servicio.class)
+        return entityManager()
+                .createQuery("SELECT i FROM Servicio i WHERE i.nombre = :nombre", Servicio.class)
+                .setParameter("nombre", nombre) // Establece el valor del parámetro "nombre"
                 .getSingleResult();
     }
+
 }
+

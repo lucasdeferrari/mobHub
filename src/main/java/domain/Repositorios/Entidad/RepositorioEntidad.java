@@ -26,8 +26,7 @@ public class RepositorioEntidad implements EntidadCRUD {
 
     @Override
     public List<Entidad> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Entidad e", Entidad.class)
-                .getResultList();
+        return entityManager().createQuery("from " + Entidad.class.getName()).getResultList();
     }
 
     @Override

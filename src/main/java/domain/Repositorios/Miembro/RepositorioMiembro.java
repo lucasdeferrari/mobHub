@@ -28,10 +28,13 @@ public class RepositorioMiembro implements MiembroCRUD {
         return entityManager().find(Miembro.class, id);
     }
 
+    public Miembro buscarPorId2(Integer id) {
+        return entityManager().find(Miembro.class, id);
+    }
+
     @Override
     public List<Miembro> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Miembro e", Miembro.class)
-                .getResultList();
+        return entityManager().createQuery("from " + Miembro.class.getName()).getResultList();
     }
 
     @Override

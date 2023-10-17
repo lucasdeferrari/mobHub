@@ -24,7 +24,7 @@ public class GeneradorRanking {
   @Getter
    private List<Entidad> rankingMayorCantidadReportes; // de esta semana
    private List<Entidad> rankingMayorPromedioCierre;
-   private List<Entidad> rankingMayorGradoImpacto;
+   private List<Incidente> rankingMayorGradoImpacto;
    private List<Incidente> incidentes;
    private ExportadorInforme exportadorInforme;
    private Timer timer;

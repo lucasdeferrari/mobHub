@@ -51,7 +51,7 @@ public class IncidentesController implements ICrudViewsHandler {
 
     @Override
     public void show(Context context) {
-        Incidente incidente = (Incidente) this.repositorioIncidente.buscarPorId(Long.parseLong(context.queryParam("id")));
+        Incidente incidente = this.repositorioIncidente.buscarPorId(Long.parseLong(context.queryParam("id")));
         Map<String, Object> model = new HashMap<>();
         model.put("incidente", incidente);
         context.render("datosIncidente.hbs", model);
@@ -64,19 +64,20 @@ public class IncidentesController implements ICrudViewsHandler {
 
         List<Comunidad> comunidades = repositorioComunidad.buscarTodos();
         List<Servicio> servicios = repositorioServicio.buscarTodos();
-        List<Establecimiento> establecimientos = repositorioEstablecimiento.buscarTodos();
+       List<Establecimiento> establecimientos = repositorioEstablecimiento.buscarTodos();
 
         model.put("comunidades", comunidades);
         model.put("servicios", servicios);
         model.put("establecimientos", establecimientos);
-        context.render("ReportarIncidente.hbs");
+        context.render("ReportarIncidente.hbs", model);
     }
 
     @Override
     public void save(Context context) {
         Incidente incidente = new Incidente();
-        String id_usuario = context.sessionAttribute("id");
-        Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(id_usuario)); //todo revisar que solo un miembro pueda reportar
+        Integer userid = context.sessionAttribute("id");
+        System.out.println(userid);
+        Miembro miembro = this.repositorioMiembro.buscarPorId2((userid));//todo revisar que solo un miembro pueda reportar
         incidente.setQuienAbrio(miembro);
         this.asignarParametros(incidente, context);
         this.repositorioIncidente.guardar(incidente);
@@ -95,8 +96,7 @@ public class IncidentesController implements ICrudViewsHandler {
     @Override
     public void update(Context context) {
         Incidente incidente = (Incidente) this.repositorioIncidente.buscarPorId(Long.parseLong(context.pathParam("id")));
-        context.sessionAttribute("id");
-        Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("id")));
+        Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.sessionAttribute("id")));
         miembro.cerrarIncidente(incidente);
         this.repositorioIncidente.actualizar(incidente);
         context.redirect("/incidentes");
