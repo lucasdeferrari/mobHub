@@ -29,6 +29,8 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
     public InicioDeSesionController(RepositorioDeUsuarios repoUsuarios) {this.repoUsuarios = repoUsuarios;
     }
+
+
     @Override
     public void index(Context context) {
         context.render("InicioSesion.hbs");

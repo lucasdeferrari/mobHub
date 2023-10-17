@@ -1,4 +1,171 @@
-/* Estilos generales para el body y la página */
+/* Estilos para el fondo de la página completa */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    background: #577399 !important; /* Color de fondo azul con !important */
+    width: 100%; /* Ancho al 100% para que sea responsive */
+    height: auto; /* Altura automática para adaptarse al contenido */
+
+}
+
+/* Estilos para la barra de navegación */
+
+.navbar {
+    width: 100%;
+    background: #BDD5EA; /* Color de fondo de la barra de navegación */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    padding: 20px;
+    min-height: 56px; /* Asegura una altura mínima */
+}
+
+/* Estilos para el menú de navegación */
+.menu ul,
+.extra-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+}
+
+.menu ul li,
+.extra-options ul li {
+    margin-right: 30px;
+}
+
+.menu ul li:last-child,
+.extra-options ul li:last-child {
+    margin-right: 0;
+}
+
+/* Estilos para los enlaces de menú */
+.menu a,
+.extra-options a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.menu a:hover,
+.extra-options a:hover {
+    text-decoration: underline;
+}
+
+/* Alineación a la derecha para las opciones adicionales */
+.extra-options {
+    margin-left: auto;
+}
+
+.menu-toggle-label {
+    display: block; /* Mostrar el ícono de las barras */
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px 30px; /* Ajusta el margen derecho aquí */
+}
+.menu-toggle-label span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #000;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* Cambio de las líneas a una X al hacer clic */
+#mobhub-dropdown-toggle:checked + .mobhub-menu .menu-toggle-label span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+#mobhub-dropdown-toggle:checked + .mobhub-menu .menu-toggle-label span:nth-child(2) {
+    opacity: 0;
+}
+
+#mobhub-dropdown-toggle:checked + .mobhub-menu .menu-toggle-label span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Mostrar el menú hamburguesa en pantallas pequeñas */
+@media (max-width: 768px) {
+    .menu-toggle-label {
+        display: block;
+    }
+
+    .menu ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        background-color: rgba(189, 213, 234, 0.8); /* Cambia el valor de fondo a uno más transparente */
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .menu ul.active {
+        display: flex;
+    }
+
+    .menu ul li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .menu ul li:last-child {
+        margin-bottom: 0;
+    }
+}
+/* Estilos para ocultar el input de tipo checkbox */
+#mobhub-dropdown-toggle {
+    display: none;
+}
+
+/* Estilos para el contenedor del menú */
+.mobhub-menu {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilos para la imagen o elemento que activa el menú */
+.mobhub-menu img {
+    cursor: pointer;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #BDD5EA;
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 10px 0;
+    list-style: none;
+}
+
+/* Estilos para los elementos del menú */
+.dropdown-menu li {
+    margin: 0;
+}
+
+/* Estilos para los enlaces del menú */
+.dropdown-menu a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+    padding: 5px 0;
+}
+
+/* Mostrar el menú desplegable al pasar el mouse sobre el contenedor */
+.mobhub-menu:hover .dropdown-menu {
+    display: block;
+}
+
+-------------------------
 body {
     font-family: Arial, sans-serif;
     background-color: #577399;
@@ -12,42 +179,30 @@ body {
 /* Estilos para el contenedor principal */
 .container {
     text-align: center;
+    margin: 0 auto;
+    margin-top: 56px;
 }
 
 /* Estilos para el cuadro de login */
 .login-box {
     background-color: #BDD5EA;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 600px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-}
-
-/* Estilos para la primera columna */
-.left-column {
-    grid-column: 1;
-}
-
-/* Estilos para la segunda columna */
-.right-column {
-    grid-column: 2;
 }
 
 /* Estilos para el título */
 .login-box .title {
     color: #495867;
-    text-align: center;
-    grid-column: span 2;
+    text-align: center; /* Alinea el título al centro */
 }
 
 /* Estilos para las casillas de entrada de texto */
 .input-box {
-    text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: left; /* Alinea los títulos a la izquierda */
 }
 
 label {
@@ -58,14 +213,13 @@ label {
 
 input[type="text"],
 input[type="password"],
-input[type="email"],
-input[type="tel"],
-select {
+input[type="email"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #6785ad;
     border-radius: 15px;
     outline: none;
+    max-width: 400px;
 }
 
 /* Estilos para el botón */
@@ -77,7 +231,7 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    width: 100%;
+    margin-bottom: 20px;
 }
 
 button:hover {
@@ -97,5 +251,7 @@ p a:hover {
 /* Estilos para el mensaje de error */
 .error-message {
     color: red;
+    margin-top: 5px;
     font-size: 14px;
 }
+

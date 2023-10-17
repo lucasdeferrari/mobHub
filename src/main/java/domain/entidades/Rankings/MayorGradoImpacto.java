@@ -20,12 +20,18 @@ public class MayorGradoImpacto extends Ranking{
             .collect(Collectors.toList());
 
     List<Incidente> finalIncidentes = incidentes;
-    List<Integer> listaGradoImpacto = incidentes.stream().map(incidente -> incidente.getComunidad())
+
+    List<Integer> listaGradoImpacto = incidentes.stream().map(Incidente::getComunidad)
             .map(comunidad -> gradoDeImpacto(comunidad,finalIncidentes)).collect(Collectors.toList());
 
+    Comparator<Incidente> comparator = Comparator.comparingInt(incidente -> listaGradoImpacto.get(finalIncidentes.indexOf(incidente)));
 
-    List<Entidad> listaEntidadesVacia = new ArrayList<>();
-    return listaEntidadesVacia;
+    List<Incidente> finalIncidentesOrdenados = finalIncidentes.stream()
+            .sorted(comparator.reversed())
+            .collect(Collectors.toList());
+
+
+    return finalIncidentesOrdenados;
   }
 
   public Integer gradoDeImpacto(Comunidad comunidad, List<Incidente> incidentes){
