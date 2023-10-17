@@ -1,6 +1,9 @@
 package domain.entidades.comunidad;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import domain.Persistencia.EntidadPersistente;
 import domain.Persistencia.FormaNotificacionConverter;
 import domain.Persistencia.LocalTimeConverter;
@@ -32,6 +35,7 @@ public class Miembro extends EntidadPersistente {
 
   @Column
   @Setter
+  @JsonProperty("nombre")
   private String nombre;
 
   @Column
@@ -48,16 +52,16 @@ public class Miembro extends EntidadPersistente {
 
   @Transient
   @Getter
-  private Map<Comunidad, RolComunidad> comunidadesPertenecientes = new HashMap<>();
+  private Map<Comunidad, RolComunidad> comunidadesPertenecientes;
 
   @ManyToMany
-  private List<Entidad> entidadesAsociadas = new ArrayList<>();
+  private List<Entidad> entidadesAsociadas;
 
   @ElementCollection
   @Enumerated(EnumType.STRING)
   @CollectionTable(name = "servicios_miembro", joinColumns = @JoinColumn(name = "miembro_id",referencedColumnName = "id"))
   @Column(unique = true)
-  private List<TipoDeServicio> serviciosAsociados = new ArrayList<>();
+  private List<TipoDeServicio> serviciosAsociados;
 
   @Embedded
   private Provincia localizacionProvincia;
@@ -82,10 +86,10 @@ public class Miembro extends EntidadPersistente {
   private Ubicacion ubicacionActual;
 
   @Transient
-  private List<Incidente> incidentesDeInteresPropio = new ArrayList<>();
+  private List<Incidente> incidentesDeInteresPropio;
 
   @Transient
-  private Map<TipoDeServicio, RolServicio> rolesServicios = new HashMap<>();
+  private Map<TipoDeServicio, RolServicio> rolesServicios;
 
 
   //private List<Rol_Servicio> rolXServicio = new ArrayList<>();
@@ -95,7 +99,11 @@ public class Miembro extends EntidadPersistente {
   private LocalTime horarioElegido;
 
   public Miembro() {
-
+    rolesServicios = new HashMap<>();
+    incidentesDeInteresPropio = new ArrayList<>();
+    serviciosAsociados = new ArrayList<>();
+    entidadesAsociadas = new ArrayList<>();
+    comunidadesPertenecientes = new HashMap<>();
   }
 
   //private Rol rol; // se puede cambiar entre roles con el setter

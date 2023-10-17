@@ -31,14 +31,5 @@ public class Usuario extends EntidadPersistente {
   @Column
   @Enumerated(EnumType.STRING)
   private RolUsuario rolUsuario = RolUsuario.MIEMBRO;
-  @Column
-  private String telefono;
-  @Column
-  private String provincia;
-  @Column
-  private String localidad;
-  @Column
-  private String departamento;
-
 
 }

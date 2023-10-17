@@ -1,5 +1,8 @@
 package domain.entidades.servicios;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import domain.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +16,12 @@ import javax.persistence.*;
 public class Servicio extends EntidadPersistente {
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "nombre")
-  private TipoDeServicio nombre;
+  @Column(name = "tipoServicio")
+  private TipoDeServicio tipoServicio;
+
+  @Column
+  @JsonProperty("nombre")
+  private String nombre;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "estado")
@@ -23,8 +30,8 @@ public class Servicio extends EntidadPersistente {
   @Column
   private String descripcion;
 
-  public Servicio(TipoDeServicio nombre, Estado estado, String descripcion) {
-    this.nombre = nombre;
+  public Servicio(TipoDeServicio tipoServicio, Estado estado, String descripcion) {
+    this.tipoServicio = tipoServicio;
     this.estado = estado;
     this.descripcion = descripcion;
   }

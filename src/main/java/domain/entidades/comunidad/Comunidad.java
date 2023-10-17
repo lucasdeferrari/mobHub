@@ -1,5 +1,7 @@
 package domain.entidades.comunidad;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import domain.Persistencia.EntidadPersistente;
 import domain.entidades.notificaciones.NotificarAperturaAMiembros;
 import domain.entidades.notificaciones.NotificarCierreAMiembros;
@@ -8,6 +10,8 @@ import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
@@ -18,10 +22,12 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comunidad extends EntidadPersistente {
 
   @Column
   @Setter
+  @JsonProperty("nombre")
   private String nombre;
 
   @Column
@@ -32,23 +38,27 @@ public class Comunidad extends EntidadPersistente {
   @MapKeyJoinColumn(name = "miembro_id") // La clave del mapa será un Miembro
   @Enumerated(EnumType.STRING) // El valor del mapa será un RolComunidad
   @Column(name = "rol_comunidad")
-  private Map<Miembro, RolComunidad> miembrosNuestro = new HashMap<>();
+  private Map<Miembro, RolComunidad> miembrosNuestro;
 
 
   @OneToMany(mappedBy = "comunidad")
-  private List<Incidente> incidentesAbiertos = new ArrayList<>();
+  private List<Incidente> incidentesAbiertos;
 
   @Transient
-  private List<Establecimiento> establecimientos = new ArrayList<>();
+  @JsonProperty("establecimientos")
+  private List<Establecimiento> establecimientos;
 
   @Transient
-  private List<Miembro> miembros = new ArrayList<>();
+  @JsonProperty("miembros")
+  private List<Miembro> miembros;
 
   @Transient
-  private List<Servicio> servicios = new ArrayList<>();
+  @JsonProperty("servicios")
+  private List<Servicio> servicios;
 
   @Transient
-  private Integer gradoDeConfianza;
+  @JsonProperty("gradoDeConfianza")
+  private Float gradoDeConfianza;
 
   public void agregarMiembro(Miembro miembro, RolComunidad rolComunidad) {
     miembrosNuestro.put(miembro, rolComunidad);
@@ -111,6 +121,14 @@ public class Comunidad extends EntidadPersistente {
 
     NotificarCierreAMiembros notificador = new NotificarCierreAMiembros();
     notificador.notificar(unIncidente, listaSinElMiembro);
+  }
+
+  public Comunidad() {
+    miembros = new ArrayList<>();
+    servicios = new ArrayList<>();
+    establecimientos = new ArrayList<>();
+    incidentesAbiertos = new ArrayList<>();
+    miembrosNuestro = new HashMap<>();
   }
 
 }

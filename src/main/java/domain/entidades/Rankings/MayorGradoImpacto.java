@@ -7,8 +7,7 @@ import domain.entidades.servicios.Entidad;
 import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.TipoDeServicio;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MayorGradoImpacto extends Ranking{
@@ -35,7 +34,7 @@ public class MayorGradoImpacto extends Ranking{
 
     for (Miembro unMiembro : comunidad.getMiembrosNuestro().keySet()) {
       incidentes.forEach(unIncidente -> {
-        TipoDeServicio tipoDeServicio = unIncidente.getServicio().getNombre();
+        TipoDeServicio tipoDeServicio = unIncidente.getServicio().getTipoServicio();
         if(unMiembro.getRolesServicios().get(tipoDeServicio.ordinal()) == RolServicio.AFECTADO) {
           listaMiembros.add(unMiembro);
         }

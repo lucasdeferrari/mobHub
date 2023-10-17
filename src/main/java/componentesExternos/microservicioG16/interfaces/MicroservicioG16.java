@@ -3,11 +3,12 @@ package componentesExternos.microservicioG16.interfaces;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.entidades.comunidad.Comunidad;
-import org.apache.http.HttpEntity;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpHeaders;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,9 +51,7 @@ public class MicroservicioG16 implements MicroservicioAdapter {
             return null;
         }
 
-        //HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
-        org.springframework.http.HttpEntity<String> request = new org.springframework.http.HttpEntity<>(jsonPayload, headers);
-
+        HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
 
         try {
             ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8000/propose_fusion/", request, String.class);
@@ -68,8 +67,7 @@ public class MicroservicioG16 implements MicroservicioAdapter {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Excepción al realizar la solicitud POST");
-            System.out.println(e.getMessage());
+            System.out.println("ExcepciÃ³n al realizar la solicitud POST");
             return null;
         }
     }

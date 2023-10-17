@@ -3,6 +3,7 @@ package domain.Repositorios.Usuario;
 import domain.entidades.signin.Usuario;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
 
     public RepositorioDeUsuarios() {}
 
+    @PersistenceContext
     @Override
     public Usuario guardar(Usuario usuario) {
         EntityTransaction tx = entityManager().getTransaction();

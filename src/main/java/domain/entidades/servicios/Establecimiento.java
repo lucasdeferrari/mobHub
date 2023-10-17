@@ -1,5 +1,8 @@
 package domain.entidades.servicios;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import domain.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 public class Establecimiento extends EntidadPersistente {
 
   @Column
+  @JsonProperty("nombre")
   private String nombre;
   @Embedded
   private Ubicacion ubicacion;
@@ -54,7 +58,7 @@ public class Establecimiento extends EntidadPersistente {
 
   public List<Servicio> serviciosConProblemasDe(List<TipoDeServicio> unosServicios) {
     List<Servicio> serviciosDenegados =  servicios.stream().filter(unServicio -> unServicio.estaDenegado()).collect(Collectors.toList());
-    return serviciosDenegados.stream().filter(unServicio -> unosServicios.contains(unServicio.getNombre())).collect(Collectors.toList());
+    return serviciosDenegados.stream().filter(unServicio -> unosServicios.contains(unServicio.getTipoServicio())).collect(Collectors.toList());
   } // devuelve una lista con los servicios que hay que agregar a los servicios con interes
 
 }

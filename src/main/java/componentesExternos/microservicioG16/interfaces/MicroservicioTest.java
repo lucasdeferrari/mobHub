@@ -33,13 +33,13 @@ public class MicroservicioTest {
         miembro3.setNombre("PEPE");
 
         Servicio servicio1 = new Servicio();
-        servicio1.setNombre(TipoDeServicio.BANIO);
+        servicio1.setTipoServicio(TipoDeServicio.BANIO);
 
         Servicio servicio2 = new Servicio();
-        servicio2.setNombre(TipoDeServicio.ESCALERA_MECANICA);
+        servicio2.setTipoServicio(TipoDeServicio.ESCALERA_MECANICA);
 
         Servicio servicio3 = new Servicio();
-        servicio3.setNombre(TipoDeServicio.RAMPA);
+        servicio3.setTipoServicio(TipoDeServicio.RAMPA);
 
 
         Establecimiento establecimiento1 = new Establecimiento();
@@ -72,7 +72,7 @@ public class MicroservicioTest {
         Comunidad comunidad = new Comunidad();
         comunidad.setNombre("comunidad1");
         comunidad.agregarMiembro(miembro1, RolComunidad.AFECTADO);
-        comunidad.setGradoDeConfianza(3);
+        //comunidad.setGradoDeConfianza(3);
         comunidad.agregarIncidente(incidente1,miembro1);
         comunidad.agregarIncidente(incidente2,miembro2);
         comunidad.agregarIncidente(incidente3,miembro3);
@@ -84,7 +84,7 @@ public class MicroservicioTest {
         comunidad2.setNombre("comunidad2");
         comunidad2.agregarMiembro(miembro2,RolComunidad.AFECTADO);
         comunidad2.agregarMiembro(miembro3,RolComunidad.ADMINISTRADOR);
-        comunidad.setGradoDeConfianza(2);
+        //comunidad.setGradoDeConfianza(2);
         comunidad.agregarIncidente(incidente2,miembro3);
         comunidad.agregarIncidente(incidente3,miembro1);
         comunidad.agregarIncidente(incidente1,miembro3);

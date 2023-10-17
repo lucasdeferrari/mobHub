@@ -4,10 +4,13 @@ import domain.entidades.comunidad.Miembro;
 
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class RepositorioMiembro implements MiembroCRUD {
 
+    @PersistenceContext
     @Override
     public Miembro guardar(Miembro miembro) {
         EntityTransaction tx = entityManager().getTransaction();

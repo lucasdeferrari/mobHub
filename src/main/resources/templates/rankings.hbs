@@ -1,59 +1,76 @@
-{{#partial "contenido" }}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selección y Lista Dinámica</title>
-    <link rel="stylesheet" type="text/css" href="css/rankings.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Enlace a la hoja de estilos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Enlace a la hoja de estilos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Enlace a tu hoja de estilos personalizada (base.css) -->
+    <link rel="stylesheet" href="/css/rankings.css">
 </head>
 <body>
-    <div class="container">
-        <div class="login-box">
-            <h1>Rankings</h1> <!-- Título agregado -->
-            <h2>Tipo de Ranking</h2>
-            <select id="seleccion" onchange="mostrarLista()" >
-                <option value="opcion1">Opción 1</option>
-                <option value="opcion2">Opción 2</option>
-                <option value="opcion3">Opción 3</option>
-            </select>
+<!-- Barra de navegación personalizada -->
+<div class="navbar">
+    <!-- Contenedor del menú hamburguesa -->
+    <div class="mobhub-menu">
+        <!-- Etiqueta del ícono de menú hamburguesa -->
+        <label for="mobhub-dropdown-toggle" class="menu-toggle-label">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <!-- Menú desplegable -->
+        <ul class="dropdown-menu" id="mobhub-dropdown">
+            <li><a href="/portalCargaDeDatos">Portal de carga</a></li>
+            <li><a href="#">Opción 2</a></li>
+            <!-- Agrega más opciones si es necesario -->
+        </ul>
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a href="/base">Inicio</a></li>
+            <li><a href="/incidentes/reportar">Incidentes</a></li>
+            <li><a href="/portalCargaDeDatos">Usuarios</a></li>
+            <li><a href="/crearComunidad">Comunidades</a></li>
+            <li><a href="/rankings">Rankings</a></li>
+        </ul>
+    </div>
+    <div class="extra-options">
+        <ul>
+            <li><a href="/inicio">Acceder</a></li>
+            <li><a href="/crear-cuenta">Registrarse</a></li>
+        </ul>
+    </div>
+</div>
 
-            <div id="lista" class="dynamic-list">
-                <!-- Los elementos de la lista se generarán aquí dinámicamente -->
-            </div>
+<!-- Contenido principal de tu página -->
+<div class="container">
+    <div class="login-box">
+        <h1>Rankings</h1>
+        <h2>Tipo de Ranking</h2>
+        <select id="seleccion" onchange="mostrarLista()">
+            <option value="opcion1">Ranking segun la cantidad de reportes</option>
+            <option value="opcion2">Ranking segun el grado de impacto</option>
+            <option value="opcion3">Ranking segun el promedio de cierre</option>
+        </select>
+
+        <div id="lista" class="dynamic-list">
+
+            <!-- Los elementos de la lista se generarán aquí dinámicamente -->
         </div>
     </div>
+</div>
 
-    <script>
-        function mostrarLista() {
-            var seleccion = document.getElementById("seleccion");
-            var lista = document.getElementById("lista");
-
-            // Limpia el contenido actual de la lista
-            lista.innerHTML = "";
-
-            // Obtiene el valor seleccionado
-            var opcionSeleccionada = seleccion.value;
-
-            // Crea y muestra la lista en función de la opción seleccionada
-            if (opcionSeleccionada === "opcion1") {
-                var listaHTML = "<ul>";
-                for (var i = 1; i <= 200; i++) {
-                    listaHTML += "<li>Elemento " + i + "</li>";
-                }
-                listaHTML += "</ul>";
-                lista.innerHTML = listaHTML;
-            } else if (opcionSeleccionada === "opcion2") {
-                lista.innerHTML = "<ul><li>Elemento A</li><li>Elemento B</li></ul>";
-            } else if (opcionSeleccionada === "opcion3") {
-                lista.innerHTML = "<ul><li>Item X</li><li>Item Y</li><li>Item Z</li></ul>";
-            }
-        }
-
-        // Llama a la función mostrarLista() al cargar la página para que muestre la lista inicial
-        mostrarLista();
-    </script>
+<!-- Scripts de Bootstrap y otros recursos -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+<!--<script src="js/generales.js"></script>   puede o no puede servir-->
 </body>
 </html>
-{{/partial}}
-{{> templates/base }}

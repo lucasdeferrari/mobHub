@@ -7,12 +7,12 @@ import domain.entidades.servicios.Servicio;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class RepositorioServicio implements ServicioCRUD{
+public class RepositorioServicio implements ServicioCRUD {
 
     @Override
     public Servicio guardar(Servicio servicio) {
         EntityTransaction tx = entityManager().getTransaction();
-        if(!tx.isActive())
+        if (!tx.isActive())
             tx.begin();
 
         entityManager().persist(servicio);

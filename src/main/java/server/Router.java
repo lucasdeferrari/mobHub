@@ -20,9 +20,15 @@ public class Router {
         ));
 
         Server.app().routes(() -> {
-            get("/incidentes", ((IncidentesController)FactoryController.controller("Incidentes"))::index);
             get("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::create);
             post("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::save);
+
+            get("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
+            post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update); //TODO FALTA QUE SE PUEDA EDITAR (NUEVA VISTA?)
+
+
+
+            get("/incidentes", ((IncidentesController)FactoryController.controller("Incidentes"))::index);
 
             get("/inicio", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::index);
             post("/inicio", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::iniciarSesion);
