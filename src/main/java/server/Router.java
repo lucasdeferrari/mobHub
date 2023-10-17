@@ -37,15 +37,10 @@ public class Router {
             post("/crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::save);
 
             get("/olvidar-contrasenia",((InicioDeSesionController) FactoryController.controller("OlvidarContrasenia"))::olvidarContrasenia);
-            
-            get("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
-            post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update); //TODO FALTA QUE SE PUEDA EDITAR (NUEVA VISTA?)
 
             post("/cerrar-incidentes",((IncidentesController) FactoryController.controller("Incidentes")) :: recibirIncidentesCerrados);
 
             get("/rankings", ((RankingsController)FactoryController.controller("Rankings"))::show);
-
-
 
             post("/portalCargaDeDatos",((EntidadesPrestadorasController) FactoryController.controller("entidadPrestadora"))::save);
 
