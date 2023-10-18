@@ -2,8 +2,11 @@ package db;
 
 
 import domain.Repositorios.Comunidad.RepositorioComunidad;
+import domain.Repositorios.Entidad.RepositorioEntidad;
+import domain.Repositorios.Establecimiento.RepositorioEstablecimiento;
 import domain.Repositorios.Incidente.RepositorioIncidente;
 import domain.Repositorios.Miembro.RepositorioMiembro;
+import domain.Repositorios.Servicio.RepositorioServicio;
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.comunidad.Comunidad;
 import domain.entidades.comunidad.Miembro;
@@ -59,14 +62,23 @@ public class ContextTest implements SimplePersistenceTest {
     usuario1.setContrasenia("contrasenia");
 
     Establecimiento establecimiento1 = new Establecimiento();
+    establecimiento1.setNombre("establecimiento 1");
+
     Entidad entidad1 = new Entidad();
+    entidad1.setNombre("entidad 1");
 
     Servicio servicio1 = new Servicio();
+    servicio1.setNombre("servicio 1");
 
 
     RepositorioComunidad repositorioComunidad = new RepositorioComunidad();
     RepositorioMiembro repositorioMiembro = new RepositorioMiembro();
     RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios();
+
+    RepositorioServicio repositorioServicio = new RepositorioServicio();
+    RepositorioEstablecimiento repositorioEstablecimiento = new RepositorioEstablecimiento();
+
+    RepositorioEntidad repositorioEntidad = new RepositorioEntidad();
 
     withTransaction(() -> {
       Miembro miembroGuardado = repositorioMiembro.guardar(miembro1);
@@ -75,6 +87,10 @@ public class ContextTest implements SimplePersistenceTest {
       Usuario usuarioGuardado = repositorioDeUsuarios.guardar(usuario1);
 
       Comunidad comunidadGuardada1 = repositorioComunidad.guardar(comunidad1);
+
+      Servicio servicioGuardado = repositorioServicio.guardar(servicio1);
+      Establecimiento establecimientoGuardado = repositorioEstablecimiento.guardar(establecimiento1);
+      Entidad entidadGuardada = repositorioEntidad.guardar(entidad1);
 
     });
   }

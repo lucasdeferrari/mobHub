@@ -26,8 +26,6 @@ public class Router {
             get("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
             post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update); //TODO FALTA QUE SE PUEDA EDITAR (NUEVA VISTA?)
 
-
-
             get("/incidentes", ((IncidentesController)FactoryController.controller("Incidentes"))::index);
 
             get("/inicio", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::index);
@@ -36,15 +34,17 @@ public class Router {
             get("/crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::vista);
             post("/crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::save);
 
-            get("/olvidar-contrasenia",((InicioDeSesionController) FactoryController.controller("OlvidarContrasenia"))::olvidarContrasenia);
+            get("/olvidar-contrasenia",((InicioDeSesionController) FactoryController.controller("OlvidarContrasena"))::olvidarContrasenia);
 
-            post("/cerrar-incidentes",((IncidentesController) FactoryController.controller("Incidentes")) :: recibirIncidentesCerrados);
+            post("/cerrar-incidentes",((IncidentesController) FactoryController.controller("Incidentes"))::recibirIncidentesCerrados);
 
             get("/rankings", ((RankingsController)FactoryController.controller("Rankings"))::show);
 
-            post("/portalCargaDeDatos",((EntidadesPrestadorasController) FactoryController.controller("entidadPrestadora"))::save);
+            get("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::index);
 
-            post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("organismoDeControl"))::save);
+            post("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::save);
+
+            post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("OrganismosDeControl"))::save);
 
 
             get("/agregarUsuario",((MiembrosController) FactoryController.controller("miembro"))::index);

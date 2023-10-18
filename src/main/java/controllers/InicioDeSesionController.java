@@ -40,7 +40,7 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         context.render("InicioSesion.hbs");
     }
     public void olvidarContrasenia(Context context) {
-        context.render("OlvidarContrasenia.hbs");
+        context.render("OlvidarContrasena.hbs");
     }
     @Override
     public void show(Context context) {

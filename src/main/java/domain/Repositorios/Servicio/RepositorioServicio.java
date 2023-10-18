@@ -29,7 +29,7 @@ public class RepositorioServicio implements ServicioCRUD {
 
     @Override
     public List<Servicio> buscarTodos() {
-        return entityManager().createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
+        return entityManager().createQuery("from " + Servicio.class.getName()).getResultList();
     }
 
     @Override

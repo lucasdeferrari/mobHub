@@ -5,6 +5,7 @@ import domain.entidades.servicios.EntidadPrestadora;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import server.utils.ICrudViewsHandler;
+import domain.entidades.LectorCSV.ImportadorDeEntidadesPrestadoras;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
         Map<String, Object> model = new HashMap<>();
         List<EntidadPrestadora> entidadPrestadoras = this.repositorioEntidadPrestadora.buscarTodos();
         model.put("entidadPrestadora", entidadPrestadoras);
-        context.render("entidadPrestadora.hbs", model);
+        context.render("portalCargaDeDatos.hbs", model);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
         EntidadPrestadora entidadPrestadora = (EntidadPrestadora) this.repositorioEntidadPrestadora.buscarPorId(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
         model.put("entidadPrestadora", entidadPrestadora);
-        context.render("entidadPrestadora/entidadPrestadora.hbs", model);
+        context.render("portalCargaDeDatos.hbs", model);
     }
 
     @Override
@@ -44,13 +45,20 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
 
     @Override
     public void save(Context context) {
+        ImportadorDeEntidadesPrestadoras importador = new ImportadorDeEntidadesPrestadoras();
+        importador.importarEntidadesPrestadoras(); // Procesar y guardar los datos del archivo CSV
+
+        context.redirect("/portalCargaDeDatos");
+    }
+
+    /*public void save(Context context) {
         EntidadPrestadora entidadPrestadora = new EntidadPrestadora();
         this.asignarParametros(entidadPrestadora, context);
         this.repositorioEntidadPrestadora.guardar(entidadPrestadora);
         context.status(HttpStatus.CREATED);
         context.redirect("/entidadPrestadora");
     }
-
+*/
     @Override
     public void edit(Context context) {
         EntidadPrestadora entidadPrestadora = (EntidadPrestadora) this.repositorioEntidadPrestadora.buscarPorId(Long.parseLong(context.pathParam("id")));

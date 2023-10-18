@@ -87,10 +87,19 @@ public class IncidentesController implements ICrudViewsHandler {
 
     @Override
     public void edit(Context context) {
-        Incidente incidente = (Incidente) this.repositorioIncidente.buscarPorId(Long.parseLong(context.pathParam("id")));
-        Map<String, Object> model = new HashMap<>();
-        model.put("incidente", incidente);
-        context.render("incidentes.hbs", model);
+        String json = context.body();
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Integer> incidenteIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
+        for (Integer id : incidenteIds) {
+            Incidente incidente = repositorioIncidente.buscarPorId(id.longValue());
+            if (incidente != null) {
+                context.sessionAttribute("id");
+                Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("id")));
+                miembro.cerrarIncidente(incidente);
+                repositorioIncidente.actualizar(incidente);
+            }
+        }
+        context.redirect("/incidentes");
     }
 
     @Override
@@ -114,7 +123,6 @@ public class IncidentesController implements ICrudViewsHandler {
         List<Integer> incidenteIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
         for (Integer id : incidenteIds) {
             Incidente incidente = repositorioIncidente.buscarPorId(id.longValue());
-
             if (incidente != null) {
                 context.sessionAttribute("id");
                 Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("id")));
@@ -122,11 +130,15 @@ public class IncidentesController implements ICrudViewsHandler {
                 repositorioIncidente.actualizar(incidente);
             }
         }
+        context.redirect("/incidentes");
 
     }
 
 
     private void asignarParametros(Incidente incidente, Context context) {
+
+        incidente.setFechaHoraApertura(LocalDateTime.now());
+
         if(!Objects.equals(context.formParam("nombre"), "")) {
             incidente.setNombre(context.formParam("nombre"));
         }
@@ -135,12 +147,13 @@ public class IncidentesController implements ICrudViewsHandler {
         }
         if(!Objects.equals(context.formParam("comunidad"), "")) {
             incidente.setComunidad(repositorioComunidad.buscarPorNombre(context.formParam("comunidad")));
+
         }
         if(!Objects.equals(context.formParam("establecimiento"), "")) {
             incidente.setEstablecimiento(repositorioEstablecimiento.buscarPorNombre(context.formParam("establecimiento")));
         }
         if(!Objects.equals(context.formParam("servicio"), "")) {
-            incidente.setServicio(repositorioServicio.buscarPorNombre("servicio"));
+            incidente.setServicio(repositorioServicio.buscarPorNombre(context.formParam("servicio")));
         }
 
     }

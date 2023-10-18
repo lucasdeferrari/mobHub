@@ -1,111 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Enlace a la hoja de estilos de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <!-- Enlace a la hoja de estilos Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-    <!-- Enlace a tu hoja de estilos personalizada (base.css) -->
+{{#partial "contenido" }}
+    <title>Incidentes</title>
     <link rel="stylesheet" href="/css/incidentes.css">
-</head>
-<body>
-<!-- Barra de navegación personalizada -->
-<div class="navbar">
-    <!-- Contenedor del menú hamburguesa -->
-    <div class="mobhub-menu">
-        <!-- Etiqueta del ícono de menú hamburguesa -->
-        <label for="mobhub-dropdown-toggle" class="menu-toggle-label">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <!-- Menú desplegable -->
-        <ul class="dropdown-menu" id="mobhub-dropdown">
-            <li><a href="/portalCargaDeDatos">Portal de carga</a></li>
-            <li><a href="#">Opción 2</a></li>
-            <!-- Agrega más opciones si es necesario -->
-        </ul>
-    </div>
-    <div class="menu">
-        <ul>
-            <li><a href="/base">Inicio</a></li>
-            <li><a href="/incidentes/reportar">Incidentes</a></li>
-            <li><a href="/portalCargaDeDatos">Usuarios</a></li>
-            <li><a href="/crearComunidad">Comunidades</a></li>
-            <li><a href="/rankings">Rankings</a></li>
-        </ul>
-    </div>
-    <div class="extra-options">
-        <ul>
-            <li><a href="/inicio">Acceder</a></li>
-            <li><a href="/crear-cuenta">Registrarse</a></li>
-        </ul>
-    </div>
-</div>
 
-<!-- Contenido principal de tu página -->
-<div class="container">
-    <h1 class="text-center">Incidentes</h1>
-    <!-- Botón "Seleccionar Todos" arriba de la tabla -->
-    <div class="filtro-box">
+    <!-- Contenido principal de tu página -->
+    <div class="incidents-box" >
+        <h1 class="text-center">Incidentes</h1>
+        <!-- Botón "Seleccionar Todos" arriba de la tabla -->
 
-        <select id="filtro">
-            <option value="" disabled selected>Filtrar por...</option>
-            <option value="nombre">Nombre</option>
-            <option value="servicio">Servicio</option>
-            <option value="establecimiento">Establecimiento</option>
-            <option value="comunidad">Comunidad</option>
-            <option value="abierto">Abierto</option>
-            <option value="cerrado">Cerrado</option>
-        </select>
-        <input type="text" id="busqueda" placeholder="Buscar..." />
-        <button id="buscar">Buscar</button>
-    </div>
-    <div class="table-container">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Servicio</th>
-                <th>Establecimiento</th>
-                <th>Comunidad</th>
-                <th>Cerrar Incidente</th>
-            </tr>
-            </thead>
-            <tbody id="tabla-incidentes">
-            {{#each incidentes}}
-                <tr data-id="{{this.id}}">
-                    <td><a href="/incidentes/{{this.id}}">{{this.nombre}}</a></td>
-                    <td>{{this.servicio.nombre}}</td>
-                    <td>{{this.establecimiento.nombre}}</td>
-                    <td>{{this.comunidad.nombre}}</td>
-                    <td>
-                        {{#if fechaCierre}}
-                            <span>Cerrado</span>
-                        {{else}}
-                            <input type="checkbox" data-id="{{this.id}}">
-                        {{/if}}
-                    </td>
+        <div class="filtro-box">
+
+            <select id="filtro">
+                <option value="" disabled selected>Filtrar por...</option>
+                <option value="nombre">Nombre</option>
+                <option value="servicio">Servicio</option>
+                <option value="establecimiento">Establecimiento</option>
+                <option value="comunidad">Comunidad</option>
+                <option value="abierto">Abierto</option>
+                <option value="cerrado">Cerrado</option>
+            </select>
+            <input type="text" id="busqueda" placeholder="Buscar..." />
+            <button id="buscar">Buscar</button>
+        </div>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Servicio</th>
+                    <th>Establecimiento</th>
+                    <th>Comunidad</th>
+                    <th>Cerrar Incidente</th>
                 </tr>
-            {{/each}}
+                </thead>
+                <tbody id="tabla-incidentes">
+                {{#each incidentes}}
+                    <tr data-id="{{this.id}}">
+                        <td><a href="/incidentes/{{this.id}}">{{this.nombre}}</a></td>
+                        <td>{{this.servicio.nombre}}</td>
+                        <td>{{this.establecimiento.nombre}}</td>
+                        <td>{{this.comunidad.nombre}}</td>
+                        <td>
+                            {{#if fechaCierre}}
+                                <span>Cerrado</span>
+                            {{else}}
+                                <input type="checkbox" data-id="{{this.id}}">
+                            {{/if}}
+                        </td>
+                    </tr>
+                {{/each}}
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+            <button id="cerrarSeleccionados">Cerrar Seleccionados</button>
     </div>
-    <!-- Botón "Cerrar Seleccionados" debajo de la tabla -->
-    <button id="cerrarSeleccionados">Cerrar Seleccionados</button>
-</div>
 
-<!-- Scripts de Bootstrap y otros recursos -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
-<!--<script src="js/generales.js"></script>   puede o no puede servir-->
-</body>
-</html>
+    <!-- Scripts de Bootstrap y otros recursos -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script src="js/incidentes.js"></script>
+{{/partial}}
+{{> templates/base }}
+
