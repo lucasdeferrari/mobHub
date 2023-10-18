@@ -1,11 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Supongamos que tenemos un arreglo de objetos de usuarios
-    const usuarios = [
-        { nombre: 'John', apellido: 'Doe', rol: 'Usuario' },
-        { nombre: 'Jane', apellido: 'Smith', rol: 'Administrador' },
-        { nombre: 'Bob', apellido: 'Johnson', rol: 'Usuario' }
-        // Puedes agregar más usuarios aquí
-    ];
+
 
     // Función para cargar usuarios en la tabla
     function cargarUsuarios() {

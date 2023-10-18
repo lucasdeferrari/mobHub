@@ -24,7 +24,9 @@ public class RepositorioIncidente implements IncidenteCRUD {
     public Incidente buscarPorId(Long id) {
         return entityManager().find(Incidente.class, id);
     }
-
+    public Incidente buscarPorId2(Integer id) {
+        return entityManager().find(Incidente.class, id);
+    }
     @Override
     public List<Incidente> buscarTodos() {
         return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
@@ -34,7 +36,12 @@ public class RepositorioIncidente implements IncidenteCRUD {
 
     @Override
     public void actualizar(Incidente incidente) {
-        entityManager().merge(incidente);
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+        entityManager().persist(incidente);
+        tx.commit();
+
     }
 
     @Override

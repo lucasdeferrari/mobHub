@@ -17,6 +17,7 @@ import domain.entidades.servicios.Entidad;
 import domain.entidades.servicios.Establecimiento;
 import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
+import domain.entidades.signin.RolUsuario;
 import domain.entidades.signin.Usuario;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,16 @@ public class ContextTest implements SimplePersistenceTest {
     usuario1.setNombre("nombre");
     usuario1.setApellido("apellido");
     usuario1.setEmail("email@gmail.com");
-    usuario1.setContrasenia("contrasenia");
+    usuario1.setContrasenia("Contrasenia");
+
+
+    Usuario usuario2 = new Usuario();
+    usuario2.setNombreUsuario("admin");
+    usuario2.setNombre("administrador");
+    usuario2.setApellido("administra");
+    usuario2.setEmail("administrador@gmail.com");
+    usuario2.setContrasenia("Admin");
+    usuario2.setRolUsuario(RolUsuario.ADMINISTRADOR_PLATAFORMA);
 
     Establecimiento establecimiento1 = new Establecimiento();
     establecimiento1.setNombre("establecimiento 1");
@@ -91,6 +101,8 @@ public class ContextTest implements SimplePersistenceTest {
       Servicio servicioGuardado = repositorioServicio.guardar(servicio1);
       Establecimiento establecimientoGuardado = repositorioEstablecimiento.guardar(establecimiento1);
       Entidad entidadGuardada = repositorioEntidad.guardar(entidad1);
+
+      Usuario usuarioGuardado2 = repositorioDeUsuarios.guardar(usuario2);
 
     });
   }

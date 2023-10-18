@@ -15,11 +15,18 @@ import java.util.stream.Collectors;
 
 public class AlertarSinApuro implements FormaNotificacion{
     private Timer timer;
-    private Map<Miembro, List<Notificacion>> diccionarioNotificaciones;
+    private Map<Miembro, List<Notificacion>> diccionarioNotificaciones = new HashMap<>();
     private LocalTime horarioDeNotificacion;
 
     public void notificar(Notificacion unaNotificacion, Miembro unMiembro) {
-        diccionarioNotificaciones.get(unMiembro).add(unaNotificacion);
+        List<Notificacion> listaNotificaciones = diccionarioNotificaciones.get(unMiembro);
+
+        if (listaNotificaciones == null) {
+            listaNotificaciones = new ArrayList<>();
+            diccionarioNotificaciones.put(unMiembro, listaNotificaciones);
+        }
+
+        listaNotificaciones.add(unaNotificacion);
     }
 
     LocalTime horaDeInicio = LocalTime.of(0,0,0);

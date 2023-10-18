@@ -8,11 +8,13 @@ import domain.Repositorios.Establecimiento.RepositorioEstablecimiento;
 import domain.Repositorios.Incidente.RepositorioIncidente;
 import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.Repositorios.Servicio.RepositorioServicio;
+import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.comunidad.Comunidad;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.servicios.Establecimiento;
 import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
+import domain.entidades.signin.RolUsuario;
 import domain.entidades.signin.Usuario;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class IncidentesController implements ICrudViewsHandler {
     private RepositorioIncidente repositorioIncidente;
@@ -32,29 +35,45 @@ public class IncidentesController implements ICrudViewsHandler {
     private RepositorioServicio repositorioServicio;
     private RepositorioMiembro repositorioMiembro;
 
+    private RepositorioDeUsuarios repositorioDeUsuarios;
 
-    public IncidentesController(RepositorioIncidente repositorioDeIncidentes, RepositorioComunidad repositorioComunidad, RepositorioServicio repositorioServicio, RepositorioEstablecimiento repositorioEstablecimiento, RepositorioMiembro repositorioMiembro) {
+
+    public IncidentesController(RepositorioIncidente repositorioDeIncidentes, RepositorioComunidad repositorioComunidad, RepositorioServicio repositorioServicio, RepositorioEstablecimiento repositorioEstablecimiento, RepositorioMiembro repositorioMiembro, RepositorioDeUsuarios repositorioDeUsuarios) {
         this.repositorioIncidente = repositorioDeIncidentes;
         this.repositorioComunidad = repositorioComunidad;
         this.repositorioEstablecimiento = repositorioEstablecimiento;
         this.repositorioServicio = repositorioServicio;
         this.repositorioMiembro = repositorioMiembro;
+        this.repositorioDeUsuarios = repositorioDeUsuarios;
     }
 
     @Override
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
+        Integer id = context.sessionAttribute("id");
+        Usuario usuario = repositorioDeUsuarios.buscarPorId(id);
+
         List<Incidente> incidentes = this.repositorioIncidente.buscarTodos();
+
+        if(usuario.getRolUsuario().toString().equals("MIEMBRO")) {
+            incidentes = incidentes.stream().filter(unIncidente -> unIncidente.estadoAbierto()).collect(Collectors.toList());
+        }
+
+        System.out.println("rol del usuario:" + usuario.getRolUsuario().toString());
+
         model.put("incidentes", incidentes);
         context.render("incidentes.hbs", model);
     }
 
     @Override
     public void show(Context context) {
-        Incidente incidente = this.repositorioIncidente.buscarPorId(Long.parseLong(context.queryParam("id")));
+        System.out.println(context.queryParam("id"));
+        Incidente incidente = this.repositorioIncidente.buscarPorId2(Integer.parseInt(context.pathParam("id")));
+        //Servicio servicio = (Servicio) this.repositorioDeServicios.buscar(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
         model.put("incidente", incidente);
         context.render("datosIncidente.hbs", model);
+
     }
 
     @Override
@@ -87,19 +106,7 @@ public class IncidentesController implements ICrudViewsHandler {
 
     @Override
     public void edit(Context context) {
-        String json = context.body();
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Integer> incidenteIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
-        for (Integer id : incidenteIds) {
-            Incidente incidente = repositorioIncidente.buscarPorId(id.longValue());
-            if (incidente != null) {
-                context.sessionAttribute("id");
-                Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("id")));
-                miembro.cerrarIncidente(incidente);
-                repositorioIncidente.actualizar(incidente);
-            }
-        }
-        context.redirect("/incidentes");
+
     }
 
     @Override
@@ -122,16 +129,14 @@ public class IncidentesController implements ICrudViewsHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Integer> incidenteIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
         for (Integer id : incidenteIds) {
-            Incidente incidente = repositorioIncidente.buscarPorId(id.longValue());
+            Incidente incidente = repositorioIncidente.buscarPorId2(id);
             if (incidente != null) {
                 context.sessionAttribute("id");
-                Miembro miembro = repositorioMiembro.buscarPorId(Long.parseLong(context.formParam("id")));
+                Miembro miembro = repositorioMiembro.buscarPorId2(context.sessionAttribute("id"));
                 miembro.cerrarIncidente(incidente);
                 repositorioIncidente.actualizar(incidente);
             }
         }
-        context.redirect("/incidentes");
-
     }
 
 

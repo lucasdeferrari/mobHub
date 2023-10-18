@@ -19,11 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RankingsController implements ICrudViewsHandler{
-    GeneradorRanking generador;
-
-    public RankingsController(GeneradorRanking generador){
-        generador = generador;
-    }
+    GeneradorRanking generador = GeneradorRanking.getInstance();
 
     @Override
     public void index(Context context){

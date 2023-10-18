@@ -1,14 +1,3 @@
-/* Estilos para el fondo de la página completa */
-main {
-    margin: 0;
-    padding: 0;
-    font-family: "DM Sans", sans-serif;
-    background: #577399 !important; /* Color de fondo azul con !important */
-    width: 100%; /* Ancho al 100% para que sea responsive */
-    height: auto; /* Altura automática para adaptarse al contenido */
-}
-
-
 main {
     font-family: Arial, sans-serif;
     background-color: #577399;
