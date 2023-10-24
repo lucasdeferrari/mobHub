@@ -19,14 +19,22 @@ public class Router {
                 + ctx.pathParam("nombre")
         ));
 
+        Server.app().error(404, ctx -> {
+            //Asi funciona sin imagen
+            //ctx.status(404).result("Pagina no encontrada");
+            //hay que agregar la ruta de la imagen de 404 en 404.hbs
+            ctx.render("404.hbs");
+        });
+
         Server.app().routes(() -> {
+
             get("/home", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::showHome);
 
             get("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::create);
             post("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::save);
 
             get("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
-            post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
+           // post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
 
             get("/incidentes", ((IncidentesController)FactoryController.controller("Incidentes"))::index);
 

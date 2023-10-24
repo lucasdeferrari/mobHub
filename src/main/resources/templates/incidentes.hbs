@@ -32,9 +32,10 @@
                 </tr>
                 </thead>
                 <tbody id="tabla-incidentes">
+
                 {{#each incidentes}}
                     <tr data-id="{{this.id}}">
-                        <td><a href="/incidentes/{{this.id}}">{{this.nombre}}</a></td>
+                        <td><a href="/incidentes/{{this.token}}">{{this.nombre}}</a></td>
                         <td>{{this.servicio.nombre}}</td>
                         <td>{{this.establecimiento.nombre}}</td>
                         <td>{{this.comunidad.nombre}}</td>
@@ -143,6 +144,8 @@
                 }
             }
         });
+
+
 
 
     </script>

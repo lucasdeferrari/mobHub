@@ -17,6 +17,7 @@ import domain.entidades.signin.estrategiasDeValidacion.*;
 import io.javalin.http.Context;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.mindrot.jbcrypt.BCrypt;
 import server.utils.ICrudViewsHandler;
 import org.hibernate.Session;
 
@@ -62,8 +63,8 @@ public class InicioDeSesionController implements ICrudViewsHandler {
             EstrategiaValidacion e1 = new ValidacionTieneMayuscula();
             controller.agregarEstrategia(e1); // TODO poner las otras validaciones y que funcionen
 
-            asignarParametros(user, context);
             if (controller.verificarContrasenia(contrasenia)) {
+                asignarParametros(user, context);
                 Usuario usuarioGuardado =  repoUsuarios.guardar(user);
                 Miembro miembro = new Miembro();
                 asignarParametrosMiembro(miembro, context);
@@ -95,12 +96,11 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         // Realizar la autenticación aquí (por ejemplo, verificar credenciales en una base de datos)
         System.out.println(username);
         Usuario usuario= this.repoUsuarios.buscarPorUsername(context.formParam("usuario"));
-
-        if (usuario.getContrasenia().equals(password)) {
+        if (BCrypt.checkpw(password, usuario.getContrasenia())) {
                 // Autenticación exitosa, establecer una sesión
                 //context.result("Inicio de sesión exitoso, redireccionando a la página principal.");
                 context.sessionAttribute("id", usuario.getId());
-                context.redirect("/incidentes");
+                context.redirect("/home");
         } else {
                 // Autenticación fallida, mostrar un mensaje de error
                 context.result("Inicio de sesion fallido. Por favor, verifica tus credenciales.");
@@ -130,7 +130,9 @@ public class InicioDeSesionController implements ICrudViewsHandler {
             usuario.setNombreUsuario(context.formParam("usuario"));
         }
         if(!Objects.equals(context.formParam("contrasena"), "")) {
-            usuario.setContrasenia(context.formParam("contrasena"));
+            String password = context.formParam("contrasena");
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            usuario.setContrasenia(hashedPassword);
         }
 
 

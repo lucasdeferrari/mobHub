@@ -27,14 +27,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
+import java.util.UUID;
 public class IncidentesController implements ICrudViewsHandler {
     private RepositorioIncidente repositorioIncidente;
     private RepositorioComunidad repositorioComunidad;
     private RepositorioEstablecimiento repositorioEstablecimiento;
     private RepositorioServicio repositorioServicio;
     private RepositorioMiembro repositorioMiembro;
-
     private RepositorioDeUsuarios repositorioDeUsuarios;
 
 
@@ -68,7 +67,7 @@ public class IncidentesController implements ICrudViewsHandler {
     @Override
     public void show(Context context) {
         System.out.println(context.queryParam("id"));
-        Incidente incidente = this.repositorioIncidente.buscarPorId2(Integer.parseInt(context.pathParam("id")));
+        Incidente incidente = this.repositorioIncidente.buscarPorToken((context.pathParam("id")));
         //Servicio servicio = (Servicio) this.repositorioDeServicios.buscar(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
         model.put("incidente", incidente);
@@ -99,6 +98,7 @@ public class IncidentesController implements ICrudViewsHandler {
         Miembro miembro = this.repositorioMiembro.buscarPorId2((userid));//todo revisar que solo un miembro pueda reportar
         incidente.setQuienAbrio(miembro);
         this.asignarParametros(incidente, context);
+        incidente.setToken(UUID.randomUUID().toString());
         this.repositorioIncidente.guardar(incidente);
         context.status(HttpStatus.CREATED);
         context.redirect("/incidentes/reportar");

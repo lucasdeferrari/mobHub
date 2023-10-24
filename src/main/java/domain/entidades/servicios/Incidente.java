@@ -44,6 +44,8 @@ public class Incidente extends EntidadPersistente {
     @Convert(converter = LocalDateTimeConverter.class)
     @Column(name = "fechaHoraCierre", columnDefinition = "DATETIME")
     private LocalDateTime fechaHoraCierre;
+    @Column
+    private String token;
     public Incidente() {
 
     }

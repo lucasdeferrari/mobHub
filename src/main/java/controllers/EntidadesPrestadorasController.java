@@ -4,9 +4,15 @@ import domain.Repositorios.EntidadPrestadora.RepositorioEntidadPrestadora;
 import domain.entidades.servicios.EntidadPrestadora;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import io.javalin.http.UploadedFile;
 import server.utils.ICrudViewsHandler;
 import domain.entidades.LectorCSV.ImportadorDeEntidadesPrestadoras;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,11 +51,44 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
 
     @Override
     public void save(Context context) {
-        ImportadorDeEntidadesPrestadoras importador = new ImportadorDeEntidadesPrestadoras();
-        importador.importarEntidadesPrestadoras(); // Procesar y guardar los datos del archivo CSV
+        UploadedFile archivo = context.uploadedFile("formData");
 
-        context.redirect("/portalCargaDeDatos");
+        if (archivo != null) {
+            try {
+                InputStream inputStream = archivo.content();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder contenidoCSV = new StringBuilder();
+                String linea;
+
+                while ((linea = reader.readLine()) != null) {
+                    contenidoCSV.append(linea).append("\n");
+                }
+
+                ImportadorDeEntidadesPrestadoras importador = new ImportadorDeEntidadesPrestadoras();
+
+                // Llama a tu importador para procesar y guardar los datos del archivo CSV
+                boolean importacionExitosa = importador.importarEntidadesPrestadoras(contenidoCSV.toString());
+
+                if (importacionExitosa) {
+                    context.result("Archivo CSV procesado y guardado con éxito.");
+                } else {
+                    context.result("Error al procesar y guardar el archivo CSV.");
+                }
+            } catch (IOException e) {
+                // Maneja cualquier error de lectura del archivo
+                context.result("Error al procesar el archivo.");
+            }
+        } else {
+            // Manejar el caso en el que no se ha subido un archivo o se ha proporcionado un nombre de campo incorrecto
+            context.result("No se ha seleccionado ningún archivo CSV.");
+        }
     }
+
+
+
+
+
+
 
     /*public void save(Context context) {
         EntidadPrestadora entidadPrestadora = new EntidadPrestadora();

@@ -12,9 +12,9 @@ public class ImportadorDeEntidadesPrestadoras {
     Map<String, DatosCSV> diccionarioDatosEntidades = new HashMap<>();
     String rutaArchivoEntidadesPrestadoras = ConfigReader.getPropertyValue("pathEntidadesPrestadoras");
 
-    public void importarEntidadesPrestadoras() {
+    public void importarEntidadesPrestadoras(String archivoEntidadesPrestadoras) {
         ParserCSV parserCSV = new ParserCSV();
-        diccionarioDatosEntidades = parserCSV.parserCSV(rutaArchivoEntidadesPrestadoras);
+        diccionarioDatosEntidades = parserCSV.parserCSV(archivoEntidadesPrestadoras);
     }
 
 }

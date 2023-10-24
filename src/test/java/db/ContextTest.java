@@ -21,6 +21,7 @@ import domain.entidades.signin.RolUsuario;
 import domain.entidades.signin.Usuario;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Test;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -60,15 +61,16 @@ public class ContextTest implements SimplePersistenceTest {
     usuario1.setNombre("nombre");
     usuario1.setApellido("apellido");
     usuario1.setEmail("email@gmail.com");
-    usuario1.setContrasenia("Contrasenia");
-
+    String hashedPassword = BCrypt.hashpw("Contrasenia", BCrypt.gensalt());
+    usuario1.setContrasenia(hashedPassword);
 
     Usuario usuario2 = new Usuario();
     usuario2.setNombreUsuario("admin");
     usuario2.setNombre("administrador");
     usuario2.setApellido("administra");
     usuario2.setEmail("administrador@gmail.com");
-    usuario2.setContrasenia("Admin");
+    String hashedPassword2 = BCrypt.hashpw("Admin", BCrypt.gensalt());
+    usuario2.setContrasenia(hashedPassword2);
     usuario2.setRolUsuario(RolUsuario.ADMINISTRADOR_PLATAFORMA);
 
     Establecimiento establecimiento1 = new Establecimiento();

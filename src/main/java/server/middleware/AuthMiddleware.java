@@ -4,7 +4,7 @@ import domain.entidades.signin.RolUsuario;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
 import server.exceptions.AccessDeniedException;
-import domain.entidades.comunidad.RolComunidad;
+
 public class AuthMiddleware {
 
     public static void apply(JavalinConfig config) {
