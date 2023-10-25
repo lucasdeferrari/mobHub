@@ -19,7 +19,7 @@ public class FactoryController {
 
             case "Servicios": controller = new ServiciosController(new RepositorioServicio()); break;
             case "Incidentes": controller = new IncidentesController(new RepositorioIncidente(), new RepositorioComunidad(), new RepositorioServicio(), new RepositorioEstablecimiento(), new RepositorioMiembro(), new RepositorioDeUsuarios()); break;
-            case "Miembros": controller = new MiembrosController(new RepositorioMiembro()); break;
+            case "MiembrosYUsuarios": controller = new MiembrosController(new RepositorioMiembro(), new RepositorioDeUsuarios()); break;
             case "Comunidades": controller = new ComunidadesController(new RepositorioComunidad()); break;
             case "Entidades": controller = new EntidadesController(new RepositorioEntidad()); break;
             case "Establecimientos": controller = new EstablecimientosController(new RepositorioEstablecimiento()); break;

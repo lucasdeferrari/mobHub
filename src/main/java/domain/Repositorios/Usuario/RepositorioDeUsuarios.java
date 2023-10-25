@@ -1,5 +1,6 @@
 package domain.Repositorios.Usuario;
 
+import domain.entidades.comunidad.Miembro;
 import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.Usuario;
 
@@ -31,8 +32,9 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
     public Usuario buscarPorId(int id) {
         return entityManager().find(Usuario.class,id);
     }
-
-
+    public Usuario buscarPorId2(Integer id) {
+        return entityManager().find(Usuario.class, id);
+    }
     public Usuario buscarPorNombre(String nombre) {
         return entityManager()
                 .createQuery("SELECT i FROM Usuario i WHERE i.nombre = :nombre", Usuario.class)

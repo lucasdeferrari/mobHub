@@ -60,7 +60,17 @@ public class Test2 {
         comunidades.add(comunidad2);
         comunidades.add(comunidad3);
 
+        comunidad.agregarServiciosParaAPI();
+        comunidad.agregarEstablecimientosParaAPI();
+
+        comunidad2.agregarServiciosParaAPI();
+        comunidad2.agregarEstablecimientosParaAPI();
+
+        comunidad3.agregarServiciosParaAPI();
+        comunidad3.agregarEstablecimientosParaAPI();
+
         MicroservicioG16 fusionComunidades = new MicroservicioG16();
+
 
         List<Comunidad> comunidadesRetornadas = fusionComunidades.sendCommunitiesToApi(comunidad, comunidades);
 

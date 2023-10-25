@@ -1,6 +1,7 @@
 package domain.entidades.servicios;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import domain.Persistencia.EntidadPersistente;
@@ -17,6 +18,7 @@ public class Servicio extends EntidadPersistente {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipoServicio")
+  @JsonIgnore
   private TipoDeServicio tipoServicio;
 
   @Column
@@ -25,9 +27,11 @@ public class Servicio extends EntidadPersistente {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "estado")
+  @JsonIgnore
   private Estado estado;
 
   @Column
+  @JsonIgnore
   private String descripcion;
 
   public Servicio(TipoDeServicio tipoServicio, Estado estado, String descripcion) {

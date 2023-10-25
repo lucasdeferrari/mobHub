@@ -1,5 +1,6 @@
 package domain.entidades.comunidad;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import domain.Persistencia.EntidadPersistente;
@@ -37,56 +38,71 @@ public class Miembro extends EntidadPersistente {
   private String nombre;
 
   @Column
+  @JsonIgnore
   private String apellido;
 
   @Column
+  @JsonIgnore
   private String correoElectronico;
 
   @Column
+  @JsonIgnore
   private String telefono;
 
   @Transient
+  @JsonIgnore
   private Integer gradoDeConfianza;
 
   @Transient
   @Getter
+  @JsonIgnore
   private Map<Comunidad, RolComunidad> comunidadesPertenecientes;
 
   @ManyToMany
+  @JsonIgnore
   private List<Entidad> entidadesAsociadas;
 
   @ElementCollection
   @Enumerated(EnumType.STRING)
   @CollectionTable(name = "servicios_miembro", joinColumns = @JoinColumn(name = "miembro_id",referencedColumnName = "id"))
   @Column(unique = true)
+  @JsonIgnore
   private List<TipoDeServicio> serviciosAsociados;
 
   @Embedded
+  @JsonIgnore
   private Provincia localizacionProvincia;
 
   @Embedded
+  @JsonIgnore
   private Municipio localizacionMunicipio;
 
   @Embedded
+  @JsonIgnore
   private Localidad localizacionDepartamento;
 
   @Convert(converter = MedioNotificacionConverter.class)
   @Column(columnDefinition = "VARCHAR(20)")
   @Setter
+  @JsonIgnore
   private MedioNotificacion medioDeNotificacion;
 
   @Convert(converter = FormaNotificacionConverter.class)
   @Column(columnDefinition = "VARCHAR(20)")
   @Setter
+  @JsonIgnore
   private FormaNotificacion formaNotificacion;
 
   @Embedded
+  @JsonIgnore
   private Ubicacion ubicacionActual;
 
   @Transient
+  @JsonIgnore
   private List<Incidente> incidentesDeInteresPropio;
 
   @Transient
+  @JsonIgnore
   private Map<TipoDeServicio, RolServicio> rolesServicios;
 
 
@@ -94,6 +110,7 @@ public class Miembro extends EntidadPersistente {
 
   @Convert(converter = LocalTimeConverter.class)
   @Column(columnDefinition = "TIME")
+  @JsonIgnore
   private LocalTime horarioElegido;
 
   public Miembro() {

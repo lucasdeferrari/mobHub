@@ -1,7 +1,6 @@
 package domain.entidades.comunidad;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import domain.Persistencia.EntidadPersistente;
 import domain.entidades.notificaciones.NotificarAperturaAMiembros;
 import domain.entidades.notificaciones.NotificarCierreAMiembros;
@@ -10,8 +9,6 @@ import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
@@ -30,6 +27,7 @@ public class Comunidad extends EntidadPersistente {
   private String nombre;
 
   @Column
+  @JsonIgnore
   private String descripcion;
 
   @ElementCollection
@@ -37,10 +35,12 @@ public class Comunidad extends EntidadPersistente {
   @MapKeyJoinColumn(name = "miembro_id") // La clave del mapa será un Miembro
   @Enumerated(EnumType.STRING) // El valor del mapa será un RolComunidad
   @Column(name = "rol_comunidad")
+  @JsonIgnore
   private Map<Miembro, RolComunidad> miembrosNuestro;
 
 
   @OneToMany(mappedBy = "comunidad")
+  @JsonIgnore
   private List<Incidente> incidentesAbiertos;
 
 
@@ -52,6 +52,14 @@ public class Comunidad extends EntidadPersistente {
   @Transient
   @JsonProperty("gradoDeConfianza")
   private Float gradoDeConfianza;
+
+  @Transient
+  @JsonProperty("servicios")
+  private List<Servicio> servicios = new ArrayList<>();
+
+  @Transient
+  @JsonProperty("establecimientos")
+  private List<Establecimiento> establecimientos = new ArrayList<>();
 
   public void agregarMiembro(Miembro miembro, RolComunidad rolComunidad) {
     miembrosNuestro.put(miembro, rolComunidad);
@@ -73,18 +81,13 @@ public class Comunidad extends EntidadPersistente {
     establecimiento.agregarServicio(servicio);
   }
 
-  @JsonProperty("servicios")
-  public List<Servicio> agregarServiciosParaAPI() {
-    List<Servicio> servicios = new ArrayList<>();
+  public void agregarServiciosParaAPI() {
     incidentesAbiertos.forEach(unIncidente -> servicios.add(unIncidente.getServicio()));
-    return servicios;
+
   }
 
-  @JsonProperty("establecimientos")
-  public List<Establecimiento> agregarEstablecimientosParaAPI() {
-    List<Establecimiento> establecimientos = new ArrayList<>();
+  public void agregarEstablecimientosParaAPI() {
     incidentesAbiertos.forEach(unIncidente -> establecimientos.add(unIncidente.getEstablecimiento()));
-    return establecimientos;
   }
 
   public void agregarIncidente(Incidente unIncidente, Miembro miembroQueAbrio) {

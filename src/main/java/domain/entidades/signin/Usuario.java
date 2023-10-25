@@ -32,4 +32,6 @@ public class Usuario extends EntidadPersistente {
   @Enumerated(EnumType.STRING)
   private RolUsuario rolUsuario = RolUsuario.MIEMBRO;
 
+  @Column
+  private Boolean validado = false;
 }

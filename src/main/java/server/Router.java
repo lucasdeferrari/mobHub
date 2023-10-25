@@ -55,26 +55,15 @@ public class Router {
             post("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::save);
 
             //post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("OrganismosDeControl"))::save);
+            get("/usuarios",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);//TODO agergar RolUsuario.ADMINISTRADOR_PLATAFORMA);
 
+            post("/validarUsuarios",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::recibirUsuariosValidados);
 
-            get("/agregarUsuario",((MiembrosController) FactoryController.controller("miembro"))::index);
+            get("/agregarUsuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
 
             post("/agregarUsuario",
-                    ((MiembrosController) FactoryController.controller("miembro"))::save);
-            // get("entidadesYOrganismos", ())
+                    ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
 
-            //get("servicios", ((ServiciosController) FactoryController.controller("Servicios"))::index);
-            //get("servicios/crear", ((ServiciosController) FactoryController.controller("Servicios"))::create);
-            //get("servicios/{id}", ((ServiciosController) FactoryController.controller("Servicios"))::show);
-            //get("servicios/{id}/editar", ((ServiciosController) FactoryController.controller("Servicios"))::edit);
-           // post("servicios/{id}", ((ServiciosController) FactoryController.controller("Servicios"))::update);
-            //post("servicios", ((ServiciosController) FactoryController.controller("Servicios"))::save);
-            //delete("servicios/{id}", ((ServiciosController) FactoryController.controller("Servicios"))::delete);
-
-            path("servicios/{id}/tareas", () -> {
-               // get(((TareasController) FactoryController.controller("Tareas"))::index);
-                //TODO
-            });
         });
     }
 }

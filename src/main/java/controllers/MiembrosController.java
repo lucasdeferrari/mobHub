@@ -1,8 +1,13 @@
 package controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.Repositorios.Miembro.RepositorioMiembro;
+import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.Miembro;
+import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.RolUsuario;
 import domain.entidades.signin.Usuario;
@@ -21,8 +26,10 @@ import java.util.Objects;
 
 public class MiembrosController implements ICrudViewsHandler{
     private RepositorioMiembro repositorioMiembro;
-    public MiembrosController(RepositorioMiembro repositorio){
+    private RepositorioDeUsuarios repositorioDeUsuarios;
+    public MiembrosController(RepositorioMiembro repositorio, RepositorioDeUsuarios repo){
         this.repositorioMiembro = repositorio;
+        this.repositorioDeUsuarios = repo;
     }
 
     @Override
@@ -34,10 +41,10 @@ public class MiembrosController implements ICrudViewsHandler{
     }
     @Override
     public void show(Context context) {
-        Miembro miembro = (Miembro) this.repositorioMiembro.buscarPorId(Long.parseLong(context.pathParam("id")));
+        List<Usuario> usuarios = this.repositorioDeUsuarios.buscarTodos();
         Map<String, Object> model = new HashMap<>();
-        model.put("miembro", miembro);
-        context.render("miembro.hbs", model);
+        model.put("usuarios", usuarios);
+        context.render("filtroUsuarios.hbs", model);
     }
 
     @Override
@@ -87,6 +94,17 @@ public class MiembrosController implements ICrudViewsHandler{
         Miembro miembro = (Miembro) this.repositorioMiembro.buscarPorId(Long.parseLong(context.pathParam("id")));
         this.repositorioMiembro.eliminar(Long.parseLong(context.pathParam("id")));
         context.redirect("/miembro");
+    }
+
+    public void recibirUsuariosValidados(Context context)throws JsonProcessingException {
+        String json = context.body();
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Integer> usuariosIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
+        for (Integer id : usuariosIds) {
+            Usuario usuario = repositorioDeUsuarios.buscarPorId2(id);
+            usuario.setValidado(true);
+            repositorioDeUsuarios.actualizar(usuario);
+        }
     }
 
     private void asignarParametros(Miembro miembro, Context context) {
