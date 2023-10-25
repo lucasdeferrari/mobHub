@@ -54,7 +54,7 @@ public class MicroservicioG16 implements MicroservicioAdapter {
         HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity("https://api-python-ppz7.onrender.com/propose_fusion/", request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8000/propose_fusion/", request, String.class);
 
             if (response.getStatusCodeValue() == 200) {
                 System.out.println("Solicitud POST exitosa: " + response.getBody());
@@ -67,7 +67,7 @@ public class MicroservicioG16 implements MicroservicioAdapter {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("ExcepciÃ³n al realizar la solicitud POST");
+            System.out.println("Excepcion al realizar la solicitud POST");
             return null;
         }
     }

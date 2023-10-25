@@ -1,6 +1,7 @@
 package domain.entidades.servicios;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import domain.Persistencia.EntidadPersistente;
@@ -21,15 +22,22 @@ public class Establecimiento extends EntidadPersistente {
   @Column
   @JsonProperty("nombre")
   private String nombre;
+
   @Embedded
+  @JsonIgnore
   private Ubicacion ubicacion;
+
   @ManyToMany
+  @JsonIgnore
   public List<Servicio> servicios = new ArrayList<>();
+
   @Column
+  @JsonIgnore
   private String tipoEstablecimiento;
 
   @ManyToOne
   @JoinColumn(name = "entidad_id", referencedColumnName = "id")
+  @JsonIgnore
   private Entidad entidadALaQuePertenece;
 
   // pensar si vamos a hacer la ubicacion como lat y long separado o q onda todo
