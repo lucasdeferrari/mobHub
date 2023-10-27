@@ -96,16 +96,25 @@ public class MiembrosController implements ICrudViewsHandler{
         context.redirect("/miembro");
     }
 
-    public void recibirUsuariosValidados(Context context)throws JsonProcessingException {
+    public void recibirUsuariosValidados(Context context) throws JsonProcessingException {
         String json = context.body();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Integer> usuariosIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
-        for (Integer id : usuariosIds) {
-            Usuario usuario = repositorioDeUsuarios.buscarPorId2(id);
-            usuario.setValidado(true);
+
+        class UsuarioModificado {
+            public int id;
+            public RolUsuario rol;
+            public boolean validado;
+        }
+        List<UsuarioModificado> usuariosModificados = objectMapper.readValue(json, new TypeReference<List<UsuarioModificado>>() {});
+
+        for (UsuarioModificado usuarioModificado : usuariosModificados) {
+            Usuario usuario = repositorioDeUsuarios.buscarPorId2(usuarioModificado.id);
+            usuario.setValidado(usuarioModificado.validado);
+            usuario.setRolUsuario(usuarioModificado.rol);
             repositorioDeUsuarios.actualizar(usuario);
         }
     }
+
 
     private void asignarParametros(Miembro miembro, Context context) {
         if(!Objects.equals(context.formParam("nombre"), "")) {

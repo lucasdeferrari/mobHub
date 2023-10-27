@@ -1,21 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const usuarios = []; // Aquí debes llenar la lista de usuarios
 
     function cargarUsuarios(usuariosMostrados) {
         const tablaUsuarios = document.getElementById('tabla-usuarios');
-        tablaUsuarios.innerHTML = ''; // Limpiamos la tabla antes de cargar los usuarios
+        tablaUsuarios.innerHTML = '';
         usuariosMostrados.forEach(usuario => {
             const fila = document.createElement('tr');
             fila.innerHTML = `
                 <td>${usuario.nombre}</td>
                 <td>${usuario.apellido}</td>
                 <td>
-                    <select>
-                        <option value="Usuario" ${usuario.rol === 'Usuario' ? 'selected' : ''}>Usuario</option>
-                        <option value="Administrador" ${usuario.rol === 'Administrador' ? 'selected' : ''}>Administrador</option>
+                    <select class="rol-select">
+                    <option value="MIEMBRO" ${usuario.rolUsuario === 'MIEMBRO' ? 'selected' : ''}>Miembro</option>
+                    <option value="ORGANISMO_DE_CONTROL" ${usuario.rolUsuario === 'ORGANISMO_DE_CONTROL' ? 'selected' : ''}>Organismo de Control</option>
+                    <option value="ENTIDAD_PRESTADORA" ${usuario.rolUsuario === 'ENTIDAD_PRESTADORA' ? 'selected' : ''}>Entidad Prestadora</option>
+                    <option value="ADMINISTRADOR_PLATAFORMA" ${usuario.rolUsuario === 'ADMINISTRADOR_PLATAFORMA' ? 'selected' : ''}>Administrador de Plataforma</option>
+
                     </select>
-                 </td>
-                <td>${usuario.validado ? 'Sí' : '<input type="checkbox" class="validado" data-id="' + usuario.id + '">'}</td>
+                </td>
+                <td>
+                    <select class="validado-select">
+                        <option value="true" ${usuario.validado ? 'selected' : ''}>Autorizado</option>
+                        <option value="false" ${!usuario.validado ? 'selected' : ''}>No Autorizado</option>
+                    </select>
+                </td>
             `;
+            fila.setAttribute('data-id', usuario.id);
             tablaUsuarios.appendChild(fila);
         });
     }
@@ -26,34 +36,51 @@ document.addEventListener('DOMContentLoaded', function() {
     const filtroSelect = document.getElementById('filtro');
     const busquedaInput = document.getElementById('busqueda');
     const buscarButton = document.getElementById('buscar');
-    const validadoCheckbox = document.getElementById('validado');
 
     buscarButton.addEventListener('click', function() {
-        const filtro = filtroSelect.value;
-        const busqueda = busquedaInput.value.toLowerCase();
-        const esValidado = validadoCheckbox.checked;
+      const filtro = filtroSelect.value;
+          const busqueda = busquedaInput.value.toLowerCase();
+          const validadoSelect = document.getElementById('validado');
+          const esValidado = validadoSelect.value === 'true';
 
-        const usuariosFiltrados = usuarios.filter(usuario => {
-            return (
-                (filtro === 'nombre' && usuario.nombre.toLowerCase().includes(busqueda)) ||
-                (filtro === 'apellido' && usuario.apellido.toLowerCase().includes(busqueda)) ||
-                (filtro === 'rol' && usuario.rol.toLowerCase().includes(busqueda)) ||
-                (filtro === 'validado' && usuario.validado === esValidado)
-            );
-        });
+          const usuariosFiltrados = usuarios.filter(usuario => {
+              return (
+                  (filtro === 'nombre' && usuario.nombre.toLowerCase().includes(busqueda)) ||
+                  (filtro === 'apellido' && usuario.apellido.toLowerCase().includes(busqueda)) ||
+                  (filtro === 'rol' && usuario.rolUsuario.toLowerCase().includes(busqueda)) ||
+                  (filtro === 'validado' && (esValidado || usuario.validado === esValidado))
+              );
+          });
 
-        // Actualiza la tabla con los usuarios filtrados
-        cargarUsuarios(usuariosFiltrados);
-    });
+          cargarUsuarios(usuariosFiltrados);
+      });
 
     const agregarUsuarioButton = document.getElementById('agregarUsuario');
     agregarUsuarioButton.addEventListener('click', function() {
-        const usuariosValidados = Array.from(document.querySelectorAll('.validado:checked'))
-            .map(checkbox => parseInt(checkbox.getAttribute('data-id')));
+        const usuariosActualizados = Array.from(document.querySelectorAll('.rol-select, .validado-select'))
+            .map(select => {
+                const fila = select.parentElement.parentElement;
+                const id = parseInt(fila.getAttribute('data-id'));
+                const rol = fila.querySelector('.rol-select').value;
+                const validado = fila.querySelector('.validado-select').value === 'true';
 
-        // Realiza una solicitud POST con el JSON que contiene los ID de los usuarios validados
-        const jsonData = JSON.stringify({ usuariosValidados });
-        fetch('/validarUsuarios', {
+                return {
+                    id,
+                    rol,
+                    validado,
+                };
+            });
+
+        // Filtrar solo los usuarios que han tenido cambios
+        const usuariosModificados = usuariosActualizados.filter(usuario => {
+            // Aquí puedes comparar el estado actual con los valores originales para determinar cambios
+            const usuarioOriginal = usuarios.find(u => u.id === usuario.id);
+            return usuarioOriginal && (usuarioOriginal.rolUsuario !== usuario.rolUsuario || usuarioOriginal.validado !== usuario.validado);
+        });
+
+        // Crear el JSON de actualización con los usuarios modificados
+        const jsonData = JSON.stringify({ usuariosActualizados: usuariosModificados });
+        fetch('/actualizarUsuarios', {
             method: 'POST',
             body: jsonData,
             headers: {
@@ -62,8 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Respuesta del servidor:', data);
-            // Puedes manejar la respuesta del servidor aquí
+            console.log('Se mando bien', data);
         })
         .catch(error => {
             console.error('Error en la solicitud POST:', error);
