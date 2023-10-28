@@ -3,6 +3,11 @@ package controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import componentesExternos.geoRef.entidades.ListadoDeProvincias;
+import componentesExternos.geoRef.interfaces.GeorefService;
+import componentesExternos.geoRef.interfaces.ServicioGeoRef;
+import domain.Persistencia.FormaNotificacionConverter;
+import domain.Persistencia.MedioNotificacionConverter;
 import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.comunidad.Miembro;
@@ -12,6 +17,9 @@ import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.RolUsuario;
 import domain.entidades.signin.Usuario;
 import io.javalin.config.JavalinConfig;
+import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.middleware.AuthMiddleware;
@@ -115,7 +123,37 @@ public class MiembrosController implements ICrudViewsHandler{
         }
     }
 
+    public void guardarDatosExtra(Context context){
 
+        Miembro miembro = repositorioMiembro.buscarPorId2(context.sessionAttribute("id"));
+        miembro.setLocalizacionProvincia(context.formParam("provincia"));
+        miembro.setLocalizacionDepartamento(context.formParam("localidad"));
+        miembro.setLocalizacionMunicipio(context.formParam("municipio"));
+        miembro.setTelefono(context.formParam("telefono"));
+        FormaNotificacionConverter formaNotificacionConverter = new FormaNotificacionConverter();
+        MedioNotificacionConverter medioNotificacionConverter = new MedioNotificacionConverter();
+        miembro.setFormaNotificacion(formaNotificacionConverter.convertToEntityAttribute(context.formParam("forma-notificacion")));
+        miembro.setMedioDeNotificacion(medioNotificacionConverter.convertToEntityAttribute(context.formParam("medio-notificacion")));
+
+        String horarioString = context.formParam("horario");
+        if (horarioString != null && !horarioString.isEmpty()) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
+                LocalTime horario = LocalTime.parse(horarioString, formatter);
+                miembro.setHorarioElegido(horario);
+        }
+        this.repositorioMiembro.guardar(miembro);
+        context.redirect("/miembro");
+
+    }
+    public void mostrarVistaDatosExtra(Context context) throws IOException {
+        Map<String, Object> model = new HashMap<>();
+        ServicioGeoRef servicioGeoref = ServicioGeoRef.instancia();
+        ListadoDeProvincias listadoDeProvinciasArgentinas = servicioGeoref.listadoDeProvincias();
+        listadoDeProvinciasArgentinas.provincias.sort((p1, p2) -> p1.id >= p2.id? 1 : -1);
+
+        model.put("provincias", listadoDeProvinciasArgentinas.provincias); //el de municipios y localidades los obtengo con ajax
+        context.render("datosExtraUsuario.hbs", model);
+    }
     private void asignarParametros(Miembro miembro, Context context) {
         if(!Objects.equals(context.formParam("nombre"), "")) {
             miembro.setNombre(context.formParam("nombre"));

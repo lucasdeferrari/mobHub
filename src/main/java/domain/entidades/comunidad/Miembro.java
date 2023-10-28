@@ -69,17 +69,17 @@ public class Miembro extends EntidadPersistente {
   @JsonIgnore
   private List<TipoDeServicio> serviciosAsociados;
 
-  @Embedded
+  //@Embedded
   @JsonIgnore
-  private Provincia localizacionProvincia;
+  private String localizacionProvincia; // para facilitar las cosas los hice string
 
-  @Embedded
+  //@Embedded
   @JsonIgnore
-  private Municipio localizacionMunicipio;
+  private String localizacionMunicipio;
 
-  @Embedded
+  //@Embedded
   @JsonIgnore
-  private Localidad localizacionDepartamento;
+  private String localizacionDepartamento;
 
   @Convert(converter = MedioNotificacionConverter.class)
   @Column(columnDefinition = "VARCHAR(20)")

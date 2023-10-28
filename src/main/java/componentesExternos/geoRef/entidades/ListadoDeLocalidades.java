@@ -7,7 +7,7 @@ public class ListadoDeLocalidades {
   public int total;
   public int inicio;
   public Parametro parametros;
-  public List<Localidad> departamentos;
+  public List<Localidad> localidades;
 
   private class Parametro {
     public List<String> campos;
@@ -16,7 +16,7 @@ public class ListadoDeLocalidades {
   }
 
   public Optional<Localidad> departamentoDeId(int id){
-    return this.departamentos.stream().filter(p -> p.id == id).findFirst();
+    return this.localidades.stream().filter(p -> p.id == id).findFirst();
   }
 
 }

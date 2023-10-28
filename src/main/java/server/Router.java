@@ -1,5 +1,8 @@
 package server;
 
+import componentesExternos.geoRef.entidades.ListadoDeLocalidades;
+import componentesExternos.geoRef.entidades.ListadoDeMunicipios;
+import componentesExternos.geoRef.interfaces.ServicioGeoRef;
 import controllers.*;
 import domain.entidades.comunidad.RolComunidad;
 import domain.entidades.signin.RolUsuario;
@@ -25,39 +28,56 @@ public class Router {
             //hay que agregar la ruta de la imagen de 404 en 404.hbs
             ctx.render("404.hbs");
         });
+        Server.app().get("/obtener-municipios", ctx -> {
+            String provincia_id = ctx.queryParam("provincia");
+            int provinciaId = Integer.parseInt(provincia_id);
+            ServicioGeoRef servicioGeoref = ServicioGeoRef.instancia();
+           ListadoDeMunicipios municipios = servicioGeoref.listadoDeMunicipiosDeProvincia(provinciaId);
+            ctx.json(municipios.municipios);
+        });
 
+        Server.app().get("/obtener-localidades", ctx -> {
+            String municipio_id = ctx.queryParam("municipio");
+            int municipioId = Integer.parseInt(municipio_id);
+            ServicioGeoRef servicioGeoref = ServicioGeoRef.instancia();
+            ListadoDeLocalidades localidades = servicioGeoref.listadoDeLocalidadesDeMunicipio(municipioId);
+            ctx.json(localidades.localidades);
+        });
         Server.app().routes(() -> {
 
-            get("/home", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::showHome);
+            get("/home", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::showHome);
 
-            get("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::create);
-            post("/incidentes/reportar", ((IncidentesController)FactoryController.controller("Incidentes"))::save);
+            get("/incidentes/reportar", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
+            post("/incidentes/reportar", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
 
             get("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
-           // post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
+            // post("/incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
 
-            get("/incidentes", ((IncidentesController)FactoryController.controller("Incidentes"))::index);
+            get("/incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
 
-            get("/inicio", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::index);
-            post("/inicio", ((InicioDeSesionController)FactoryController.controller("InicioSesion"))::iniciarSesion);
+            get("/inicio", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::index);
+            post("/inicio", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::iniciarSesion);
 
-            get("/crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::vista);
-            post("/crear-cuenta",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::save);
+            get("/crear-cuenta", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::vista);
+            post("/crear-cuenta", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::save);
 
-            get("/olvidar-contrasenia",((InicioDeSesionController) FactoryController.controller("InicioSesion"))::olvidarContrasenia);
+            get("/olvidar-contrasenia", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::olvidarContrasenia);
 
-            post("/cerrar-incidentes",((IncidentesController) FactoryController.controller("Incidentes"))::recibirIncidentesCerrados);
+            post("/cerrar-incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::recibirIncidentesCerrados);
 
-            get("/rankings", ((RankingsController)FactoryController.controller("Rankings"))::show);
+            get("/rankings", ((RankingsController) FactoryController.controller("Rankings"))::show);
 
             get("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::index);
 
             post("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::save);
 
             //post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("OrganismosDeControl"))::save);
-            get("/usuarios",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);//TODO agergar RolUsuario.ADMINISTRADOR_PLATAFORMA);
+            get("/usuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);//TODO agergar RolUsuario.ADMINISTRADOR_PLATAFORMA);
+            post("/validarUsuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::recibirUsuariosValidados);
 
-            post("/validarUsuarios",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::recibirUsuariosValidados);
+            get("/completar-datos", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::mostrarVistaDatosExtra);
+            post("/completar-datos", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::guardarDatosExtra);
+            get("/obtener-municipios?provincia=${provinciaSeleccionada}", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::mostrarVistaDatosExtra);
 
             get("/agregarUsuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
 

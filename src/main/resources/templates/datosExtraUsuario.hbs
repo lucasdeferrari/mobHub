@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/datosExtraUsuario.css">
+</head>
+<body>
+<main>
+    <div class="container">
+        <div class="login-box">
+            <h2>Completa tus datos</h2>
+            <form action="/completar-datos" method="POST">
+                <div class="input-box">
+                    <!-- Selector de Provincia -->
+                    <label for="provincia">Provincia</label>
+                    <select id="provincia" name="provincia">
+                        {{#each provincias}}
+                            <option value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Selector de Municipio -->
+                    <label for="municipio">Municipio</label>
+                    <select id="municipio" name="municipio" disabled>
+                        <!-- Opciones de municipios se cargarán dinámicamente -->
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Selector de Localidad -->
+                    <label for="localidad">Localidad</label>
+                    <select id="localidad" name="localidad" disabled>
+                        <!-- Opciones de localidades se cargarán dinámicamente -->
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Campo de Teléfono -->
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono">
+                </div>
+                <div class="input-box">
+                    <label for="forma-notificacion">Forma de Notificación</label>
+                    <select id="forma-notificacion" name="forma-notificacion">
+                        <option value="1">Alertar cuando sucede un incidente</option>
+                        <option value="2">Sin apuro (seleccionar franja horaria)</option>
+                    </select>
+                </div>
+                <div class="input-box" id="horario" style="display: none;">
+                    <label for="horario">Horario</label>
+                    <select id="horario" name="horario">
+                        <!-- Opciones de horario -->
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Selector de Medio de Notificación -->
+                    <label for="medio-notificacion">Medio de Notificación</label>
+                    <select id="medio-notificacion" name="medio-notificacion">
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+                <!-- Botón de Guardar -->
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+</main>
+<script>
+    document.getElementById("forma-notificacion").addEventListener("change", function() {
+        var horarioDiv = document.getElementById("horario");
+        if (this.value === "2") {
+            horarioDiv.style.display = "block";
+        } else {
+            horarioDiv.style.display = "none";
+        }
+    });
+
+</script>
+<script src="/public/js/datosExtraUsuario.js"></script>
+
+</body>
+</html>

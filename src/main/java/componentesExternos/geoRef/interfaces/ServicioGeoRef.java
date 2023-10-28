@@ -50,7 +50,12 @@ public class ServicioGeoRef{
     Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
     return responseListadoDeMunicipios.body();
   }
-
+  public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(int provincia_id) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia_id);
+    Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
+    return responseListadoDeMunicipios.body();
+  }
   public ListadoDeMunicipios listadoDeMunicipiosDeProvinciaSegunCampos(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
     Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id, "id, nombre");
@@ -66,7 +71,6 @@ public class ServicioGeoRef{
   }
 
 
-
   // ---------- DEPARTAMENTOS -----------------
 
   public ListadoDeLocalidades listadoDeDepartamentosDeProvincia(Provincia provincia) throws IOException {
@@ -75,7 +79,12 @@ public class ServicioGeoRef{
     Response<ListadoDeLocalidades> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
     return responseListadoDeDepartamentos.body();
   }
-
+  public ListadoDeLocalidades listadoDeLocalidadesDeMunicipio(int municipio_id) throws IOException { //todo ver porque en teoria las localidades tienen el mismo nombre que los municipios
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeLocalidades> requestListadoDeDepartamentos = georefService.localidades(municipio_id);
+    Response<ListadoDeLocalidades> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+    return responseListadoDeDepartamentos.body();
+  }
   public ListadoDeLocalidades listadoDeDepartamentosDeProvinciaSegunCamposConMaximo(Provincia provincia) throws IOException {
     GeorefService georefService = this.retrofit.create(GeorefService.class);
     Call<ListadoDeLocalidades> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, maximaCantidadRegistrosDefault , "id, nombre");
