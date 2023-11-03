@@ -1,5 +1,6 @@
 package domain.entidades.LectorCSV;
 
+import controllers.EntidadesPrestadorasController;
 import domain.entidades.servicios.ConfigReader;
 
 
@@ -12,9 +13,13 @@ public class ImportadorDeEntidadesPrestadoras {
     Map<String, DatosCSV> diccionarioDatosEntidades = new HashMap<>();
     String rutaArchivoEntidadesPrestadoras = ConfigReader.getPropertyValue("pathEntidadesPrestadoras");
 
-    public void importarEntidadesPrestadoras(String archivoEntidadesPrestadoras) {
+    public boolean importarEntidadesPrestadoras(String archivoEntidadesPrestadoras, EntidadesPrestadorasController controladorEntidadesPrestadoras) {
         ParserCSV parserCSV = new ParserCSV();
         diccionarioDatosEntidades = parserCSV.parserCSV(archivoEntidadesPrestadoras);
+
+        controladorEntidadesPrestadoras.procesarDiccionario(diccionarioDatosEntidades);
+
+        return true;
     }
 
 }

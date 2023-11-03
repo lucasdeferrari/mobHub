@@ -24,15 +24,12 @@ public interface  GeorefService {
     Call<ListadoDeLocalidades> departamentos(@Query("provincia") int idProvincia, @Query("max") int max, @Query("campos") String campos );
 
     @GET("municipios")
-    Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia);
-
-    @GET("municipios")
     Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia, @Query("campos") String campos);
 
     @GET("municipios")
     Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia, @Query("max") int max, @Query("campos") String campos);
     @GET("localidades")
-    Call<ListadoDeLocalidades> localidades(@Query("municipio") int idMunicipio);
+    Call<ListadoDeLocalidades> localidades(@Query("municipio") int idMunicipio, @Query("max") int max);
 }
 
 

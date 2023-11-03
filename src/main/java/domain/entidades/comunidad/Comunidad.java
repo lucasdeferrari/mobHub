@@ -64,7 +64,8 @@ public class Comunidad extends EntidadPersistente {
   public void agregarMiembro(Miembro miembro, RolComunidad rolComunidad) {
     miembrosNuestro.put(miembro, rolComunidad);
     miembros.add(miembro);
-    miembro.getComunidadesPertenecientes().put(this,rolComunidad);}
+    miembro.agregarAComunidad(this, rolComunidad);
+  }
   public void eliminarMiembro(Miembro miembro) {
     miembros.remove(miembro);
     miembrosNuestro.remove(miembro);

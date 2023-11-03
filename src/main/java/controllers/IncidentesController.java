@@ -163,6 +163,23 @@ public class IncidentesController implements ICrudViewsHandler {
 
     }
 
+    public void sugerirCierreIncidente(Context context) {
+        System.out.println(context.pathParam("id"));
+
+        String idStr = context.pathParam("id");
+        int id;
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+            // Manejar una excepción si el valor no se puede convertir a int
+            throw new RuntimeException();
+        }
+
+        Incidente incidente = this.repositorioIncidente.buscarPorId2(id);
+
+
+    }
+
 
 }
 

@@ -7,7 +7,7 @@ import javax.persistence.Transient;
 @Embeddable
 public class Localidad {
     @Transient
-    public int id;
+    public Long id;
     @Column(name = "localidad")
     public String nombre;
 }

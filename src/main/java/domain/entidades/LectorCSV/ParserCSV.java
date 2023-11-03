@@ -29,8 +29,9 @@ public class ParserCSV {
                 String apellido = registro.get(2);
                 String contacto = registro.get(3);
                 String nombreOrganismo = registro.get(4);
+                String tipoDato = registro.get(5);
 
-                DatosCSV datos = new DatosCSV(nombre, apellido, contacto, nombreOrganismo);
+                DatosCSV datos = new DatosCSV(nombre, apellido, contacto, nombreOrganismo, tipoDato);
                 diccionarioDatos.put(id, datos);
             }
 

@@ -1,9 +1,9 @@
 package server.middleware;
 
-import domain.entidades.signin.RolUsuario;
-import io.javalin.config.JavalinConfig;
-import io.javalin.http.Context;
-import server.exceptions.AccessDeniedException;
+        import domain.entidades.signin.RolUsuario;
+        import io.javalin.config.JavalinConfig;
+        import io.javalin.http.Context;
+        import server.exceptions.AccessDeniedException;
 
 public class AuthMiddleware {
 
@@ -11,7 +11,7 @@ public class AuthMiddleware {
         config.accessManager(((handler, context, routeRoles) -> {
             RolUsuario userRole = getUserRoleType(context);
 
-            if(routeRoles.contains(userRole)) {
+            if(routeRoles.size() == 0 || routeRoles.contains(userRole)) {
                 handler.handle(context);
             }
             else {
@@ -21,7 +21,7 @@ public class AuthMiddleware {
     }
 
     public static RolUsuario getUserRoleType(Context context) {
-        return context.sessionAttribute("tipo_rol") != null?
-                RolUsuario.valueOf(context.sessionAttribute("tipo_rol")) : null;
+        return context.sessionAttribute("tipo_rol");
+
     }
 }

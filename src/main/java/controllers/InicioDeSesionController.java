@@ -100,6 +100,7 @@ public class InicioDeSesionController implements ICrudViewsHandler {
                 // Autenticación exitosa, establecer una sesión
                 //context.result("Inicio de sesión exitoso, redireccionando a la página principal.");
                 context.sessionAttribute("id", usuario.getId());
+                context.sessionAttribute("tipo_rol", usuario.getRolUsuario());
                 context.redirect("/home");
         } else {
                 // Autenticación fallida, mostrar un mensaje de error

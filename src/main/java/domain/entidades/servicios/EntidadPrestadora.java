@@ -8,16 +8,19 @@ import domain.entidades.signin.RolUsuario;
 import domain.entidades.generadorRankings.GeneradorRanking;
 import domain.entidades.Rankings.Ranking;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @Table(name="entidadPrestadora")
 public class EntidadPrestadora extends EntidadPersistente {
 
     @Column
-    private String nombre;
+    private String nombreEntidad;
+
     @OneToMany(mappedBy = "entidadPrestadora", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Entidad> entidades;
     // NO SE QUE RELACION IRIA ACA TODO
@@ -25,6 +28,16 @@ public class EntidadPrestadora extends EntidadPersistente {
     @ManyToOne
     @JoinColumn(name="organismo_id", referencedColumnName = "id")
     private OrganismoDeControl organismoDeControl;
+
+    @Column
+    private String nombre;
+
+    @Column
+    private String apellido;
+
+    @Column
+    private String contacto;
+
 
     @Convert(converter = RankingConverter.class)
     @Column(columnDefinition = "VARCHAR(35)")

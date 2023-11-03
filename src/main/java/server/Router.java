@@ -21,6 +21,12 @@ public class Router {
         Server.app().get("/saludo-para/{nombre}", ctx -> ctx.result("Hola "
                 + ctx.pathParam("nombre")
         ));
+        Server.app().before( ctx -> {
+          //  String ruta = ctx.path();
+         //  if (ctx.sessionAttribute("id") == null && (!"/inicio".equals(ruta) || !"/crear-cuenta".equals(ruta))) {
+           //     ctx.redirect("/inicio");
+         //   }
+        });
 
         Server.app().error(404, ctx -> {
             //Asi funciona sin imagen
@@ -65,6 +71,8 @@ public class Router {
 
             post("/cerrar-incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::recibirIncidentesCerrados);
 
+            post("/sugerir-cierre-incidente/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::sugerirCierreIncidente);
+
             get("/rankings", ((RankingsController) FactoryController.controller("Rankings"))::show);
 
             get("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::index);
@@ -72,17 +80,16 @@ public class Router {
             post("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::save);
 
             //post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("OrganismosDeControl"))::save);
-            get("/usuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);//TODO agergar RolUsuario.ADMINISTRADOR_PLATAFORMA);
+            get("/usuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);
             post("/validarUsuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::recibirUsuariosValidados);
 
-            get("/completar-datos", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::mostrarVistaDatosExtra);
+            get("/completar-datos", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::mostrarVistaDatosExtra); //los de municipio y localidades estan mas arriba
             post("/completar-datos", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::guardarDatosExtra);
-            get("/obtener-municipios?provincia=${provinciaSeleccionada}", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::mostrarVistaDatosExtra);
+
+
 
             get("/agregarUsuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
-
-            post("/agregarUsuario",
-                    ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
+            post("/agregarUsuario", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
 
         });
     }

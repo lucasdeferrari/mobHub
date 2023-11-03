@@ -9,24 +9,41 @@ document.addEventListener('DOMContentLoaded', function() {
             fila.innerHTML = `
                 <td>${usuario.nombre}</td>
                 <td>${usuario.apellido}</td>
+                <td>${usuario.email}</td>
                 <td>
                     <select class="rol-select">
-                    <option value="MIEMBRO" ${usuario.rolUsuario === 'MIEMBRO' ? 'selected' : ''}>Miembro</option>
-                    <option value="ORGANISMO_DE_CONTROL" ${usuario.rolUsuario === 'ORGANISMO_DE_CONTROL' ? 'selected' : ''}>Organismo de Control</option>
-                    <option value="ENTIDAD_PRESTADORA" ${usuario.rolUsuario === 'ENTIDAD_PRESTADORA' ? 'selected' : ''}>Entidad Prestadora</option>
-                    <option value="ADMINISTRADOR_PLATAFORMA" ${usuario.rolUsuario === 'ADMINISTRADOR_PLATAFORMA' ? 'selected' : ''}>Administrador de Plataforma</option>
-
+                        <option value="MIEMBRO">Miembro</option>
+                        <option value="ORGANISMO_DE_CONTROL">Organismo de Control</option>
+                        <option value="ENTIDAD_PRESTADORA">Entidad Prestadora</option>
+                        <option value="ADMINISTRADOR_PLATAFORMA">Administrador de Plataforma</option>
                     </select>
                 </td>
                 <td>
                     <select class="validado-select">
-                        <option value="true" ${usuario.validado ? 'selected' : ''}>Autorizado</option>
-                        <option value="false" ${!usuario.validado ? 'selected' : ''}>No Autorizado</option>
+                        <option value="true">Autorizado</option>
+                        <option value="false">No Autorizado</option>
                     </select>
                 </td>
             `;
             fila.setAttribute('data-id', usuario.id);
             tablaUsuarios.appendChild(fila);
+
+            const rolSelect = fila.querySelector('.rol-select');
+            const validadoSelect = fila.querySelector('.validado-select');
+
+            // Establecer los valores iniciales de los selectores
+            rolSelect.value = usuario.rolUsuario;
+            validadoSelect.value = usuario.validado.toString();
+
+            // Escuchar eventos de cambio en los selectores
+            rolSelect.addEventListener('change', () => {
+                // Puedes almacenar el cambio en una estructura de datos
+                usuario.rolUsuario = rolSelect.value;
+            });
+            validadoSelect.addEventListener('change', () => {
+                // Puedes almacenar el cambio en una estructura de datos
+                usuario.validado = validadoSelect.value === 'true';
+            });
         });
     }
 
@@ -38,38 +55,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const buscarButton = document.getElementById('buscar');
 
     buscarButton.addEventListener('click', function() {
-      const filtro = filtroSelect.value;
-          const busqueda = busquedaInput.value.toLowerCase();
-          const validadoSelect = document.getElementById('validado');
-          const esValidado = validadoSelect.value === 'true';
+        const filtro = filtroSelect.value;
+        const busqueda = busquedaInput.value.toLowerCase();
 
-          const usuariosFiltrados = usuarios.filter(usuario => {
-              return (
-                  (filtro === 'nombre' && usuario.nombre.toLowerCase().includes(busqueda)) ||
-                  (filtro === 'apellido' && usuario.apellido.toLowerCase().includes(busqueda)) ||
-                  (filtro === 'rol' && usuario.rolUsuario.toLowerCase().includes(busqueda)) ||
-                  (filtro === 'validado' && (esValidado || usuario.validado === esValidado))
-              );
-          });
+        const usuariosFiltrados = usuarios.filter(usuario => {
+            return (
+                (filtro === 'nombre' && usuario.nombre.toLowerCase().includes(busqueda)) ||
+                (filtro === 'apellido' && usuario.apellido.toLowerCase().includes(busqueda)) ||
+                (filtro === 'rol' && usuario.rolUsuario.toLowerCase().includes(busqueda))
+            );
+        });
 
-          cargarUsuarios(usuariosFiltrados);
-      });
+        cargarUsuarios(usuariosFiltrados);
+    });
 
     const agregarUsuarioButton = document.getElementById('agregarUsuario');
     agregarUsuarioButton.addEventListener('click', function() {
-        const usuariosActualizados = Array.from(document.querySelectorAll('.rol-select, .validado-select'))
-            .map(select => {
-                const fila = select.parentElement.parentElement;
-                const id = parseInt(fila.getAttribute('data-id'));
-                const rol = fila.querySelector('.rol-select').value;
-                const validado = fila.querySelector('.validado-select').value === 'true';
+        const usuariosActualizados = Array.from(document.querySelectorAll('tr')).map(fila => {
+            const id = parseInt(fila.getAttribute('data-id'));
+            const rol = fila.querySelector('.rol-select').value;
+            const validado = fila.querySelector('.validado-select').value === 'true';
 
-                return {
-                    id,
-                    rol,
-                    validado,
-                };
-            });
+            return {
+                id,
+                rolUsuario: rol,
+                validado,
+            };
+        });
 
         // Filtrar solo los usuarios que han tenido cambios
         const usuariosModificados = usuariosActualizados.filter(usuario => {
@@ -80,19 +92,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Crear el JSON de actualización con los usuarios modificados
         const jsonData = JSON.stringify({ usuariosActualizados: usuariosModificados });
-        fetch('/actualizarUsuarios', {
+        fetch('/validarUsuarios', {
             method: 'POST',
             body: jsonData,
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Se mando bien', data);
-        })
-        .catch(error => {
-            console.error('Error en la solicitud POST:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Se mandó bien', data);
+            })
+            .catch(error => {
+                console.error('Error en la solicitud POST:', error);
+            });
     });
 });

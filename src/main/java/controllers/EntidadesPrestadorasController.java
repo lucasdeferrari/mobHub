@@ -1,6 +1,7 @@
 package controllers;
 
 import domain.Repositorios.EntidadPrestadora.RepositorioEntidadPrestadora;
+import domain.entidades.LectorCSV.DatosCSV;
 import domain.entidades.servicios.EntidadPrestadora;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
@@ -67,13 +68,13 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
                 ImportadorDeEntidadesPrestadoras importador = new ImportadorDeEntidadesPrestadoras();
 
                 // Llama a tu importador para procesar y guardar los datos del archivo CSV
-           //     boolean importacionExitosa = importador.importarEntidadesPrestadoras(contenidoCSV.toString());
+                boolean importacionExitosa = importador.importarEntidadesPrestadoras(contenidoCSV.toString(), this);
 
-          //      if (importacionExitosa) {
+                if (importacionExitosa) {
                     context.result("Archivo CSV procesado y guardado con éxito.");
-            //    } else {
+                } else {
                     context.result("Error al procesar y guardar el archivo CSV.");
-              //  }
+                }
             } catch (IOException e) {
                 // Maneja cualquier error de lectura del archivo
                 context.result("Error al procesar el archivo.");
@@ -126,6 +127,21 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
         if(!Objects.equals(context.formParam("nombre"), "")) {
            // entidadPrestadora.setNombre(context.formParam("nombre")); //TODO
         }
+    }
+
+    public void procesarDiccionario(Map<String, DatosCSV> diccionario) {
+        diccionario.forEach((clave, valor) -> {
+            if (valor.getTipoDato() == "Entidad Prestadora") {
+                EntidadPrestadora entidadPrestadora = new EntidadPrestadora();
+                entidadPrestadora.setNombre(valor.getNombre());
+                entidadPrestadora.setApellido(valor.getApellido());
+                entidadPrestadora.setContacto(valor.getContacto());
+                entidadPrestadora.setNombreEntidad(valor.getNombreOrganismo());
+
+                repositorioEntidadPrestadora.guardar(entidadPrestadora);
+            }
+
+        });
     }
 }
 

@@ -1,6 +1,7 @@
 package domain.Repositorios.Usuario;
 
 import domain.entidades.comunidad.Miembro;
+import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.Usuario;
 
@@ -49,8 +50,7 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
     }
     @Override
     public List<Usuario> buscarTodos() {
-        return entityManager().createQuery("SELECT e FROM Usuario e", Usuario.class)
-                .getResultList();
+        return entityManager().createQuery("from " + Usuario.class.getName()).getResultList();
     }
 
     @Override

@@ -1,15 +1,12 @@
 package testsGeoRef;
 
-import componentesExternos.geoRef.entidades.ListadoDeMunicipios;
-import componentesExternos.geoRef.entidades.ListadoDeProvincias;
-import componentesExternos.geoRef.entidades.Municipio;
-import componentesExternos.geoRef.entidades.Provincia;
+import componentesExternos.geoRef.entidades.*;
 import componentesExternos.geoRef.interfaces.ServicioGeoRef;
 
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Scanner;
-
+import com.google.gson.Gson;
 public class PruebaMunicipios {
 
     public static void main(String[] args) throws IOException {
@@ -18,9 +15,9 @@ public class PruebaMunicipios {
 
         ListadoDeProvincias listadoDeProvinciasArgentinas = servicioGeoref.listadoDeProvincias();
 
-        listadoDeProvinciasArgentinas.provincias.sort((p1, p2) -> p1.id >= p2.id? 1 : -1);
+        listadoDeProvinciasArgentinas.provincias.sort((p1, p2) -> p1.id >= p2.id ? 1 : -1);
 
-        for(Provincia unaProvincia:listadoDeProvinciasArgentinas.provincias){
+        for (Provincia unaProvincia : listadoDeProvinciasArgentinas.provincias) {
             System.out.println(unaProvincia.id + ") " + unaProvincia.nombre);
         }
 
@@ -29,16 +26,36 @@ public class PruebaMunicipios {
 
         Optional<Provincia> posibleProvincia = listadoDeProvinciasArgentinas.provinciaDeId(idProvinciaElegida);
 
-        if(posibleProvincia.isPresent()){
+        if (posibleProvincia.isPresent()) {
             Provincia provinciaSeleccionada = posibleProvincia.get();
-            ListadoDeMunicipios municipiosDeLaProvincia = servicioGeoref.listadoDeMunicipiosDeProvincia(provinciaSeleccionada);
-            System.out.println("Los municipios de la provincia "+ provinciaSeleccionada.nombre +" son:");
-            for(Municipio unMunicipio: municipiosDeLaProvincia.municipios){
-                System.out.println(unMunicipio.nombre);
+            System.out.println("Municipios de " + provinciaSeleccionada.nombre + ":");
+
+            ListadoDeMunicipios listadoDeMunicipios = servicioGeoref.listadoDeMunicipiosDeProvincia(provinciaSeleccionada.id);
+
+            for (Municipio unMunicipio : listadoDeMunicipios.municipios) {
+                System.out.println(unMunicipio.id + ") " + unMunicipio.nombre);
             }
-        }
-        else{
-            System.out.println("No existe la provincia seleccionada");
+
+            Scanner entradaMunicipio = new Scanner(System.in);
+            int idMunicipioElegido = Integer.parseInt(entradaMunicipio.nextLine());
+
+            Optional<Municipio> posibleMunicipio = listadoDeMunicipios.municipioDeId(idMunicipioElegido);
+
+            if (posibleMunicipio.isPresent()) {
+                Municipio municipioSeleccionado = posibleMunicipio.get();
+                System.out.println("Localidades de " + municipioSeleccionado.nombre + ":");
+                Gson gson = new Gson();
+                ListadoDeLocalidades listadoDeLocalidades = servicioGeoref.listadoDeLocalidadesDeMunicipio(municipioSeleccionado.id);
+                for (Localidad unaLocalidad : listadoDeLocalidades.localidades) {
+                    System.out.println(unaLocalidad.id + ") " + unaLocalidad.nombre);
+                }
+            } else {
+                System.out.println("Municipio no encontrado.");
+            }
+        } else {
+            System.out.println("Provincia no encontrada.");
         }
     }
+
+
 }

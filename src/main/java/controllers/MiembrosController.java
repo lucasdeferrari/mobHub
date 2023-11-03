@@ -3,7 +3,8 @@ package controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import componentesExternos.geoRef.entidades.ListadoDeProvincias;
+import com.google.gson.Gson;
+import componentesExternos.geoRef.entidades.*;
 import componentesExternos.geoRef.interfaces.GeorefService;
 import componentesExternos.geoRef.interfaces.ServicioGeoRef;
 import domain.Persistencia.FormaNotificacionConverter;
@@ -27,10 +28,7 @@ import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import server.utils.ICrudViewsHandler;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class MiembrosController implements ICrudViewsHandler{
     private RepositorioMiembro repositorioMiembro;
@@ -49,10 +47,17 @@ public class MiembrosController implements ICrudViewsHandler{
     }
     @Override
     public void show(Context context) {
-        List<Usuario> usuarios = this.repositorioDeUsuarios.buscarTodos();
-        Map<String, Object> model = new HashMap<>();
-        model.put("usuarios", usuarios);
-        context.render("filtroUsuarios.hbs", model);
+        RolUsuario userRole = context.sessionAttribute("tipo_rol");
+
+        if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+            List<Usuario> usuarios = this.repositorioDeUsuarios.buscarTodos();
+            Map<String, Object> model = new HashMap<>();
+            model.put("usuarios", usuarios);
+            context.render("filtroUsuarios.hbs", model);
+        } else {
+            context.status(403).result("Acceso denegado");
+        }
+
     }
 
     @Override
@@ -154,6 +159,7 @@ public class MiembrosController implements ICrudViewsHandler{
         model.put("provincias", listadoDeProvinciasArgentinas.provincias); //el de municipios y localidades los obtengo con ajax
         context.render("datosExtraUsuario.hbs", model);
     }
+
     private void asignarParametros(Miembro miembro, Context context) {
         if(!Objects.equals(context.formParam("nombre"), "")) {
             miembro.setNombre(context.formParam("nombre"));

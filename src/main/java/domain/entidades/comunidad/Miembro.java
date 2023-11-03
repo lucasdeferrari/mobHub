@@ -192,6 +192,11 @@ public class Miembro extends EntidadPersistente {
     incidente.getComunidad().cerrarIncidente(incidente, this);
   }
 
+  public void agregarAComunidad(Comunidad comunidad, RolComunidad rolComunidad) {
+    comunidadesPertenecientes.put(comunidad, rolComunidad);
+  }
+
+
   @Transient
   private Timer timer;
 

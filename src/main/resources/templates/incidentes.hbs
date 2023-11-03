@@ -29,6 +29,7 @@
                     <th>Establecimiento</th>
                     <th>Comunidad</th>
                     <th>Cerrar Incidente</th>
+                    <th>Sugerir Cierre</th>
                 </tr>
                 </thead>
                 <tbody id="tabla-incidentes">
@@ -46,6 +47,14 @@
                                 <input type="checkbox" data-id="{{this.id}}">
                             {{/if}}
                         </td>
+                        <td class="sugerir-cierre">
+                            {{#if this.fechaHoraCierre}}
+                                <span>Cerrado</span>
+                            {{else}}
+                                <input type="checkbox" data-id="{{this.id}}">
+                            {{/if}}
+                        </td>
+
                     </tr>
                 {{/each}}
 
@@ -99,6 +108,31 @@
                             });
                 }
             });
+
+            const checkboxesCerrar = document.querySelectorAll('.sugerir-cierre input[type="checkbox"]');
+            checkboxesCerrar.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    // Verificar si la casilla de verificación se ha marcado
+                    if (checkbox.checked) {
+                        // Realizar una solicitud al servidor para la casilla de verificación seleccionada
+                        const incidentId = checkbox.getAttribute('data-id');
+                        if (incidentId) {
+                            fetch('/sugerir-cierre-incidente/' + incidentId, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            // Realizar acciones adicionales si es necesario
+                                        }
+                                    });
+                        }
+                    }
+                });
+            });
+
             // Manejar cambio en el elemento <select> con ID "filtro"
             const filtroSelect = document.getElementById('filtro');
             const busquedaInput = document.getElementById('busqueda');
