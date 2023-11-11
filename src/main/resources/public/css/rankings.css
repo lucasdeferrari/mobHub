@@ -103,3 +103,10 @@ select[multiple] {
     background: #F7F7FF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+.chart-container{
+    width: 5000px;
+    height: 5000px;
+
+}
+
