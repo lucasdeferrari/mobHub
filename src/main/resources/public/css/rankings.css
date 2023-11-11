@@ -7,7 +7,12 @@ main {
     height: 100vh;
     margin: 0;
 }
-
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita el desplazamiento vertical */
+    height: 100%;
+}
 input[type='text'],
 textarea {
     width: calc(100% - 20px);
