@@ -9,6 +9,10 @@ html, body {
 
 }
 
+.footer {
+    color: black;
+}
+
 /* Estilos para la barra de navegación */
 
 .navbar {

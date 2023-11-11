@@ -115,40 +115,40 @@
     </symbol>
 </svg>
 
-<div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-    <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-            id="bd-theme"
-            type="button"
-            aria-expanded="false"
-            data-bs-toggle="dropdown"
-            aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-                Light
-                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-            </button>
-        </li>
-        <li>
-            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-                Dark
-                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-            </button>
-        </li>
-        <li>
-            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
-                Auto
-                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-            </button>
-        </li>
-    </ul>
-</div>
+<!--<div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">-->
+<!--    <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"-->
+<!--            id="bd-theme"-->
+<!--            type="button"-->
+<!--            aria-expanded="false"-->
+<!--            data-bs-toggle="dropdown"-->
+<!--            aria-label="Toggle theme (auto)">-->
+<!--        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>-->
+<!--        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>-->
+<!--    </button>-->
+<!--    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">-->
+<!--        <li>-->
+<!--            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">-->
+<!--                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>-->
+<!--                Light-->
+<!--                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>-->
+<!--            </button>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">-->
+<!--                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>-->
+<!--                Dark-->
+<!--                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>-->
+<!--            </button>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">-->
+<!--                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>-->
+<!--                Auto-->
+<!--                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>-->
+<!--            </button>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
 
 
 <header>
@@ -176,14 +176,22 @@
                             <li><a class="dropdown-item" href="/incidentes/reportar">Reportar incidente</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Comunidad</a>
-                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Comunidad
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/incidentes">Crear comunidad</a></li>
+                        </ul>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/rankings">Rankings</a>
                     </li>
+                    <li class="nav-item align-right">
+                        <a class="nav-link align-right" href="/inicio">Acceder</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/inicio">Acceder</a>
+                        <a class="nav-link" href="/completar-datos">Perfil</a>
                     </li>
 
                 </ul>
@@ -204,10 +212,10 @@
     </main>
 
 
-<footer class="footer mt-auto py-3 bg-body-tertiary">
-    <div class="container">
-    <span class="text-body-secondary">Monitoreo de Estado de Servicios de Transporte Público y de Establecimientos
-    </span>
+<footer class="bg-dark py-5 mt-5">
+    <div class="container text-light text-center">
+    <p class="text-white-50">Monitoreo de Estado de Servicios de Transporte Público y de Establecimientos
+    </p>
     </div>
 </footer>
 <script src="/js/bootstrap.bundle.min.js"></script>

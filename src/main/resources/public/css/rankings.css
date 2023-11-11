@@ -28,17 +28,23 @@ select {
 textarea,
 select,
 input[type="text"] {
-    border: 1px solid #577399;
+    /*border: 1px solid #577399;*/
     outline: none;
     padding: 10px;
     font-size: 16px; /* Mismo tamaño de fuente para campos de texto y textarea */
     max-width: 600px;
     resize: none;
     border-radius: 20px;
+    border-color: transparent;
+}
+
+.select{
+    border-color: transparent;
 }
 
 .container {
     text-align: center;
+    width: 500px;
 }
 
 .report-incident-box {
@@ -47,11 +53,12 @@ input[type="text"] {
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 600px;
-    margin: auto;
+    margin:0 auto;
 }
 
 .report-incident-box h2 {
     color: #495867;
+
 }
 
 .input-section {
@@ -59,6 +66,7 @@ input[type="text"] {
     text-align: left;
     margin-bottom: 20px;
     padding: 10px;
+
     max-width: 400px;
 }
 
@@ -69,6 +77,7 @@ input[type="text"] {
 
 select[multiple] {
     height: auto;
+
 }
 
 .button-section button {
@@ -92,5 +101,5 @@ select[multiple] {
     flex-shrink: 0;
     border-radius: 25px;
     background: #F7F7FF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }

@@ -1,6 +1,8 @@
 {{#partial "contenido" }}
     <link rel="stylesheet" href="/css/landingPage.css">
     <title>Home</title>
+
+    <main>
     <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true"
@@ -50,7 +52,7 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
+    </main>
     <script>
         document.getElementById('reportar-button').addEventListener('click', function() {
             window.location.href = '/incidentes/reportar';
