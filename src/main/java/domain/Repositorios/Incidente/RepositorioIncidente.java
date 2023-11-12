@@ -27,8 +27,11 @@ public class RepositorioIncidente implements IncidenteCRUD {
     public Incidente buscarPorId2(Integer id) {
         return entityManager().find(Incidente.class, id);
     }
-    public Incidente buscarPorToken(String id) {
-        return entityManager().find(Incidente.class, id);
+    public Incidente buscarPorToken(String token) {
+
+        return createQuery("SELECT i FROM Incidente i WHERE i.token = :token", Incidente.class)
+            .setParameter("token", token)
+            .getSingleResult();
     }
     @Override
     public List<Incidente> buscarTodos() {

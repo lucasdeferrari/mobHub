@@ -55,7 +55,11 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
 
     @Override
     public void actualizar(Usuario usuario) {
-        entityManager().merge(usuario);
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+        entityManager().persist(usuario);
+        tx.commit();
     }
 
     @Override

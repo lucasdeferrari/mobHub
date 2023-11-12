@@ -17,6 +17,7 @@ import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.RolUsuario;
 import domain.entidades.signin.Usuario;
+import domain.entidades.signin.UsuarioModificado;
 import io.javalin.config.JavalinConfig;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -49,14 +50,14 @@ public class MiembrosController implements ICrudViewsHandler{
     public void show(Context context) {
         RolUsuario userRole = context.sessionAttribute("tipo_rol");
 
-        if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+       // if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
             List<Usuario> usuarios = this.repositorioDeUsuarios.buscarTodos();
             Map<String, Object> model = new HashMap<>();
             model.put("usuarios", usuarios);
             context.render("filtroUsuarios.hbs", model);
-        } else {
-            context.status(403).result("Acceso denegado");
-        }
+       // } else {
+            //context.status(403).result("Acceso denegado");
+      //  }
 
     }
 
@@ -113,17 +114,20 @@ public class MiembrosController implements ICrudViewsHandler{
         String json = context.body();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        class UsuarioModificado {
-            public int id;
-            public RolUsuario rol;
-            public boolean validado;
-        }
         List<UsuarioModificado> usuariosModificados = objectMapper.readValue(json, new TypeReference<List<UsuarioModificado>>() {});
 
         for (UsuarioModificado usuarioModificado : usuariosModificados) {
+            System.out.println(usuarioModificado.id);
+            System.out.println(usuarioModificado.rol);
+            System.out.println(usuarioModificado.validado);
             Usuario usuario = repositorioDeUsuarios.buscarPorId2(usuarioModificado.id);
-            usuario.setValidado(usuarioModificado.validado);
-            usuario.setRolUsuario(usuarioModificado.rol);
+            System.out.println(usuario.getNombreUsuario());
+            if(usuarioModificado.validado == true || usuarioModificado.validado == false){
+                usuario.setValidado(usuarioModificado.validado);
+            }
+            if(usuarioModificado.rol != null){
+                usuario.setRolUsuario(usuarioModificado.rol);
+            }
             repositorioDeUsuarios.actualizar(usuario);
         }
     }
@@ -142,7 +146,7 @@ public class MiembrosController implements ICrudViewsHandler{
 
         String horarioString = context.formParam("horario");
         if (horarioString != null && !horarioString.isEmpty()) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                 LocalTime horario = LocalTime.parse(horarioString, formatter);
                 miembro.setHorarioElegido(horario);
         }

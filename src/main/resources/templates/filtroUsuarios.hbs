@@ -1,4 +1,4 @@
-{{#partial "contenido" }}
+{{#partial "contenido"}}
     <title>Admin Usuarios</title>
     <link rel="stylesheet" type="text/css" href="/css/filtroUsuarios.css">
     <div class="container">
@@ -22,8 +22,10 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
-                    <th>Rol</th>
-                    <th>Validado</th>
+                    <th>Rol Actual</th>
+                    <th>Nuevo Rol</th>
+                    <th>Permiso Actual</th>
+                    <th>Nuevo Permiso</th>
                 </tr>
                 </thead>
                 <tbody id="tabla-usuarios">
@@ -32,20 +34,28 @@
                         <td>{{this.nombre}}</td>
                         <td>{{this.apellido}}</td>
                         <td>{{this.email}}</td>
+                        <td>{{this.rolUsuario}}</td>
                         <td>
                             <select class="rol-select">
-                                <option value="MIEMBRO" {{#if (eq this.rolUsuario 'MIEMBRO')}}selected{{/if}}>Miembro</option>
-                                <option value="ORGANISMO_DE_CONTROL" {{#if (eq this.rolUsuario 'ORGANISMO_DE_CONTROL')}}selected{{/if}}>Organismo de Control</option>
-                                <option value="ENTIDAD_PRESTADORA" {{#if (eq this.rolUsuario 'ENTIDAD_PRESTADORA')}}selected{{/if}}>Entidad Prestadora</option>
-                                <option value="ADMINISTRADOR_PLATAFORMA" {{#if (eq this.rolUsuario 'ADMINISTRADOR_PLATAFORMA')}}selected{{/if}}>Administrador de Plataforma</option>
-                            </select>
+                                <option value="" >Selecciona un rol</option>
+                                <option value="0">Miembro</option>
+                                <option value="1">Organismo de Control</option>
+                                <option value="2">Entidad Prestadora</option>
+                                <option value="3">Administrador de Plataforma</option>
                             </select>
                         </td>
                         <td>
+                            {{#if this.validado}}
+                                Autorizado
+                            {{else}}
+                                No Autorizado
+                            {{/if}}
+                        </td>
+                        <td>
                             <select class="validado-select">
+                                <option value="">Selecciona un permiso</option>
                                 <option value="true" {{#if this.validado}}selected{{/if}}>Autorizado</option>
                                 <option value="false" {{#unless this.validado}}selected{{/unless}}>No Autorizado</option>
-                            </select>
                             </select>
                         </td>
                     </tr>
@@ -55,6 +65,7 @@
         </div>
         <button id="agregarUsuario">Validar Usuarios</button>
     </div>
-    <script src="filtrousuarios.js"></script>
+
+    <script src="/js/filtroUsuarios.js"></script>
 {{/partial}}
 {{> templates/base }}

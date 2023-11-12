@@ -66,7 +66,7 @@ public class IncidentesController implements ICrudViewsHandler {
 
     @Override
     public void show(Context context) {
-        System.out.println(context.queryParam("id"));
+        System.out.println(context.pathParam("id"));
         Incidente incidente = this.repositorioIncidente.buscarPorToken((context.pathParam("id")));
         //Servicio servicio = (Servicio) this.repositorioDeServicios.buscar(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
