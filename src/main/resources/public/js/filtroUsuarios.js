@@ -1,23 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
     const filtroSelect = document.getElementById("filtro");
     const busquedaInput = document.getElementById("busqueda");
-    const buscarBtn = document.getElementById("buscar");
     const rolSelects = document.querySelectorAll(".rol-select");
     const validadoSelects = document.querySelectorAll(".validado-select");
     const agregarUsuarioBtn = document.getElementById("agregarUsuario");
 
-    buscarBtn.addEventListener("click", function () {
-        const filtro = filtroSelect.value;
-        const busqueda = busquedaInput.value.toLowerCase();
-        const usuarios = document.querySelectorAll("#tabla-usuarios tr");
+    // Configurar opciones seleccionadas para rol y validado al cargar la página
+    rolSelects.forEach(function (rolSelect) {
+        const rolActual = rolSelect.dataset.rol;
+        seleccionarOpcion(rolSelect, rolActual);
+    });
 
-        usuarios.forEach(function (usuario) {
-            const td = usuario.children[filtro];
-            if (td) {
-                const texto = td.textContent.toLowerCase();
-                usuario.style.display = texto.includes(busqueda) ? "" : "none";
-            }
-        });
+    validadoSelects.forEach(function (validadoSelect) {
+        const validadoActual = validadoSelect.dataset.validado;
+        seleccionarOpcion(validadoSelect, validadoActual);
     });
 
     agregarUsuarioBtn.addEventListener("click", function () {
@@ -126,14 +122,27 @@ validadoSelects.forEach(function (validadoSelect) {
         const busquedaValor = busquedaInputUsuarios.value.toLowerCase();
 
         document.querySelectorAll('#tabla-usuarios tr').forEach(function(row) {
-            const celda = row.querySelector(`td:nth-child(${getIndiceColumna(filtroValor)})`);
-            if (filtroValor === '' || celda.textContent.toLowerCase().includes(busquedaValor)) {
+            let celda;
+
+            celda = row.querySelector(`td:nth-child(${getIndiceColumna(filtroValor)})`);
+
+
+            const textoCelda = obtenerTextoCelda(celda).toLowerCase();
+
+            if (filtroValor === '' || coincideBusqueda(textoCelda, busquedaValor)) {
                 row.style.display = 'table-row';
             } else {
                 row.style.display = 'none';
             }
         });
     }
+
+    function obtenerTextoCelda(celda) {
+        return celda.textContent.trim();
+    }
+     function coincideBusqueda(texto, busqueda) {
+             return texto.toLowerCase().startsWith(busqueda);
+        }
 
     function getIndiceColumna(filtro) {
         switch (filtro) {
@@ -146,7 +155,7 @@ validadoSelects.forEach(function (validadoSelect) {
             case 'rol':
                 return 4;
             case 'validado':
-                return 5;
+                return 6;
             default:
                 return 0;
         }

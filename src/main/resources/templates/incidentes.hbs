@@ -4,7 +4,6 @@
     <!-- Contenido principal de tu página -->
     <div class="incidents-box" >
         <h1 class="text-center">Incidentes</h1>
-        <!-- Botón "Seleccionar Todos" arriba de la tabla -->
 
         <div class="filtro-box">
 
@@ -144,19 +143,40 @@
                 filtrarIncidentes();
             });
 
-            function filtrarIncidentes() {
-                const filtroValor = filtroSelect.value;
-                const busquedaValor = busquedaInput.value.toLowerCase();
+           function filtrarIncidentes() {
+    const filtroValor = filtroSelect.value;
+    const busquedaValor = busquedaInput.value.toLowerCase();
 
-                document.querySelectorAll('tbody tr').forEach(function(row) {
-                    const celda = row.querySelector(`td:nth-child(${getIndiceColumna(filtroValor)})`);
-                    if (filtroValor === '' || celda.textContent.toLowerCase().includes(busquedaValor)) {
-                        row.style.display = 'table-row';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
+    document.querySelectorAll('tbody tr').forEach(function(row) {
+        const celda = row.querySelector(`td:nth-child(${getIndiceColumna(filtroValor)})`);
+        const estadoCelda = row.querySelector('td:last-child');
+
+        if (filtroValor === '' || coincideBusqueda(celda.textContent, busquedaValor)) {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+
+        // Verificar si el filtro es "abierto" o "cerrado"
+        if (filtroValor === 'abierto' || filtroValor === 'cerrado') {
+            const esAbierto = filtroValor === 'abierto';
+            const incidenteAbierto = estadoCelda.querySelector('input[type="checkbox"]');
+            const incidenteCerrado = estadoCelda.querySelector('span');
+
+            if ((esAbierto && incidenteAbierto) || (!esAbierto && incidenteCerrado)) {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
             }
+        }
+    });
+}
+
+function coincideBusqueda(texto, busqueda) {
+    // Verificar si el texto comienza con la búsqueda
+    return texto.toLowerCase().startsWith(busqueda);
+}
+
 
             function getIndiceColumna(filtro) {
                 switch (filtro) {
