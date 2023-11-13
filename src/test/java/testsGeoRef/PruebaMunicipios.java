@@ -35,7 +35,14 @@ public class PruebaMunicipios {
             for (Municipio unMunicipio : listadoDeMunicipios.municipios) {
                 System.out.println(unMunicipio.id + ") " + unMunicipio.nombre);
             }
+            String provincia = servicioGeoref.obtenerNombreProvincia(42);
+            System.out.println(provincia);
 
+            String municipio = servicioGeoref.obtenerNombreMunicipio(420231);
+            //String localidad = servicioGeoref.obtenerNombreLocalidad(42);
+
+           System.out.println(municipio);
+           // System.out.println(localidad);
             Scanner entradaMunicipio = new Scanner(System.in);
             int idMunicipioElegido = Integer.parseInt(entradaMunicipio.nextLine());
 

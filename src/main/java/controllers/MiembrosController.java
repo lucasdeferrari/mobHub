@@ -132,12 +132,20 @@ public class MiembrosController implements ICrudViewsHandler{
         }
     }
 
-    public void guardarDatosExtra(Context context){
+    public void guardarDatosExtra(Context context) throws IOException {
 
         Miembro miembro = repositorioMiembro.buscarPorId2(context.sessionAttribute("id"));
-        miembro.setLocalizacionProvincia(context.formParam("provincia"));
-        miembro.setLocalizacionDepartamento(context.formParam("localidad"));
-        miembro.setLocalizacionMunicipio(context.formParam("municipio"));
+        ServicioGeoRef servicioGeoref = ServicioGeoRef.instancia();
+        long localidadId = Long.parseLong(context.formParam("localidad"));
+        long municipioId = Long.parseLong(context.formParam("municipio"));
+        long provinciaId = Long.parseLong(context.formParam("provincia"));
+
+        String localidad = servicioGeoref.obtenerNombreLocalidad(localidadId);
+        String municipio = servicioGeoref.obtenerNombreMunicipio(municipioId);
+        String provincia = servicioGeoref.obtenerNombreProvincia(provinciaId);
+        miembro.setLocalizacionProvincia(provincia);
+        miembro.setLocalizacionDepartamento(localidad);
+        miembro.setLocalizacionMunicipio(municipio);
         miembro.setTelefono(context.formParam("telefono"));
         FormaNotificacionConverter formaNotificacionConverter = new FormaNotificacionConverter();
         MedioNotificacionConverter medioNotificacionConverter = new MedioNotificacionConverter();

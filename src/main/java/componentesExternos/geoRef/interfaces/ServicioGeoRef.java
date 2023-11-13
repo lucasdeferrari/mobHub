@@ -3,6 +3,8 @@ package componentesExternos.geoRef.interfaces;
 import componentesExternos.geoRef.entidades.ListadoDeLocalidades;
 import componentesExternos.geoRef.entidades.ListadoDeMunicipios;
 import componentesExternos.geoRef.entidades.ListadoDeProvincias;
+import componentesExternos.geoRef.entidades.Localidad;
+import componentesExternos.geoRef.entidades.Municipio;
 import componentesExternos.geoRef.entidades.Provincia;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -59,6 +61,29 @@ public class ServicioGeoRef{
     Call<ListadoDeLocalidades> requestListadoDeLocalidades = georefService.localidades(municipio_id, maximaCantidadRegistrosDefault);
     Response<ListadoDeLocalidades> responseListadoDeLocalidades = requestListadoDeLocalidades.execute();
     return responseListadoDeLocalidades.body();
+  }
+  public String obtenerNombreProvincia(long provinciaId) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeProvincias> requestProvincia = georefService.obtenerProvincia(provinciaId);
+    Response<ListadoDeProvincias> responseProvincia = requestProvincia.execute();
+    return responseProvincia.body().provincias.get(0).getNombre();
+
+
+  }
+
+  public String obtenerNombreMunicipio(long municipioId) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeMunicipios> requestMunicipio = georefService.obtenerMunicipio(municipioId);
+    Response<ListadoDeMunicipios> responseMunicipio = requestMunicipio.execute();
+    return responseMunicipio.body().municipios.get(0).getNombre();
+  }
+
+  public String obtenerNombreLocalidad(long localidadId) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeLocalidades> requestLocalidad = georefService.obtenerLocalidad(localidadId);
+    Response<ListadoDeLocalidades> responseLocalidad = requestLocalidad.execute();
+    return responseLocalidad.body().localidades.get(0).getNombre();
+
   }
 
 }

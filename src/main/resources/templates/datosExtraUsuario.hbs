@@ -41,7 +41,7 @@
                         <option value="Sin apuro">Sin apuro (seleccionar franja horaria)</option>
                     </select>
                 </div>
-                <div class="input-box" id="horario" style="display: none;">
+                <div class="input-box" id="horario-container" style="display: none;">
                     <label for="horario">Horario</label>
                     <select id="horario" name="horario">
                         <option value="00:00">12:00 AM</option>
@@ -86,11 +86,11 @@
 
 <script>
     document.getElementById("forma-notificacion").addEventListener("change", function() {
-        var horarioDiv = document.getElementById("horario");
-        if (this.value === "2") {
-            horarioDiv.style.display = "block";
+        var horarioContainer = document.getElementById("horario-container");
+        if (this.value === "Sin apuro") {
+            horarioContainer.style.display = "block";
         } else {
-            horarioDiv.style.display = "none";
+            horarioContainer.style.display = "none";
         }
     });
 
