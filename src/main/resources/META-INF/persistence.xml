@@ -12,15 +12,18 @@
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>
 
-      <!--  <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver" />
+        <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver" />
         <property name="hibernate.connection.url" value="jdbc:mariadb://127.0.0.1:3307/garbanzo1" />
         <property name="hibernate.connection.username" value="root" />
         <property name="hibernate.connection.password" value="cacona3000" />
-        -->
+
+
+        <!--
         <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver" />
   <property name="hibernate.connection.url" value="jdbc:mariadb://127.0.0.1:3306/dds" />
   <property name="hibernate.connection.username" value="root" />
   <property name="hibernate.connection.password" value="Gonza1234#" />
+  -->
 
 
       <!--<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
