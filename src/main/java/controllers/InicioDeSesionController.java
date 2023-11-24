@@ -110,11 +110,11 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
     }
 
-    public void showHome(Context context) {context.render("/landingPage.hbs");}
+    public void showHome(Context context) {context.render("landingPage.hbs");}
 
 
     public void vista(Context context){
-        context.render("/CrearCuenta.hbs");
+        context.render("CrearCuenta.hbs");
     }
 
     private void asignarParametros(Usuario usuario, Context context) {
