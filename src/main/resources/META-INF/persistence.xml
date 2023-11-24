@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-  <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="mobhub_it7c@dpg-clgi03mf27hc739koab0-a" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>
 
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect" />
       <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver" />
         <property name="hibernate.connection.url" value="jdbc:mariadb://127.0.0.1:3307/garbanzo1" />
         <property name="hibernate.connection.username" value="root" />
         <property name="hibernate.connection.password" value="cacona3000" />
-
+-->
 
         <!--
         <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver" />
@@ -33,7 +33,7 @@
       <property name="hibernate.connection.password" value=""/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
       -->
-
+<!--
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
       <property name="use_sql_comments" value="true"/>
@@ -43,5 +43,26 @@
   </persistence-unit>
 
 </persistence>
+-->
 
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
 
+  <persistence-unit name="mobhub" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <!-- Configuración de la base de datos -->
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="postgres://lucas:0fHX8FJPH9oiqPkx1mg0cxfUV6v5xW6n@dpg-clgi03mf27hc739koab0-a.ohio-postgres.render.com/mobhub_it7c"/>
+      <property name="javax.persistence.jdbc.user" value="lucas"/>
+      <property name="javax.persistence.jdbc.password" value="0fHX8FJPH9oiqPkx1mg0cxfUV6v5xW6n"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+
+      <!-- Configuración de Hibernate -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+    </properties>
+  </persistence-unit>
+</persistence>

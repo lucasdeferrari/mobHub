@@ -186,6 +186,11 @@
       <scope>provided</scope>
     </dependency>
 
+      <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>42.7.0</version> <!-- Asegúrate de usar la última versión disponible -->
+      </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
