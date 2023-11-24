@@ -6,7 +6,7 @@
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-  <persistence-unit name="mobhub_it7c@dpg-clgi03mf27hc739koab0-a" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 
@@ -45,17 +45,17 @@
 </persistence>
 -->
 
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
-             version="2.2">
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
 
-  <persistence-unit name="mobhub" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
     <!-- Configuración de la base de datos -->
     <properties>
-      <property name="javax.persistence.jdbc.url" value="postgres://lucas:0fHX8FJPH9oiqPkx1mg0cxfUV6v5xW6n@dpg-clgi03mf27hc739koab0-a.ohio-postgres.render.com/mobhub_it7c"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://dpg-clgi03mf27hc739koab0-a:5432/mobhub"/>
       <property name="javax.persistence.jdbc.user" value="lucas"/>
       <property name="javax.persistence.jdbc.password" value="0fHX8FJPH9oiqPkx1mg0cxfUV6v5xW6n"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
