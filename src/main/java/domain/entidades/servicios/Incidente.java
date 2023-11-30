@@ -39,10 +39,10 @@ public class Incidente extends EntidadPersistente {
     @JoinColumn(name = "entidad_id", referencedColumnName = "id")
     private Entidad entidad;
     @Convert(converter = LocalDateTimeConverter.class)
-    @Column(name = "fechaHoraApertura", columnDefinition = "DATETIME")
+    @Column(name = "fechaHoraApertura", columnDefinition = "TIMESTAMP")
     private LocalDateTime fechaHoraApertura;
     @Convert(converter = LocalDateTimeConverter.class)
-    @Column(name = "fechaHoraCierre", columnDefinition = "DATETIME")
+    @Column(name = "fechaHoraCierre", columnDefinition = "TIMESTAMP")
     private LocalDateTime fechaHoraCierre;
     @Column
     private String token;
