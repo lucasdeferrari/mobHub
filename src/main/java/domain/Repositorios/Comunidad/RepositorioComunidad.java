@@ -36,7 +36,14 @@ public class RepositorioComunidad implements ComunidadCRUD {
         return entityManager().createQuery("SELECT e FROM Comunidad e", Comunidad.class)
                 .getResultList();
     }
+    @Override
+    public List<Comunidad> getComunidadesDelMiembro(Integer miembroId) {
+        return entityManager()
+                .createQuery("SELECT c FROM Comunidad c JOIN c.miembrosNuestro m WHERE KEY(m).id = :miembroId", Comunidad.class)
+                .setParameter("miembroId", miembroId)
+                .getResultList();
 
+    }
     @Override
     public void actualizar(Comunidad comunidad) {
         entityManager().merge(comunidad);

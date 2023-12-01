@@ -12,4 +12,5 @@ public interface ComunidadCRUD extends WithSimplePersistenceUnit {
     List<Comunidad> buscarTodos();
     void actualizar(Comunidad comunidad);
     void eliminar(Long id);
+    public List<Comunidad> getComunidadesDelMiembro(Integer miembroId);
 }

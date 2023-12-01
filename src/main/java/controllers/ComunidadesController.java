@@ -6,7 +6,7 @@ import domain.entidades.comunidad.Comunidad;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import server.utils.ICrudViewsHandler;
-
+import domain.entidades.signin.RolUsuario;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

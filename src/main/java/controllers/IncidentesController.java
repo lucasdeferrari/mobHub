@@ -93,7 +93,7 @@ public class IncidentesController implements ICrudViewsHandler {
 
        Map<String, Object> model = new HashMap<>();
 
-        List<Comunidad> comunidades = repositorioComunidad.buscarTodos();
+        List<Comunidad> comunidades = repositorioComunidad.getComunidadesDelMiembro(id2);
         List<Servicio> servicios = repositorioServicio.buscarTodos();
        List<Establecimiento> establecimientos = repositorioEstablecimiento.buscarTodos();
 

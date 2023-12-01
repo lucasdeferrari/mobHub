@@ -6,6 +6,9 @@ import componentesExternos.geoRef.interfaces.ServicioGeoRef;
 import controllers.*;
 import domain.entidades.comunidad.RolComunidad;
 import domain.entidades.signin.RolUsuario;
+import io.javalin.Javalin;
+import io.javalin.http.Context;
+import io.javalin.http.Handler;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -36,7 +39,7 @@ public class Router {
 
         Server.app().error(404, ctx -> {
             //Asi funciona sin imagen
-            //ctx.status(404).result("Pagina no encontrada");
+            ctx.status(404).result("Pagina no encontrada");
             //hay que agregar la ruta de la imagen de 404 en 404.hbs
             ctx.render("404.hbs");
         });
@@ -86,15 +89,14 @@ public class Router {
             post("/portalCargaDeDatos", ((EntidadesYOrganismosController) FactoryController.controller("EntidadesYOrganismos"))::save);
 
             //post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("OrganismosDeControl"))::save);
-            get("/usuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);
             post("/validarUsuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::recibirUsuariosValidados);
 
             get("/completar-datos", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::mostrarVistaDatosExtra); //los de municipio y localidades estan mas arriba
             post("/completar-datos", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::guardarDatosExtra);
 
+            get("/usuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);
 
-
-            get("/agregarUsuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
+            //get("/agregarUsuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
             post("/agregarUsuario", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
 
             get("/crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::vista);

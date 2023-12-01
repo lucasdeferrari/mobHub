@@ -53,6 +53,7 @@ public class MiembrosController implements ICrudViewsHandler{
         context.render("miembro.hbs", model);
     }
     @Override
+
     public void show(Context context) {
         Integer id2 = context.sessionAttribute("id");
         if (id2 == null) {

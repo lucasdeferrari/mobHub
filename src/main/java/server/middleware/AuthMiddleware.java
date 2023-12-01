@@ -21,6 +21,5 @@ public class AuthMiddleware {
 
     public static RolUsuario getUserRoleType(Context context) {
         return context.sessionAttribute("tipo_rol");
-
     }
 }

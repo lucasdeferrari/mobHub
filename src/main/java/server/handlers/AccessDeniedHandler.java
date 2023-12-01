@@ -8,7 +8,7 @@ public class AccessDeniedHandler implements IHandler {
     @Override
     public void setHandle(Javalin app) {
         app.exception(AccessDeniedException.class, (e, context) -> {
-            context.render("404.hbs");
+            context.render("401.hbs");
         });
     }
 }
