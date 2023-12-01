@@ -1,6 +1,9 @@
 package domain.Repositorios.Comunidad;
 
+import controllers.EntidadesYOrganismosController;
 import domain.entidades.comunidad.Comunidad;
+import domain.entidades.comunidad.Miembro;
+import domain.entidades.comunidad.RolComunidad;
 import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import org.springframework.stereotype.Repository;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Repository
 public class RepositorioComunidad implements ComunidadCRUD {
@@ -62,5 +67,25 @@ public class RepositorioComunidad implements ComunidadCRUD {
                 .createQuery("SELECT i FROM Comunidad i WHERE i.nombre = :nombre", Comunidad.class)
                 .setParameter("nombre", nombre) // Establece el valor del parámetro "nombre"
                 .getSingleResult();
+    }
+
+    public void agregarMiembro(Comunidad comunidad, Miembro miembro, String funcion) {
+        RolComunidad rol;
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+        logger.info("EL ROL ELEGIDO ES "+funcion);
+
+        if("miembro".equals(funcion)) {
+            rol = RolComunidad.AFECTADO;
+        }
+        else {
+            rol = RolComunidad.ADMINISTRADOR;
+        }
+
+        comunidad.agregarMiembro(miembro, rol);
+        //this.actualizar(comunidad);
+        this.guardar(comunidad);
+        //entityManager().merge(this);
+        //entityManager().flush();
     }
 }

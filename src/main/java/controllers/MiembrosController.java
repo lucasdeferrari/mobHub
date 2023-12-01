@@ -9,8 +9,10 @@ import componentesExternos.geoRef.interfaces.GeorefService;
 import componentesExternos.geoRef.interfaces.ServicioGeoRef;
 import domain.Persistencia.FormaNotificacionConverter;
 import domain.Persistencia.MedioNotificacionConverter;
+import domain.Repositorios.Comunidad.RepositorioComunidad;
 import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
+import domain.entidades.comunidad.Comunidad;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.servicios.Incidente;
@@ -34,9 +36,11 @@ import java.util.*;
 public class MiembrosController implements ICrudViewsHandler{
     private RepositorioMiembro repositorioMiembro;
     private RepositorioDeUsuarios repositorioDeUsuarios;
-    public MiembrosController(RepositorioMiembro repositorio, RepositorioDeUsuarios repo){
+    private RepositorioComunidad repositorioComunidad;
+    public MiembrosController(RepositorioMiembro repositorio, RepositorioDeUsuarios repo, RepositorioComunidad repoComunidad){
         this.repositorioMiembro = repositorio;
         this.repositorioDeUsuarios = repo;
+        this.repositorioComunidad = repoComunidad;
     }
 
     @Override
@@ -44,13 +48,15 @@ public class MiembrosController implements ICrudViewsHandler{
         Integer id2 = context.sessionAttribute("id");
         if (id2 == null) {
             context.redirect("/inicio");
-            return;  // Asegúrate de salir del método después de redirigir
+            return;
         }
 
+        List<Comunidad> comunidades = this.repositorioComunidad.buscarTodos();
         Map<String, Object> model = new HashMap<>();
         List<Miembro> miembros = this.repositorioMiembro.buscarTodos();
+        model.put("comunidades", comunidades);
         model.put("miembros", miembros);
-        context.render("miembro.hbs", model);
+        context.render("AgregarUsuario.hbs", model);
     }
     @Override
 
@@ -90,12 +96,18 @@ public class MiembrosController implements ICrudViewsHandler{
         if(rolUsuario != RolUsuario.ADMINISTRADOR_PLATAFORMA) {
             throw new AccessDeniedException();
         }
+        String miembroId = context.formParam("miembroId");
+        String comunidadId = context.formParam("comunidadId");
+        String funcion = context.formParam("funcion");
 
-            Miembro miembro = new Miembro();
-            this.asignarParametros(miembro, context);
-            this.repositorioMiembro.guardar(miembro);
-            context.status(HttpStatus.CREATED);
-            context.redirect("/miembro");
+        int comunidadIdInt = Integer.parseInt(comunidadId);
+        int miembroIdInt = Integer.parseInt(miembroId);
+
+        Comunidad comunidad = repositorioComunidad.buscarPorId2(comunidadIdInt);
+        Miembro miembro = repositorioMiembro.buscarPorId2(miembroIdInt);
+
+        repositorioComunidad.agregarMiembro(comunidad, miembro, funcion);
+
 
         //-------------------------------------
 
@@ -177,9 +189,14 @@ public class MiembrosController implements ICrudViewsHandler{
                 miembro.setHorarioElegido(horario);
         }
         this.repositorioMiembro.guardar(miembro);
-        context.redirect("/miembro");
+        context.redirect("/incidentes");
 
     }
+
+    public void agregarUsuario(Context context) {
+        context.render("/agregar-usuario");
+    }
+
     public void mostrarVistaDatosExtra(Context context) throws IOException {
         Integer id2 = context.sessionAttribute("id");
         if (id2 == null) {

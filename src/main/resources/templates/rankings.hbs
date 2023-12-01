@@ -8,16 +8,7 @@
         <title>Rankings</title>
         <div class="container">
             <div class="report-incident-box">
-                <h1>Rankings</h1>
-                <h2>Tipo de Ranking</h2>
-                <select id="seleccion" onchange="mostrarLista()">
-                    <option value="opcion1">Ranking segun la cantidad de reportes</option>
-                    <option value="opcion2">Ranking segun el grado de impacto</option>
-                    <option value="opcion3">Ranking segun el promedio de cierre</option>
-                </select>
-
-                <div id="lista" class="dynamic-list">
-                    <!-- Los elementos de la lista se generarán aquí dinámicamente -->
+                <h1>Mayor promedio de cierre </h1>
                 </div>
             </div>
             <br>
@@ -37,8 +28,8 @@
             // Este es el lugar donde debes obtener los datos de la base de datos y organizarlos
             // Reemplaza este ejemplo con tu lógica para obtener los datos y organizarlos en "labels" y "values".
 
-            var labels = ['Entidad 1', 'Entidad 2', 'Entidad 3', 'Entidad 4', 'Entidad 5']; // Nombres de las entidades
-            var values = [100, 150, 80, 120, 200]; // Valores correspondientes al criterio
+            var labels = ['Coto', 'Banco santander', 'Carrefour', 'Jumbo']; // Nombres de las entidades
+            var values = [45, 43, 40, 30, 15]; // Valores correspondientes al criterio
 
             // Obten el contexto del canvas
             var ctx = document.getElementById('myBarChart').getContext('2d');
