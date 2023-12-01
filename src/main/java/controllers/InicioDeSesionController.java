@@ -1,5 +1,7 @@
 package controllers;
+import javax.persistence.NoResultException;
 
+import com.google.gson.Gson;
 import componentesExternos.geoRef.entidades.Localidad;
 import componentesExternos.geoRef.entidades.Municipio;
 import componentesExternos.geoRef.entidades.Provincia;
@@ -15,6 +17,7 @@ import domain.entidades.signin.EstrategiaValidacion;
 import domain.entidades.signin.Usuario;
 import domain.entidades.signin.estrategiasDeValidacion.*;
 import io.javalin.http.Context;
+import io.javalin.websocket.WsContext;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.mindrot.jbcrypt.BCrypt;
@@ -89,25 +92,31 @@ public class InicioDeSesionController implements ICrudViewsHandler {
     public void delete(Context context) {
 
     }
-    public void iniciarSesion(Context context){
-
+    public void iniciarSesion(Context context) {
         String username = context.formParam("usuario");
         String password = context.formParam("contrasena");
-        // Realizar la autenticación aquí (por ejemplo, verificar credenciales en una base de datos)
-        System.out.println(username);
-        Usuario usuario= this.repoUsuarios.buscarPorUsername(context.formParam("usuario"));
-        if (BCrypt.checkpw(password, usuario.getContrasenia())) {
-                // Autenticación exitosa, establecer una sesión
-                //context.result("Inicio de sesión exitoso, redireccionando a la página principal.");
-                context.sessionAttribute("id", usuario.getId());
-                context.sessionAttribute("tipo_rol", usuario.getRolUsuario());
-                context.redirect("/home");
-        } else {
-                // Autenticación fallida, mostrar un mensaje de error
-                context.result("Inicio de sesion fallido. Por favor, verifica tus credenciales.");
-            }
-     //   }
 
+        Usuario usuario = this.repoUsuarios.buscarPorUsername(username);
+
+        if (usuario != null && BCrypt.checkpw(password, usuario.getContrasenia())){
+
+            // Autenticación exitosa, establecer una sesión
+            context.sessionAttribute("id", usuario.getId());
+            context.sessionAttribute("tipo_rol", usuario.getRolUsuario());
+            if(usuario.getRolUsuario() == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+                context.sessionAttribute("es_admin", true);
+            } else {
+                context.sessionAttribute("es_admin", false);
+            }
+
+            context.redirect("/home");
+        }
+        else {
+            Map<String, Object> model = new HashMap<>();
+            model.put("error_message", "Usuario o contraseña incorrecta");
+            context.render("InicioSesion.hbs", model);
+
+        }
     }
 
 

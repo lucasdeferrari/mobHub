@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Setter
-public class GestorGeolocalizacion {
+public class  GestorGeolocalizacion {
 
    private List<Incidente> incidentesCerca;
    private double margen =0;

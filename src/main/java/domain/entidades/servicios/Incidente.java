@@ -72,6 +72,7 @@ public class Incidente extends EntidadPersistente {
         this.fechaHoraCierre = fechaHoraCierre;
     }
 
+
     public void ponerDisponible() {
         servicio.disponible();
     }
