@@ -65,6 +65,7 @@ public class MiembrosController implements ICrudViewsHandler{
         if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
             List<Usuario> usuarios = this.repositorioDeUsuarios.buscarTodos();
             Map<String, Object> model = new HashMap<>();
+            model.put("es_admin", context.sessionAttribute("es_admin"));
             model.put("usuarios", usuarios);
             context.render("filtroUsuarios.hbs", model);
         } else {
@@ -128,14 +129,18 @@ public class MiembrosController implements ICrudViewsHandler{
         ObjectMapper objectMapper = new ObjectMapper();
 
         List<UsuarioModificado> usuariosModificados = objectMapper.readValue(json, new TypeReference<List<UsuarioModificado>>() {});
-
+        for (UsuarioModificado usuarioModificado : usuariosModificados) {
+            System.out.println("ID: " + usuarioModificado.id);
+            System.out.println("Rol: " + usuarioModificado.rol);
+            System.out.println("Validado: " + usuarioModificado.validado);
+        }
         for (UsuarioModificado usuarioModificado : usuariosModificados) {
             System.out.println(usuarioModificado.id);
             System.out.println(usuarioModificado.rol);
             System.out.println(usuarioModificado.validado);
             Usuario usuario = repositorioDeUsuarios.buscarPorId2(usuarioModificado.id);
             System.out.println(usuario.getNombreUsuario());
-            if(usuarioModificado.validado == true || usuarioModificado.validado == false){
+            if(usuarioModificado.validado || usuarioModificado.validado == false){
                 usuario.setValidado(usuarioModificado.validado);
             }
             if(usuarioModificado.rol != null){
@@ -186,7 +191,7 @@ public class MiembrosController implements ICrudViewsHandler{
         ServicioGeoRef servicioGeoref = ServicioGeoRef.instancia();
         ListadoDeProvincias listadoDeProvinciasArgentinas = servicioGeoref.listadoDeProvincias();
         listadoDeProvinciasArgentinas.provincias.sort((p1, p2) -> p1.id >= p2.id? 1 : -1);
-
+        model.put("es_admin", context.sessionAttribute("es_admin"));
         model.put("provincias", listadoDeProvinciasArgentinas.provincias); //el de municipios y localidades los obtengo con ajax
         context.render("datosExtraUsuario.hbs", model);
     }

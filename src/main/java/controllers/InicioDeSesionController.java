@@ -14,6 +14,7 @@ import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.ControladorDeEstrategiaValidacion;
 import domain.entidades.signin.EstrategiaValidacion;
+import domain.entidades.signin.RolUsuario;
 import domain.entidades.signin.Usuario;
 import domain.entidades.signin.estrategiasDeValidacion.*;
 import io.javalin.http.Context;
@@ -41,7 +42,7 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
     @Override
     public void index(Context context) {
-        context.render("InicioSesion.hbs");
+    context.render("InicioSesion.hbs");
     }
     public void olvidarContrasenia(Context context) {
         context.render("OlvidarContrasena.hbs");
@@ -155,7 +156,7 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         }
         if(!Objects.equals(context.formParam("contrasena"), "")) {
             String password = context.formParam("contrasena");
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
             usuario.setContrasenia(hashedPassword);
         }
 

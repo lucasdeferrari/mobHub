@@ -35,6 +35,7 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
             return;  // Asegúrate de salir del método después de redirigir
         }
         Map<String, Object> model = new HashMap<>();
+        model.put("es_admin", context.sessionAttribute("es_admin"));
         List<EntidadPrestadora> entidadPrestadoras = this.repositorioEntidadPrestadora.buscarTodos();
         model.put("entidadPrestadora", entidadPrestadoras);
         context.render("portalCargaDeDatos.hbs", model);

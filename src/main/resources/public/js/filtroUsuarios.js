@@ -5,16 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const validadoSelects = document.querySelectorAll(".validado-select");
     const agregarUsuarioBtn = document.getElementById("agregarUsuario");
 
-    // Configurar opciones seleccionadas para rol y validado al cargar la página
-    rolSelects.forEach(function (rolSelect) {
-        const rolActual = rolSelect.dataset.rol;
-        seleccionarOpcion(rolSelect, rolActual);
-    });
 
-    validadoSelects.forEach(function (validadoSelect) {
-        const validadoActual = validadoSelect.dataset.validado;
-        seleccionarOpcion(validadoSelect, validadoActual);
-    });
+    configurarOpcionesSeleccionadas(rolSelects, ".rol-select", "rol");
+    configurarOpcionesSeleccionadas(validadoSelects, ".validado-select", "validado");
 
     agregarUsuarioBtn.addEventListener("click", function () {
         const usuarios = document.querySelectorAll("#tabla-usuarios tr");
@@ -78,18 +71,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => response.json())
                 .then(data => console.log("Respuesta del servidor:", data))
                 .catch(error => console.error("Error al enviar la solicitud:", error));
+                location.reload();
             }
         });
     // Configurar opciones seleccionadas para rol y validado al cargar la página
-rolSelects.forEach(function (rolSelect) {
-    const rolActual = rolSelect.dataset.rol;
-    seleccionarOpcion(rolSelect, rolActual);
-});
+    configurarOpcionesSeleccionadas(rolSelects, ".rol-select", "rol");configurarOpcionesSeleccionadas(validadoSelects, ".validado-select", "validado");
 
-validadoSelects.forEach(function (validadoSelect) {
-    const validadoActual = validadoSelect.dataset.validado;
-    seleccionarOpcion(validadoSelect, validadoActual);
-});
+    function configurarOpcionesSeleccionadas(selects, selectClass, datasetKey) {
+        selects.forEach(function (select) {
+            const actual = select.dataset[datasetKey];
+            seleccionarOpcion(select, actual);
+        });
+    }
 
     function seleccionarOpcion(select, valor) {
         Array.from(select.options).forEach(function (option) {

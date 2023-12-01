@@ -17,6 +17,8 @@ public class AuthMiddleware {
                 throw new AccessDeniedException();
             }
         }));
+
+
     }
 
     public static RolUsuario getUserRoleType(Context context) {

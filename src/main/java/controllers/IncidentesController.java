@@ -77,7 +77,9 @@ public class IncidentesController implements ICrudViewsHandler {
         Incidente incidente = this.repositorioIncidente.buscarPorToken((context.pathParam("id")));
         //Servicio servicio = (Servicio) this.repositorioDeServicios.buscar(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
+        model.put("es_admin", context.sessionAttribute("es_admin"));
         model.put("incidente", incidente);
+        model.put("es_admin", context.sessionAttribute("es_admin"));
         context.render("datosIncidente.hbs", model);
 
     }
@@ -97,6 +99,8 @@ public class IncidentesController implements ICrudViewsHandler {
         List<Servicio> servicios = repositorioServicio.buscarTodos();
        List<Establecimiento> establecimientos = repositorioEstablecimiento.buscarTodos();
 
+        model.put("es_admin", context.sessionAttribute("es_admin"));
+        context.render("landingPage.hbs", model);
         model.put("comunidades", comunidades);
         model.put("servicios", servicios);
         model.put("establecimientos", establecimientos);

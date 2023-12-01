@@ -38,6 +38,8 @@ public class RankingsController implements ICrudViewsHandler{
         List<Incidente> ranking3 = generador.getRankingMayorGradoImpacto();
 
         Map<String, Object> model = new HashMap<>();
+
+        model.put("es_admin", context.sessionAttribute("es_admin"));
         model.put("ranking1", ranking1);
         model.put("ranking2", ranking2);
         model.put("ranking3", ranking3);

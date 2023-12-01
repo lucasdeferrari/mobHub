@@ -6,6 +6,7 @@ import domain.entidades.servicios.Servicio;
 import domain.entidades.signin.Usuario;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
