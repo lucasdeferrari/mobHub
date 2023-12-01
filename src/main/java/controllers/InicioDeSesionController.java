@@ -110,7 +110,21 @@ public class InicioDeSesionController implements ICrudViewsHandler {
 
     }
 
-    public void showHome(Context context) {context.render("landingPage.hbs");}
+
+    public void showHome(Context context) {
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
+        Map<String, Object> model = new HashMap<>();
+
+        model.put("es_admin", context.sessionAttribute("es_admin"));
+
+        context.render("landingPage.hbs", model);
+
+
+    }
 
 
     public void vista(Context context){

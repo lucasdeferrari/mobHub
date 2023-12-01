@@ -11,10 +11,9 @@ public class AuthMiddleware {
         config.accessManager(((handler, context, routeRoles) -> {
             RolUsuario userRole = getUserRoleType(context);
 
-            if(routeRoles.size() == 0 || routeRoles.contains(userRole)) {
+            if (routeRoles.size() == 0 || routeRoles.contains(userRole)) {
                 handler.handle(context);
-            }
-            else {
+            } else {
                 throw new AccessDeniedException();
             }
         }));

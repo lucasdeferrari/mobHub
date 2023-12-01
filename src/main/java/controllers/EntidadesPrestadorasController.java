@@ -3,6 +3,7 @@ package controllers;
 import domain.Repositorios.EntidadPrestadora.RepositorioEntidadPrestadora;
 import domain.entidades.LectorCSV.DatosCSV;
 import domain.entidades.servicios.EntidadPrestadora;
+import domain.entidades.servicios.OrganismoDeControl;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.UploadedFile;
@@ -28,6 +29,11 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
 
     @Override
     public void index(Context context) {
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
         Map<String, Object> model = new HashMap<>();
         List<EntidadPrestadora> entidadPrestadoras = this.repositorioEntidadPrestadora.buscarTodos();
         model.put("entidadPrestadora", entidadPrestadoras);
@@ -52,37 +58,7 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
 
     @Override
     public void save(Context context) {
-        UploadedFile archivo = context.uploadedFile("formData");
 
-        if (archivo != null) {
-            try {
-                InputStream inputStream = archivo.content();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder contenidoCSV = new StringBuilder();
-                String linea;
-
-                while ((linea = reader.readLine()) != null) {
-                    contenidoCSV.append(linea).append("\n");
-                }
-
-                ImportadorDeEntidadesPrestadoras importador = new ImportadorDeEntidadesPrestadoras();
-
-                // Llama a tu importador para procesar y guardar los datos del archivo CSV
-                boolean importacionExitosa = importador.importarEntidadesPrestadoras(contenidoCSV.toString(), this);
-
-                if (importacionExitosa) {
-                    context.result("Archivo CSV procesado y guardado con éxito.");
-                } else {
-                    context.result("Error al procesar y guardar el archivo CSV.");
-                }
-            } catch (IOException e) {
-                // Maneja cualquier error de lectura del archivo
-                context.result("Error al procesar el archivo.");
-            }
-        } else {
-            // Manejar el caso en el que no se ha subido un archivo o se ha proporcionado un nombre de campo incorrecto
-            context.result("No se ha seleccionado ningún archivo CSV.");
-        }
     }
 
 
@@ -129,19 +105,5 @@ public class EntidadesPrestadorasController implements ICrudViewsHandler {
         }
     }
 
-    public void procesarDiccionario(Map<String, DatosCSV> diccionario) {
-        diccionario.forEach((clave, valor) -> {
-            if (valor.getTipoDato() == "Entidad Prestadora") {
-                EntidadPrestadora entidadPrestadora = new EntidadPrestadora();
-                entidadPrestadora.setNombre(valor.getNombre());
-                entidadPrestadora.setApellido(valor.getApellido());
-                entidadPrestadora.setContacto(valor.getContacto());
-                entidadPrestadora.setNombreEntidad(valor.getNombreOrganismo());
-
-                repositorioEntidadPrestadora.guardar(entidadPrestadora);
-            }
-
-        });
-    }
 }
 

@@ -9,7 +9,9 @@ import domain.entidades.generadorRankings.GeneradorRanking;
 import domain.entidades.Rankings.Ranking;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.Ignore;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 
 @Getter
@@ -21,12 +23,11 @@ public class EntidadPrestadora extends EntidadPersistente {
     @Column
     private String nombreEntidad;
 
-    @OneToMany(mappedBy = "entidadPrestadora", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @Transient
     private List<Entidad> entidades;
     // NO SE QUE RELACION IRIA ACA TODO
 
-    @ManyToOne
-    @JoinColumn(name="organismo_id", referencedColumnName = "id")
+    @Transient
     private OrganismoDeControl organismoDeControl;
 
     @Column
@@ -39,8 +40,7 @@ public class EntidadPrestadora extends EntidadPersistente {
     private String contacto;
 
 
-    @Convert(converter = RankingConverter.class)
-    @Column(columnDefinition = "VARCHAR(35)")
+    @Transient
     private Ranking criterio;
 
     // FK AL ORG DE CONTROL ?? todo

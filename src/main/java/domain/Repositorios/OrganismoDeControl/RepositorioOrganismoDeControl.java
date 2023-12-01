@@ -1,16 +1,23 @@
 package domain.Repositorios.OrganismoDeControl;
 
 
+import controllers.EntidadesYOrganismosController;
 import domain.entidades.servicios.Entidad;
 import domain.entidades.servicios.OrganismoDeControl;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RepositorioOrganismoDeControl implements OrganismoDeControlCRUD {
 
     @Override
     public OrganismoDeControl guardar(OrganismoDeControl organismoDeControl) {
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+        logger.info("GUARDANDO ORGANISMO DE CONTROL");
+
         EntityTransaction tx = entityManager().getTransaction();
         if(!tx.isActive())
             tx.begin();

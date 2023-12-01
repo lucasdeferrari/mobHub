@@ -1,15 +1,21 @@
 package domain.Repositorios.EntidadPrestadora;
 
+import controllers.EntidadesYOrganismosController;
 import domain.entidades.servicios.EntidadPrestadora;
 import domain.entidades.servicios.Establecimiento;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RepositorioEntidadPrestadora implements EntidadPrestadoraCRUD {
 
     @Override
     public EntidadPrestadora guardar(EntidadPrestadora entidadPrestadora) {
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+        logger.info("GUARDANDO ENTIDAD PRESTADORA");
         EntityTransaction tx = entityManager().getTransaction();
         if(!tx.isActive())
             tx.begin();

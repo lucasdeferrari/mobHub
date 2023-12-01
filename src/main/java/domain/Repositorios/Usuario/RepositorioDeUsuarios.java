@@ -43,10 +43,15 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
                 .getSingleResult();
     }
     public Usuario buscarPorUsername(String nombre) {
-        return entityManager()
-                .createQuery("SELECT i FROM Usuario i WHERE i.nombreUsuario = :nombre", Usuario.class)
-                .setParameter("nombre", nombre)
-                .getSingleResult();
+        try {
+            return entityManager()
+                    .createQuery("SELECT i FROM Usuario i WHERE i.nombreUsuario = :nombre", Usuario.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            // El nombre de usuario no se encontró, devolver null
+            return null;
+        }
     }
     @Override
     public List<Usuario> buscarTodos() {

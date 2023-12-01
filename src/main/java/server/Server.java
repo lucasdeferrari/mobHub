@@ -24,7 +24,9 @@ public class Server {
         if(app == null) {
             Integer port = Integer.parseInt(System.getProperty("port", "8080"));
             app = Javalin.create(config()).start(port);
-           // app.enableStaticFiles("/public");
+
+
+            // app.enableStaticFiles("/public");
             initTemplateEngine();
             Router.init();
         }

@@ -12,6 +12,18 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 public class Router {
 
     public static void init() {
+
+
+      //  Server.app().before(ctx -> {
+        //    String ruta = ctx.path();
+        //  if (ctx.sessionAttribute("id") == null && !("/inicio".equals(ruta) || "/crear-cuenta".equals(ruta) || "/olvidar-contrasenia".equals(ruta))) {
+        //      ctx.redirect("/inicio");
+        //  }
+        //});
+
+
+
+
         Server.app().get("/saluda", ctx -> {
             ctx.result("Hola "
                     + ctx.queryParam("nombre")
@@ -21,12 +33,6 @@ public class Router {
         Server.app().get("/saludo-para/{nombre}", ctx -> ctx.result("Hola "
                 + ctx.pathParam("nombre")
         ));
-        Server.app().before( ctx -> {
-          //  String ruta = ctx.path();
-         //  if (ctx.sessionAttribute("id") == null && (!"/inicio".equals(ruta) || !"/crear-cuenta".equals(ruta))) {
-           //     ctx.redirect("/inicio");
-         //   }
-        });
 
         Server.app().error(404, ctx -> {
             //Asi funciona sin imagen
@@ -77,7 +83,7 @@ public class Router {
 
             get("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::index);
 
-            post("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::save);
+            post("/portalCargaDeDatos", ((EntidadesYOrganismosController) FactoryController.controller("EntidadesYOrganismos"))::save);
 
             //post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("OrganismosDeControl"))::save);
             get("/usuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);
@@ -90,6 +96,8 @@ public class Router {
 
             get("/agregarUsuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
             post("/agregarUsuario", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
+
+            get("/crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::vista);
 
         });
     }

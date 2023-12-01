@@ -80,5 +80,19 @@ public class ComunidadesController implements ICrudViewsHandler {
             comunidad.setNombre(context.formParam("nombre"));
         }
     }
+
+    public void vista(Context context) {
+        RolUsuario userRole = context.sessionAttribute("tipo_rol");
+
+        if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+            Map<String, Object> model = new HashMap<>();
+            model.put("es_admin", context.sessionAttribute("es_admin"));
+            context.render("crearComunidad.hbs", model);
+        } else {
+            context.render("403.hbs");
+            context.status(403); // Código 403 para acceso no autorizado
+
+        }
+    }
 }
 

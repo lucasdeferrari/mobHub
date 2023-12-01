@@ -27,6 +27,12 @@ public class RankingsController implements ICrudViewsHandler{
     }
     @Override
     public void show(Context context) {
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
+
         List<Entidad> ranking1 =  generador.getRankingMayorPromedioCierre();
         List<Entidad> ranking2 = generador.getRankingMayorCantidadReportes();
         List<Incidente> ranking3 = generador.getRankingMayorGradoImpacto();

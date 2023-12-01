@@ -48,6 +48,13 @@ public class IncidentesController implements ICrudViewsHandler {
 
     @Override
     public void index(Context context) {
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
+
+
         Map<String, Object> model = new HashMap<>();
         Integer id = context.sessionAttribute("id");
         Usuario usuario = repositorioDeUsuarios.buscarPorId(id);
@@ -77,6 +84,12 @@ public class IncidentesController implements ICrudViewsHandler {
 
     @Override
     public void create(Context context) {
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
+
 
        Map<String, Object> model = new HashMap<>();
 

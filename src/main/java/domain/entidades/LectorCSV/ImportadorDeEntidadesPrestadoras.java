@@ -1,23 +1,29 @@
 package domain.entidades.LectorCSV;
 
 import controllers.EntidadesPrestadorasController;
+import controllers.EntidadesYOrganismosController;
 import domain.entidades.servicios.ConfigReader;
 
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ImportadorDeEntidadesPrestadoras {
 
     Map<String, DatosCSV> diccionarioDatosEntidades = new HashMap<>();
-    String rutaArchivoEntidadesPrestadoras = ConfigReader.getPropertyValue("pathEntidadesPrestadoras");
 
-    public boolean importarEntidadesPrestadoras(String archivoEntidadesPrestadoras, EntidadesPrestadorasController controladorEntidadesPrestadoras) {
+    public boolean importarEntidadesPrestadoras(String archivoEntidadesPrestadoras, EntidadesYOrganismosController controlador) {
+        System.out.println("ENTRE AL IMPORTADOR");
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+        logger.info("ENTRE AL IMPORTADOR");
         ParserCSV parserCSV = new ParserCSV();
         diccionarioDatosEntidades = parserCSV.parserCSV(archivoEntidadesPrestadoras);
 
-        controladorEntidadesPrestadoras.procesarDiccionario(diccionarioDatosEntidades);
+        controlador.procesarDiccionario(diccionarioDatosEntidades);
 
         return true;
     }

@@ -41,6 +41,12 @@ public class MiembrosController implements ICrudViewsHandler{
 
     @Override
     public void index(Context context){
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
+
         Map<String, Object> model = new HashMap<>();
         List<Miembro> miembros = this.repositorioMiembro.buscarTodos();
         model.put("miembros", miembros);
@@ -48,18 +54,24 @@ public class MiembrosController implements ICrudViewsHandler{
     }
     @Override
     public void show(Context context) {
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
         RolUsuario userRole = context.sessionAttribute("tipo_rol");
 
-       // if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+        if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
             List<Usuario> usuarios = this.repositorioDeUsuarios.buscarTodos();
             Map<String, Object> model = new HashMap<>();
             model.put("usuarios", usuarios);
             context.render("filtroUsuarios.hbs", model);
-       // } else {
-            //context.status(403).result("Acceso denegado");
-      //  }
-
+        } else {
+            context.render("403.hbs");
+            context.status(403);
+        }
     }
+
 
     @Override
     public void create(Context context) {
@@ -163,6 +175,12 @@ public class MiembrosController implements ICrudViewsHandler{
 
     }
     public void mostrarVistaDatosExtra(Context context) throws IOException {
+        Integer id2 = context.sessionAttribute("id");
+        if (id2 == null) {
+            context.redirect("/inicio");
+            return;  // Asegúrate de salir del método después de redirigir
+        }
+
         Map<String, Object> model = new HashMap<>();
         ServicioGeoRef servicioGeoref = ServicioGeoRef.instancia();
         ListadoDeProvincias listadoDeProvinciasArgentinas = servicioGeoref.listadoDeProvincias();

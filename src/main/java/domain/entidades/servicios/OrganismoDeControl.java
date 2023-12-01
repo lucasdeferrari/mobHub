@@ -4,6 +4,7 @@ import domain.Persistencia.EntidadPersistente;
 import domain.entidades.signin.RolUsuario;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,14 +15,11 @@ public class OrganismoDeControl extends EntidadPersistente {
     @Column
     private String nombre;
 
-    @OneToMany(mappedBy = "organismoDeControl", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @Transient
     private List<EntidadPrestadora> entidadadesPrestadoras;
 
 
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "tipoServicios_organismoDeControl", joinColumns = @JoinColumn(name = "organismoDeControl_id",referencedColumnName = "id"))
-    @Column(name = "servicioAControlar", unique = true)
+    @Transient
     private List<TipoDeServicio> serviciosAControlar;
 /*
     @ElementCollection(targetClass = EstadoPedido.class)
