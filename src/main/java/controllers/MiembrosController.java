@@ -94,7 +94,8 @@ public class MiembrosController implements ICrudViewsHandler{
         RolUsuario rolUsuario = AuthMiddleware.getUserRoleType(context);
         //
         if(rolUsuario != RolUsuario.ADMINISTRADOR_PLATAFORMA) {
-            throw new AccessDeniedException();
+            context.render("403.hbs");
+            context.status(403);
         }
         String miembroId = context.formParam("miembroId");
         String comunidadId = context.formParam("comunidadId");

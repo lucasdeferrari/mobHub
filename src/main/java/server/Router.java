@@ -93,8 +93,8 @@ public class Router {
 
             get("/usuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::show);
 
-            //get("/agregarUsuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
-            post("/agregarUsuario", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
+            get("/agregar-usuario",((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::index);
+            post("/agregar-usuario", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
 
             get("/crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::vista);
             post("/crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);

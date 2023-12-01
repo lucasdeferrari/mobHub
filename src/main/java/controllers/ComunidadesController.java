@@ -93,8 +93,12 @@ public class ComunidadesController implements ICrudViewsHandler {
     }
 
     private void asignarParametros(Comunidad comunidad, Context context) {
-        if(!Objects.equals(context.formParam("nombre"), "")) {
-            comunidad.setNombre(context.formParam("nombre"));
+        if (!Objects.equals(context.formParam("nombre-comunidad"), "")) {
+            comunidad.setNombre(context.formParam("nombre-comunidad"));
+        }
+
+        if (!Objects.equals(context.formParam("descripcion-comunidad"), "")) {
+            comunidad.setDescripcion(context.formParam("descripcion-comunidad"));
         }
     }
 
