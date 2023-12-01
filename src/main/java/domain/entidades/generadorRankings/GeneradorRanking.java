@@ -41,7 +41,7 @@ public class GeneradorRanking {
   }
   public static GeneradorRanking getInstance() {
     if (instancia == null) {
-      instancia = new GeneradorRanking();
+      instancia = new GeneradorRanking(repositorioIncidente);
     }
     return instancia;
   }

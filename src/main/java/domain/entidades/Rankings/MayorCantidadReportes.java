@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
       for (Incidente incidente : listaIncidentes) {
         Entidad entidad = incidente.getEntidad();
         if (existeIncidenteReportado(entidad, incidente, listaIncidentes)) {
-          continue; //si existe no lo agrega
+          continue; //si existe no lo agregage
         }
         cantidadIncidentes.put(entidad, cantidadIncidentes.getOrDefault(entidad, 0) + 1);
       }
