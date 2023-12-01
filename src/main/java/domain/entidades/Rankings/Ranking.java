@@ -14,6 +14,7 @@ import lombok.Getter;
 public abstract class Ranking {
 
   public abstract List<Entidad> generar(List<Incidente> incidentes);
+
   public abstract List<Incidente> generarGradoImpacto(List<Incidente> incidentes);
 
   public Boolean esIncidenteDeEstaSemana(Incidente incidente) {

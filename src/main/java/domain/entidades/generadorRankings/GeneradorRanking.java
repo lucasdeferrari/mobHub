@@ -1,5 +1,7 @@
 package domain.entidades.generadorRankings;
 
+import domain.Repositorios.Entidad.RepositorioEntidad;
+import domain.Repositorios.Incidente.RepositorioIncidente;
 import domain.entidades.Rankings.MayorCantidadReportes;
 import domain.entidades.Rankings.MayorGradoImpacto;
 import domain.entidades.Rankings.MayorPromedioCierre;
@@ -33,13 +35,14 @@ public class GeneradorRanking {
   LocalTime horaDeInicio = LocalTime.of(0, 0, 0);
   // LA CLASE SE DEBE EJECUTAR POR PRIMERA VEZ UN DOMINGO
 
-  public GeneradorRanking(){
+  public GeneradorRanking(RepositorioIncidente repositorioIncidente) {
     rankingMayorCantidadReportes = new ArrayList<>();
     rankingMayorPromedioCierre = new ArrayList<>();
     rankingMayorGradoImpacto = new ArrayList<>();
-    incidentes = new ArrayList<>();
+    incidentes = repositorioIncidente.buscarTodos();
   }
-  public static GeneradorRanking getInstance() {
+
+  public static GeneradorRanking getInstance(RepositorioIncidente repositorioIncidente) {
     if (instancia == null) {
       instancia = new GeneradorRanking(repositorioIncidente);
     }
@@ -100,6 +103,23 @@ public class GeneradorRanking {
       return rankingMayorGradoImpacto;
     }
   throw new RuntimeException();
+  }
+
+  //metodos para probar
+  public List<Entidad> generarRanking1(){
+    Ranking criterio1 = new MayorPromedioCierre();
+    rankingMayorCantidadReportes =  criterio1.generar(incidentes);
+    return rankingMayorCantidadReportes;
+  }
+  public List<Incidente> generarRanking2(){
+    Ranking criterio2 = new MayorCantidadReportes();
+    rankingMayorGradoImpacto = criterio2.generarGradoImpacto(incidentes);
+    return rankingMayorGradoImpacto;
+  }
+  public List<Entidad> generarRanking3(){
+    Ranking criterio3 = new MayorCantidadReportes();
+    rankingMayorGradoImpacto = criterio3.generarGradoImpacto(incidentes);
+    return rankingMayorPromedioCierre;
   }
 }
 

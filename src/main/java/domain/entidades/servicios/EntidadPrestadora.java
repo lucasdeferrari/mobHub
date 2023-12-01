@@ -4,6 +4,7 @@ import java.util.List;
 
 import domain.Persistencia.EntidadPersistente;
 import domain.Persistencia.RankingConverter;
+import domain.Repositorios.Incidente.RepositorioIncidente;
 import domain.entidades.signin.RolUsuario;
 import domain.entidades.generadorRankings.GeneradorRanking;
 import domain.entidades.Rankings.Ranking;
@@ -56,7 +57,8 @@ public class EntidadPrestadora extends EntidadPersistente {
     }
 
     public void obtenerInforme(){
-        GeneradorRanking generadorRanking = new GeneradorRanking();
+        RepositorioIncidente repo = new RepositorioIncidente();
+        GeneradorRanking generadorRanking = GeneradorRanking.getInstance(repo);
         generadorRanking.devolverInformeEntidadPrestadora(this, criterio);
     }
 

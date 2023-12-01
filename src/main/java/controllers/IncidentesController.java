@@ -66,7 +66,7 @@ public class IncidentesController implements ICrudViewsHandler {
         }
 
         System.out.println("rol del usuario:" + usuario.getRolUsuario().toString());
-
+        model.put("es_admin", context.sessionAttribute("es_admin"));
         model.put("incidentes", incidentes);
         context.render("incidentes.hbs", model);
     }
@@ -79,7 +79,6 @@ public class IncidentesController implements ICrudViewsHandler {
         Map<String, Object> model = new HashMap<>();
         model.put("es_admin", context.sessionAttribute("es_admin"));
         model.put("incidente", incidente);
-        model.put("es_admin", context.sessionAttribute("es_admin"));
         context.render("datosIncidente.hbs", model);
 
     }

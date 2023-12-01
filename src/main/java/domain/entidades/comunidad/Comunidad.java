@@ -43,6 +43,7 @@ public class Comunidad extends EntidadPersistente {
   @JsonIgnore
   private List<Incidente> incidentesAbiertos;
 
+  private Integer cantidadMiembros = getCantidadMiembros();
 
   @Transient
   @JsonProperty("miembros")

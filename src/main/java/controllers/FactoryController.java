@@ -19,14 +19,14 @@ public class FactoryController {
 
             case "Servicios": controller = new ServiciosController(new RepositorioServicio()); break;
             case "Incidentes": controller = new IncidentesController(new RepositorioIncidente(), new RepositorioComunidad(), new RepositorioServicio(), new RepositorioEstablecimiento(), new RepositorioMiembro(), new RepositorioDeUsuarios()); break;
-            case "MiembrosYUsuarios": controller = new MiembrosController(new RepositorioMiembro(), new RepositorioDeUsuarios()); break;
-            case "Comunidades": controller = new ComunidadesController(new RepositorioComunidad()); break;
+            case "MiembrosYUsuarios": controller = new MiembrosController(new RepositorioMiembro(), new RepositorioDeUsuarios(), new RepositorioComunidad()); break;
+            case "Comunidades": controller = new ComunidadesController(new RepositorioComunidad(), new RepositorioMiembro()); break;
             case "Entidades": controller = new EntidadesController(new RepositorioEntidad()); break;
             case "Establecimientos": controller = new EstablecimientosController(new RepositorioEstablecimiento()); break;
             case "OrganismosDeControl": controller = new OrganismosDeControlController(new RepositorioOrganismoDeControl()); break;
             case "EntidadesPrestadoras": controller = new EntidadesPrestadorasController(new RepositorioEntidadPrestadora()); break;
             case "InicioSesion": controller =  new InicioDeSesionController(new RepositorioDeUsuarios(), new RepositorioMiembro());break;
-            case "Rankings": controller = new RankingsController();break;
+            case "Rankings": controller = new RankingsController(new RepositorioIncidente());break;
             case "EntidadesYOrganismos": controller = new EntidadesYOrganismosController(new RepositorioOrganismoDeControl(),new RepositorioEntidadPrestadora());break;
         }
 

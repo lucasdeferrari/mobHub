@@ -35,6 +35,8 @@ public class RepositorioComunidad implements ComunidadCRUD {
     public Comunidad buscarPorId(Long id) {
         return entityManager().find(Comunidad.class, id);
     }
+    public Comunidad buscarPorId2(Integer id) {
+        return entityManager().find(Comunidad.class, id);}
 
     @Override
     public List<Comunidad> buscarTodos() {
@@ -51,7 +53,12 @@ public class RepositorioComunidad implements ComunidadCRUD {
     }
     @Override
     public void actualizar(Comunidad comunidad) {
+        EntityTransaction tx = entityManager().getTransaction();
+        if(!tx.isActive())
+            tx.begin();
         entityManager().merge(comunidad);
+        tx.commit();
+
     }
 
     @Override

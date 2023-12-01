@@ -64,7 +64,7 @@ public class RepositorioDeUsuarios implements UsuarioCRUD {
         EntityTransaction tx = entityManager().getTransaction();
         if(!tx.isActive())
             tx.begin();
-        entityManager().persist(usuario);
+        entityManager().merge(usuario);
         tx.commit();
     }
 

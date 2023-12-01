@@ -1,8 +1,14 @@
 package controllers;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.Repositorios.Comunidad.RepositorioComunidad;
+import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.entidades.comunidad.Comunidad;
+import domain.entidades.comunidad.Miembro;
+import domain.entidades.comunidad.RolComunidad;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import server.utils.ICrudViewsHandler;
@@ -11,20 +17,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ComunidadesController implements ICrudViewsHandler {
     private RepositorioComunidad repositorioComunidad;
-
-    public ComunidadesController(RepositorioComunidad repositorioDeComunidades) {
+    private RepositorioMiembro repositorioMiembro;
+    public ComunidadesController(RepositorioComunidad repositorioDeComunidades, RepositorioMiembro repositorioMiembro) {
         this.repositorioComunidad = repositorioDeComunidades;
+        this.repositorioMiembro = repositorioMiembro;
     }
 
     @Override
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
         List<Comunidad> comunidades = this.repositorioComunidad.buscarTodos();
-        model.put("comunidad", comunidades);
-        context.render("comunidad.hbs", model);
+        Integer idMiembro = context.sessionAttribute("id");
+        Miembro miembro = repositorioMiembro.buscarPorId2(idMiembro);
+        Map<Comunidad, RolComunidad> comunidadesDelMiembro = miembro.getComunidadesPertenecientes();
+
+        List<Comunidad> comunidadesNoPertenece = comunidades.stream()
+                .filter(comunidad -> !comunidadesDelMiembro.containsKey(comunidad))
+                .collect(Collectors.toList());
+
+        model.put("comunidades", comunidadesNoPertenece); // Corregido
+        context.render("unirseAComunidad.hbs", model);
     }
 
     @Override
@@ -49,7 +66,7 @@ public class ComunidadesController implements ICrudViewsHandler {
         this.asignarParametros(comunidad, context);
         this.repositorioComunidad.guardar(comunidad);
         context.status(HttpStatus.CREATED);
-        context.redirect("/comunidad");
+        context.redirect("/crear-comunidad");
     }
 
     @Override
@@ -94,5 +111,22 @@ public class ComunidadesController implements ICrudViewsHandler {
 
         }
     }
+    public void unirseAComunidad(Context context) throws JsonProcessingException {
+        String json = context.body();
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Integer> comunidadesIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
+
+        for (Integer comunidadId : comunidadesIds) {
+            Comunidad comunidad = repositorioComunidad.buscarPorId2(comunidadId);
+            if (comunidad != null) {
+                context.sessionAttribute("id");
+                Miembro miembro = repositorioMiembro.buscarPorId2(context.sessionAttribute("id"));;
+                comunidad.agregarMiembro(miembro, RolComunidad.AFECTADO);
+                repositorioComunidad.actualizar(comunidad);
+            }
+        }
+
+    }
+
 }
 

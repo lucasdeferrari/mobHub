@@ -24,9 +24,6 @@ public class Router {
         //  }
         //});
 
-
-
-
         Server.app().get("/saluda", ctx -> {
             ctx.result("Hola "
                     + ctx.queryParam("nombre")
@@ -82,7 +79,7 @@ public class Router {
 
             post("/sugerir-cierre-incidente/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::sugerirCierreIncidente);
 
-            get("/rankings", ((RankingsController) FactoryController.controller("Rankings"))::show);
+            get("/rankings", ((RankingsController) FactoryController.controller("Rankings"))::showRanking);
 
             get("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::index);
 
@@ -100,6 +97,10 @@ public class Router {
             post("/agregarUsuario", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::save);
 
             get("/crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::vista);
+            post("/crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
+
+            get("/unirse-a-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
+            post("/unirse-a-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::unirseAComunidad);
 
         });
     }
