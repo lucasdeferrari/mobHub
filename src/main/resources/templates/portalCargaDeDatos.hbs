@@ -1,22 +1,71 @@
 {{#partial "contenido" }}
+    <head>
+        <style>
+            .center-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .contenedor {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                margin: 20px;
+            }
+        </style>
+    </head>
+
+
     <link rel="stylesheet" href="/css/portalCargaDeDatos.css">
     <!-- Contenido principal de tu página -->
     <title>Portal</title>
-    <div class="container">
-        <div class="upload-box">
-            <h2>Portal de Carga de Datos</h2>
-            <h5>Entidades prestadoras y organismos de control</h5>
-            <form id="archivoForm" enctype="multipart/form-data">
-                <div class="input-box">
-                    <input type="file" id="archivo" accept=".csv" style="display: none;">
-                    <label for="archivo" id="nombre-archivo">Archivo seleccionado: Ningún archivo seleccionado</label>
-                    <button type="button" onclick="document.getElementById('archivo').click();">Seleccionar su archivo .csv</button>
+
+    <div class="contenedor">
+        <div class="container" style="margin-left: -20%;">
+            <div class="upload-box">
+                <h2>Portal de Carga de Datos</h2>
+                <h5>Entidades prestadoras y organismos de control</h5>
+                <form id="archivoForm" enctype="multipart/form-data">
+                    <div class="input-box">
+                        <input type="file" id="archivo" accept=".csv" style="display: none;">
+                        <label for="archivo" id="nombre-archivo">Archivo seleccionado: Ningún archivo seleccionado</label>
+                        <button type="button" onclick="document.getElementById('archivo').click();">Seleccionar su archivo .csv</button>
+                    </div>
+                    <!-- Cambié el type de button a submit -->
+                    <input type="submit" class="subir-button" value="Subir archivo">
+                </form>
+            </div>
+        </div>
+
+        <div class="container" style="margin-right: -20%;">
+            <div class="upload-box">
+                <h2>Archivo de ejemplo</h2>
+                <div class="center-container">
+                    <img src="/Img/archivoEjemplo.png">
                 </div>
-                <!-- Cambié el type de button a submit -->
-                <input type="submit" class="subir-button" value="Subir archivo">
-            </form>
+            </div>
         </div>
     </div>
+
+
+
+    <div class="container">
+        <div class="container">
+            <h3>Detalle de los campos</h3>
+            <h6>Campo 1: Id. Debe ser un numero autoincremental, no se deben repetir.</h6>
+            <h6>Campo 2: Nombre. El nombre del operador encargado de la entidad u organismo de control.</h6>
+            <h6>Campo 3: Apellido. El apellido del operador encargado de la entidad u organismo de control.</h6>
+            <h6>Campo 4: Mail. El mail del operador encargado de la entidad u organismo de control.</h6>
+            <h6>Campo 5: Nombre de la empresa. El nombre de la entidad u organismo de control.</h6>
+            <h6>Campo 6: Indicar si es Entidad Prestadora u Organismo de Control</h6>
+            <h5 style="color: orangered">IMPORTANTE: LOS UNICOS VALORES PERMITIDOS PARA EL CAMPO 6 SON "EntidadPrestadora" y "OrgansimoControl"</h5>
+        </div>
+
+
+    </div>
+
+
 
     <!-- Scripts de Bootstrap y otros recursos -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -43,7 +92,7 @@
                 axios.post('/portalCargaDeDatos', formData)
                         .then(response => {
                             if (response.status === 200) {
-                                alert('El archivo se ha subido con éxito.');
+                                window.location.href = '/confirmarDatosPortalCargaDeDatos';
                             } else {
                                 alert('Hubo un error al subir el archivo.');
                             }

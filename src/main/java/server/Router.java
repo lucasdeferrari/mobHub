@@ -57,6 +57,8 @@ public class Router {
         });
         Server.app().routes(() -> {
 
+            get("/", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::redirectHome);
+
             get("/home", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::showHome);
 
             get("/incidentes/reportar", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
@@ -84,6 +86,9 @@ public class Router {
             get("/portalCargaDeDatos", ((EntidadesPrestadorasController) FactoryController.controller("EntidadesPrestadoras"))::index);
 
             post("/portalCargaDeDatos", ((EntidadesYOrganismosController) FactoryController.controller("EntidadesYOrganismos"))::save);
+
+            get("/confirmarDatosPortalCargaDeDatos", ((EntidadesYOrganismosController) FactoryController.controller("EntidadesYOrganismos"))::confirmacion);
+
 
             //post("/portalCargaDeDatos",((OrganismosDeControlController) FactoryController.controller("OrganismosDeControl"))::save);
             post("/validarUsuarios", ((MiembrosController) FactoryController.controller("MiembrosYUsuarios"))::recibirUsuariosValidados);

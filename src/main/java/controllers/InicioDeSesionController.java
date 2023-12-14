@@ -173,4 +173,8 @@ public class InicioDeSesionController implements ICrudViewsHandler {
             usuario.setCorreoElectronico(context.formParam("email"));
         }
     }
+
+    public void redirectHome(Context context) {
+        context.redirect("/home");
+    }
 }

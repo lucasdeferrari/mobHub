@@ -68,6 +68,7 @@ public class EntidadesYOrganismosController implements ICrudViewsHandler {
 
     @Override
     public void save(Context context) {
+
         System.out.println("ENTRE AL METODO SAVE");
         Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
         logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
@@ -95,12 +96,12 @@ public class EntidadesYOrganismosController implements ICrudViewsHandler {
                 ImportadorDeEntidadesPrestadoras importador = new ImportadorDeEntidadesPrestadoras();
 
                 // Llama a tu importador para procesar y guardar los datos del archivo CSV
-                boolean importacionExitosa = importador.importarEntidadesPrestadoras(contenidoCSV.toString(), this);
+                boolean importacionExitosa = importador.importarEntidadesPrestadoras(contenidoCSV.toString(), this, context);
 
                 if (importacionExitosa) {
                     
                     logger.info("ARCHIVO PROCESADO CON EXITO");
-                    context.result("Archivo CSV procesado y guardado con éxito.");
+                 //   context.result("Archivo CSV procesado y guardado con éxito.");
                 } else {
                     logger.info("ERROR AL PROCESAR EL ARCHIVO");
                     context.result("Error al procesar y guardar el archivo CSV.");
@@ -114,8 +115,26 @@ public class EntidadesYOrganismosController implements ICrudViewsHandler {
             // Manejar el caso en el que no se ha subido un archivo o se ha proporcionado un nombre de campo incorrecto
             context.result("No se ha seleccionado ningún archivo CSV.");
         }
+
     }
 
+    public void confirmacion(Context context) {
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+        logger.info("ESTOY EN CONFIRMACION");
+        Map<String, DatosCSV> diccionario = context.sessionAttribute("miDiccionario");
+
+        Map<String, Object> model = new HashMap<>();
+
+        model.put("miDiccionario", diccionario);
+
+
+        try {
+            context.render("confirmarDatos.hbs", model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -160,7 +179,8 @@ public class EntidadesYOrganismosController implements ICrudViewsHandler {
         }
     }
 
-    public void procesarDiccionario(Map<String, DatosCSV> diccionario) {
+    public void procesarDiccionario(Map<String, DatosCSV> diccionario, Context context) {
+
         Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
         logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
         logger.info("ESTOY PROCESANDO EL DICCIONARIO");
@@ -191,6 +211,9 @@ public class EntidadesYOrganismosController implements ICrudViewsHandler {
 
 
         );
+
+        context.sessionAttribute("miDiccionario", diccionario);
+        context.redirect("/confirmarDatosPortalCargaDeDatos");
     }
 }
 
