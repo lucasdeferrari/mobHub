@@ -1,6 +1,9 @@
-{{#partial "contenido"}}
-    <!-- Enlace a tu hoja de estilos personalizada (datosIncidente.css) -->
-    <link rel="stylesheet" href="/css/datosIncidente.css">
+{{#partial "contenido" }}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/unirseAComunidad.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <br>
     <br>
     <br>
@@ -8,91 +11,143 @@
     <br>
     <br>
     <br>
-    <h1>Datos del incidente</h1>
 
-    <div class="container">
 
-        <div class="incident-box row">
 
-            <!-- Columna Izquierda -->
-            <div class="col-md-4">
+    <title>Comunidades</title>
 
-                <!-- Fecha y Hora de Apertura -->
-                <div class="info-box">
-                    <h3>Fecha y Hora de Apertura</h3>
-                    <p>{{incidente.fechaHoraApertura}}</p>
+
+
+    <div class="comunities-box">
+        <h1 class="text-center">Comunidades</h1>
+        <div class="search-box">
+            <input type="text" id="busqueda" placeholder="Buscar..." />
+        </div>
+        <table class="community-table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each comunidades}}
+                <tr class="community-item" data-id="{{this.id}}">
+                    <td>{{this.nombre}}</td>
+                    <td>{{this.descripcion}}</td>
+                    <td><button class="join-btn" data-id="{{this.id}}">Unirse</button></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmacionModalLabel">Unirse a Comunidad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-
-                <!-- Fecha y Hora de Cierre -->
-                {{#if incidente.fechaHoraCierre}}
-                    <div class="info-box">
-                        <h3>Fecha y Hora de Cierre</h3>
-                        <p>{{incidente.fechaHoraCierre}}</p>
-                    </div>
-                {{/if}}
-
-                <!-- Incidente -->
-                <div class="info-box">
-                    <h3>Incidente</h3>
-                    <p>{{incidente.nombre}}</p>
+                <div class="modal-body">
+                    Has sido añadido a la comunidad exitosamente.
                 </div>
-
-                <!-- Servicio -->
-                <div class="info-box">
-                    <h3>Servicio</h3>
-                    <p>{{incidente.getServicio.getNombre}}</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
-
-                <!-- Establecimiento -->
-                <div class="info-box">
-                    <h3>Establecimiento</h3>
-                    <p>{{incidente.getEstablecimiento.getNombre}}</p>
-                </div>
-
-                <!-- Comunidad -->
-                <div class="info-box">
-                    <h3>Comunidad</h3>
-                    <p>{{incidente.getComunidad.getNombre}}</p>
-                </div>
-
-            </div>
-
-            <!-- Columna Derecha -->
-            <div class="col-md-8">
-
-                <!-- Observaciones del Incidente -->
-                <div class="info-box">
-                    <h3>Observaciones del Incidente</h3>
-                    <p>{{incidente.getObservaciones}}</p>
-                </div>
-
-                <!-- Nombre del Reportante -->
-                <div class="info-box">
-                    <h3>Nombre del Reportante</h3>
-                    <p>{{incidente.quienAbrio.nombre}}</p>
-                </div>
-
-                <div class="info-box">
-                    <h3>Fecha de Alta</h3>
-                    <p>{{incidente.fechaHoraApertura}}</p>
-                </div>
-
-                <!-- Nombre del Encargado del Cierre -->
-                {{#if incidente.fechaHoraCierre}}
-                    <div class="info-box">
-                        <h3>Nombre del Encargado del Cierre</h3>
-                        <p>{{incidente.quienCerro.nombre}}</p>
-                    </div>
-                {{/if}}
-
             </div>
         </div>
     </div>
 
-    <!-- Scripts de Bootstrap y otros recursos -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
-    <!--<script src="js/generales.js"></script>   may or may not be needed-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js" integrity="sha384-DWEQCHA6QUpzS9x2nEUp7RBmMByaQI4B5jta9tAosIbdz5H7bJCC7j3VIX+T5mi" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Realiza la solicitud al backend para obtener las comunidades del usuario
+            fetch('/api/user/communities')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Maneja los datos obtenidos del backend
+                        console.log('Comunidades del usuario:', data);
+                    })
+                    .catch(error => {
+                        // Maneja los errores de la solicitud
+                        console.error('Error al obtener comunidades del usuario:', error);
+                    });
+        });
 
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const busquedaInput = document.getElementById('busqueda');
+            const joinButtons = document.querySelectorAll('.join-btn');
+
+            // Agregar evento de clic para los botones de "Unirse"
+            joinButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const communityId = button.getAttribute('data-id');
+                    unirseAComunidad(communityId);
+                });
+            });
+
+            // Agregar evento de input para la barra de búsqueda
+            busquedaInput.addEventListener('input', function () {
+                filtrarComunidades();
+            });
+
+            // Función para realizar la solicitud POST al servidor al unirse a una comunidad
+            function unirseAComunidad(communityId) {
+                fetch('/unirse-a-comunidad', {
+                    method: 'POST',
+                    body: JSON.stringify([communityId]),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                // Mostrar el modal de confirmación
+                                $('#confirmacionModal').modal('show');
+                                console.log('Unido exitosamente a la comunidad');
+                                // Cerrar el modal después de 2 segundos
+                                setTimeout(function () {
+                                    $('#confirmacionModal').modal('hide');
+                                }, 2000);
+                            } else {
+                                console.error('Error al unirse a la comunidad');
+                            }
+                        })
+                        .catch(error => console.error('Error en la solicitud POST:', error));
+            }
+
+            // Función para filtrar las comunidades según la barra de búsqueda
+            function filtrarComunidades() {
+                const busquedaValor = busquedaInput.value.toLowerCase();
+
+                document.querySelectorAll('.community-table tbody tr').forEach(function (row) {
+                    const textoCeldas = Array.from(row.querySelectorAll('td')).map(td => td.textContent).join(' ');
+
+                    if (coincideBusqueda(textoCeldas, busquedaValor)) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            // Función para verificar si el texto coincide con la búsqueda
+            function coincideBusqueda(texto, busqueda) {
+                return texto.toLowerCase().includes(busqueda);
+            }
+
+
+        });
+    </script>
+    </body>
 {{/partial}}
 {{> templates/base }}
