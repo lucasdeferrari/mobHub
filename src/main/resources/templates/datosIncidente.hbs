@@ -1,56 +1,78 @@
 {{#partial "contenido" }}
+    <br>
+    <br>
+    <br>
     <link rel="stylesheet" href="/css/datosIncidente.css">
     <title>Incidente</title>
-    <div class="container">
-        <div class="incident-box">
-            <h1>Incidente</h1>
 
-            <div class="column">
-                <div class="input-section">
-                    <h3>Incidente:</h3>
+    <div class="container">
+        <div class="incident-box card-deck">
+
+            {{!-- Incidente Card --}}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Incidente</h3>
                     <div class="info-box">{{incidente.nombre}}</div>
                 </div>
-
-                <div class="input-section">
-                    <h3>Servicio:</h3>
-                    <div class="info-box">{{ incidente.getServicio.getNombre}}</div>
+            </div>
+            <br>
+            <br>
+            {{!-- Servicio Card --}}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Servicio</h3>
+                    <div class="info-box">{{incidente.getServicio.getNombre}}</div>
                 </div>
-
-                <div class="input-section">
-                    <h3>Establecimiento:</h3>
+            </div>
+            <br>
+            <br>
+            {{!-- Establecimiento Card --}}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Establecimiento</h3>
                     <div class="info-box">{{incidente.getEstablecimiento.getNombre}}</div>
                 </div>
-
-                <div class="input-section">
-                    <h3>Nombre de la Entidad:</h3>
-                    <div class="info-box">{{incidente.getEntidad.getNombre}}</div>
-                </div>
             </div>
+            <br>
+            <br>
 
-            <div class="column">
-                <div class="input-section">
-                    <h3>Comunidad:</h3>
+            {{!-- Comunidad Card --}}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Comunidad</h3>
                     <div class="info-box">{{incidente.getComunidad.getNombre}}</div>
                 </div>
-
-                <div class= "input-section">
-                <h3>Observaciones del Incidente:</h3>
-                <div class="info-box">{{incidente.getObservaciones}}</div>
             </div>
-
-            <div class="input-section">
-                <h3>Nombre del Reportante:</h3>
-                <div class="info-box">{{incidente.quienAbrio.nombre}}</div>
+            <br>
+            <br>
+            {{!-- Observaciones del Incidente Card --}}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Observaciones del Incidente</h3>
+                    <div class="info-box">{{incidente.getObservaciones}}</div>
+                </div>
             </div>
-
+            <br>
+            <br>
+            {{!-- Nombre del Reportante Card --}}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Nombre del Reportante</h3>
+                    <div class="info-box">{{incidente.quienAbrio.nombre}}</div>
+                </div>
+            </div>
+            <br>
+            <br>
             {{#if incidente.fechaHoraCierre}}
-                <div class="input-section">
-                    <h3>Nombre del Encargado del Cierre:</h3>
-                    <div class="info-box">{{incidente.quienCerro.nombre}}</div>
+            {{!-- Nombre del Encargado del Cierre Card --}}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Nombre del Encargado del Cierre</h3>
+                        <div class="info-box">{{incidente.quienCerro.nombre}}</div>
+                    </div>
                 </div>
             {{/if}}
         </div>
-    </div>
     </div>
 
     <!-- Scripts of Bootstrap and other resources -->
@@ -61,3 +83,4 @@
     <!--<script src="js/generales.js"></script>   may or may not be needed-->
 {{/partial}}
 {{> templates/base }}
+

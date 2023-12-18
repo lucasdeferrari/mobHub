@@ -1,9 +1,6 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
 
-main {
+
+body {
     font-family: Arial, sans-serif;
     background-color: #577399;
     display: flex;
