@@ -3,10 +3,10 @@
     <link rel="stylesheet" href="/css/crearComunidad.css">
     <title>Crear Comunidad</title>
     <div class="container">
-        <div class="rankings-box">
+        <div class="upload-box">
             <h2>Crear Comunidad</h2>
 
-            <form action="/crear-comunidad" method="post" id="crearComunidadForm">
+            <form id="crearComunidadForm" action="/crear-comunidad" method="post">
                 <div class="input-section">
                     <label for="nombre-comunidad">Nombre de la Comunidad:</label>
                     <input type="text" id="nombre-comunidad" placeholder="Introduzca el nombre" name="nombre-comunidad" required>
@@ -18,28 +18,26 @@
                 </div>
 
                 <div class="button-section">
-                    <!-- Agregamos el atributo data-bs-toggle y data-bs-target para abrir el modal -->
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#confirmarModal">Crear Comunidad</button>
+                    <button type="button" onclick="confirmarCreacionComunidad()">Crear Comunidad</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal de Confirmación -->
-    <div class="modal fade" id="confirmarModal" tabindex="-1" aria-labelledby="confirmarModalLabel" aria-hidden="true">
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmarComunidadModal" tabindex="-1" aria-labelledby="confirmarComunidadModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmarModalLabel">Confirmar Creación de Comunidad</h5>
+                    <h5 class="modal-title" id="confirmarComunidadModalLabel">Confirmar Creación de Comunidad</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro que deseas crear la comunidad?</p>
+                    <p id="mensaje-confirmacion-comunidad"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <!-- Cambiamos el tipo de botón a submit para enviar el formulario después de la confirmación -->
-                    <button type="submit" class="btn btn-primary" onclick="enviarFormulario()">Crear Comunidad</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarFormularioComunidad()">Crear Comunidad</button>
                 </div>
             </div>
         </div>
@@ -52,7 +50,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 
     <script>
-        function enviarFormulario() {
+        function confirmarCreacionComunidad() {
+            const nombreComunidad = document.getElementById('nombre-comunidad').value;
+            const mensaje = `¿Estás seguro de que deseas crear la comunidad con el nombre "${nombreComunidad}"?`;
+            document.getElementById('mensaje-confirmacion-comunidad').innerText = mensaje;
+            const confirmarComunidadModal = new bootstrap.Modal(document.getElementById('confirmarComunidadModal'));
+            confirmarComunidadModal.show();
+        }
+
+        function enviarFormularioComunidad() {
             document.getElementById('crearComunidadForm').submit();
         }
     </script>

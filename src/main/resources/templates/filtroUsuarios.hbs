@@ -36,12 +36,17 @@
                         <td>
                             <script>
                                 var rolUsuario = "{{this.rolUsuario}}";
-                                var rolFormateado = (rolUsuario === 'MIEMBRO') ? 'Miembro' : 'Administrador de la plataforma';
+                                var rolesFormateados = {
+                                    'MIEMBRO': 'Miembro',
+                                    'ADMINISTRADOR_PLATAFORMA': 'Administrador de la plataforma',
+                                    'ORGANISMO_DE_CONTROL': 'Organismo de Control',
+                                    'ENTIDAD_PRESTADORA': 'Entidad Prestadora',
+                                    // Agrega más roles según sea necesario
+                                };
+                                var rolFormateado = rolesFormateados[rolUsuario];
                                 document.write(rolFormateado);
                             </script>
                         </td>
-
-
                         <td>
                             <select class="rol-select">
                                 <option value="" >Selecciona un rol</option>
@@ -72,10 +77,63 @@
         </div>
         <button id="agregarUsuario">Validar Usuarios</button>
     </div>
+    <div class="modal fade" id="confirmarValidarUsuariosModal" tabindex="-1" role="dialog" aria-labelledby="confirmarValidarUsuariosModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarValidarUsuariosModalLabel">Confirmar Validar Usuarios</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro que deseas validar estos usuarios?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cerrarValidarUsuariosModal()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmarValidarUsuarios()">Validar Usuarios</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        function mostrarValidarUsuariosModal() {
+            $('#confirmarValidarUsuariosModal').modal('show');
+        }
+
+        function cerrarValidarUsuariosModal() {
+            $('#confirmarValidarUsuariosModal').modal('hide');
+        }
+
+        function confirmarValidarUsuarios() {
+            // Aquí deberías colocar tu lógica para confirmar la validación de usuarios
+            // Por ejemplo, hacer una solicitud AJAX al servidor para realizar la validación
+            // Luego, cierra el modal después de completar la lógica
+
+            // Simulación de lógica de confirmación (puedes reemplazar esto con tu propia lógica)
+            const confirmacion = confirm("¿Deseas confirmar la validación de usuarios?");
+            if (confirmacion) {
+                console.log('Usuarios validados correctamente.');
+                // Aquí puedes colocar la lógica para validar los usuarios (llamada AJAX, etc.)
+                // ...
+                // Cierra el modal después de completar la lógica
+                cerrarValidarUsuariosModal();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('agregarUsuario').addEventListener('click', function () {
+                // Lógica para validar usuarios y luego mostrar el modal
+                // Ejemplo: ValidarUsuarios(); mostrarValidarUsuariosModal();
+
+                // Ejemplo sin lógica de validación:
+                mostrarValidarUsuariosModal();
+            });
+
+            // Resto de tu código...
+        });
+    </script>
     <script src="/js/filtroUsuarios.js"></script>
-
-
-
 {{/partial}}
 {{> templates/base }}

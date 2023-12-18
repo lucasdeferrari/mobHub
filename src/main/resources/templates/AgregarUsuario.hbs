@@ -68,8 +68,10 @@
         }
 
         function cerrarModal() {
-            const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarAgregarUsuarioModal'));
-            confirmarModal.hide();
+            // Ocultar el modal directamente
+            const confirmarModal = document.getElementById('confirmarAgregarUsuarioModal');
+            const bsModal = bootstrap.Modal.getInstance(confirmarModal);
+            bsModal.hide();
         }
 
         function confirmarAgregarUsuario() {

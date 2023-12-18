@@ -7,14 +7,12 @@ main {
     height: 100vh;
     margin: 0;
 }
-
 body, html {
     margin: 0;
     padding: 0;
     overflow: hidden; /* Evita el desplazamiento vertical */
     height: 100%;
 }
-
 input[type='text'],
 textarea {
     width: calc(100% - 20px);
@@ -35,6 +33,7 @@ select {
 textarea,
 select,
 input[type="text"] {
+    /*border: 1px solid #577399;*/
     outline: none;
     padding: 10px;
     font-size: 16px; /* Mismo tamaño de fuente para campos de texto y textarea */
@@ -44,7 +43,7 @@ input[type="text"] {
     border-color: transparent;
 }
 
-.select {
+.select{
     border-color: transparent;
 }
 
@@ -53,19 +52,18 @@ input[type="text"] {
     width: 500px;
 }
 
-.report-incident-box,
-.incidents-box,
-.bg-custom-blue,
-#rankings-table-container {
+.report-incident-box {
     background-color: #BDD5EA;
     padding: 20px;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin: 0 auto;
+    max-width: 600px;
+    margin:0 auto;
 }
 
 .report-incident-box h2 {
     color: #495867;
+
 }
 
 .input-section {
@@ -73,6 +71,7 @@ input[type="text"] {
     text-align: left;
     margin-bottom: 20px;
     padding: 10px;
+
     max-width: 400px;
 }
 
@@ -83,6 +82,7 @@ input[type="text"] {
 
 select[multiple] {
     height: auto;
+
 }
 
 .button-section button {
@@ -109,7 +109,12 @@ select[multiple] {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.chart-container {
+.chart-container{
     width: 5000px;
     height: 5000px;
+
+}
+
+.black-number {
+    color: black;
 }
