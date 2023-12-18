@@ -2,6 +2,10 @@ package server;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import controllers.ComunidadesController;
+import domain.Repositorios.Comunidad.RepositorioComunidad;
+import domain.Repositorios.Miembro.RepositorioMiembro;
+import domain.entidades.comunidad.Miembro;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
@@ -9,6 +13,7 @@ import io.javalin.rendering.JavalinRenderer;
 import server.middleware.AuthMiddleware;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class Server {
@@ -24,7 +29,6 @@ public class Server {
         if(app == null) {
             Integer port = Integer.parseInt(System.getProperty("port", "8080"));
             app = Javalin.create(config()).start(port);
-
 
             // app.enableStaticFiles("/public");
             initTemplateEngine();

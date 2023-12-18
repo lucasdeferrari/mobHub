@@ -109,6 +109,8 @@ public class RankingsController implements ICrudViewsHandler{
         model.put("ranking2", ranking2);
         // model.put("ranking3", ranking3);
         context.render("rankings.hbs", model);
+
+
     }
 
 

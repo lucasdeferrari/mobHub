@@ -21,6 +21,21 @@ import java.util.stream.Collectors;
 @Table
 public class Comunidad extends EntidadPersistente {
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Comunidad comunidad = (Comunidad) o;
+    return Objects.equals(getId(), comunidad.getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId());
+  }
+
+
+
   @Column
   @Setter
   @JsonProperty("nombre")

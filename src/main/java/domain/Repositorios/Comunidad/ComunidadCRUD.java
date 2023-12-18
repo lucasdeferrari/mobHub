@@ -1,6 +1,7 @@
 package domain.Repositorios.Comunidad;
 
 import domain.entidades.comunidad.Comunidad;
+import domain.entidades.comunidad.Miembro;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 
@@ -13,4 +14,6 @@ public interface ComunidadCRUD extends WithSimplePersistenceUnit {
     void actualizar(Comunidad comunidad);
     void eliminar(Long id);
     public List<Comunidad> getComunidadesDelMiembro(Integer miembroId);
+    
+    public List<Miembro> getMiembrosDeComunidad(Comunidad comunidad);
 }

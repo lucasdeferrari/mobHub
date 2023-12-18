@@ -24,7 +24,6 @@
                 <option value="servicio">Servicio</option>
                 <option value="establecimiento">Establecimiento</option>
                 <option value="comunidad">Comunidad</option>
-                <option value="cerrado">Cerrado</option>
             </select>
             <input type="text" id="busqueda" class="form-control" placeholder="Buscar..." />
         </div>
@@ -129,7 +128,11 @@
                     const status = card.querySelector('.status');
 
                     if (filtroValor === 'cerrado') {
-                        card.style.display = status && status.textContent === 'Cerrado' ? 'block' : 'none';
+                        const statusSpan = card.querySelector('.status');
+                        if (card.getAttribute("fechaHoraCierre"))
+                            card.style.display = 'block'
+                        else
+                            card.style.display = 'none'
                     } else {
                         // Otros tipos de filtrado
                         if (coincideBusqueda(celda.textContent, busquedaValor)) {
@@ -138,6 +141,7 @@
                             card.style.display = 'none';
                         }
                     }
+
                 });
             }
 

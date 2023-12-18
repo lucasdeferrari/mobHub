@@ -9,19 +9,24 @@ import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.entidades.comunidad.Comunidad;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.RolComunidad;
+import domain.entidades.servicios.Incidente;
 import domain.entidades.signin.Usuario;
 import io.javalin.http.Context;
+import io.javalin.http.Handler;
 import io.javalin.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import server.utils.ICrudViewsHandler;
 import domain.entidades.signin.RolUsuario;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class ComunidadesController implements ICrudViewsHandler {
+public class    ComunidadesController implements ICrudViewsHandler {
     private RepositorioComunidad repositorioComunidad;
     private RepositorioMiembro repositorioMiembro;
     public ComunidadesController(RepositorioComunidad repositorioDeComunidades, RepositorioMiembro repositorioMiembro) {
@@ -40,12 +45,19 @@ public class ComunidadesController implements ICrudViewsHandler {
         if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
             model.put("es_admin", context.sessionAttribute("es_admin"));
         }
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+
+
 
         List<Comunidad> comunidadesNoPertenece = comunidades.stream()
-                .filter(comunidad -> !comunidadesDelMiembro.containsKey(comunidad))
+                .filter(comunidad -> !comunidad.getMiembrosNuestro().containsKey(miembro))
                 .collect(Collectors.toList());
 
-        model.put("comunidades", comunidadesNoPertenece); // Corregido
+        logger.log(Level.INFO, "ESTAS SON LAS COMUNIDADES A LAS QUE NO PERTENECE:");
+        comunidadesNoPertenece.forEach(unaComunidad -> logger.log(Level.INFO, unaComunidad.getNombre()));
+
+        model.put("comunidades", comunidadesNoPertenece);
         context.render("unirseAComunidad.hbs", model);
     }
 
@@ -136,6 +148,11 @@ public class ComunidadesController implements ICrudViewsHandler {
         }
 
     }
+
+    public List<Miembro> buscarMiembros(Comunidad comunidad) {
+        return repositorioComunidad.getMiembrosDeComunidad(comunidad);
+    }
+
 
 }
 

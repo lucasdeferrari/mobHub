@@ -49,7 +49,11 @@ public class RepositorioComunidad implements ComunidadCRUD {
                 .createQuery("SELECT c FROM Comunidad c JOIN c.miembrosNuestro m WHERE KEY(m).id = :miembroId", Comunidad.class)
                 .setParameter("miembroId", miembroId)
                 .getResultList();
+    }
 
+    @Override
+    public List<Miembro> getMiembrosDeComunidad(Comunidad comunidad) {
+        return comunidad.getMiembrosNuestro().keySet().stream().toList();
     }
     @Override
     public void actualizar(Comunidad comunidad) {
