@@ -6,7 +6,7 @@
         <div class="report-incident-box">
             <h2>Reportar Incidente</h2>
 
-            <form action="/incidentes/reportar" method="post" enctype="multipart/form-data">
+            <form action="/incidentes/reportar" method="post" enctype="multipart/form-data" id="reportarIncidenteForm">
                 <div class="input-section">
                     <label for="nombre">Nombre</label>
                     <input type="text" id="nombre" placeholder="Introduzca el nombre" name="nombre" required>
@@ -44,14 +44,43 @@
                     </select>
                 </div>
 
-
                 <div class="button-section">
-                    <button type="submit">Enviar Reporte</button>
+                    <button type="button" onclick="confirmarEnvioReporte()">Enviar Reporte</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmarModal" tabindex="-1" aria-labelledby="confirmarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarModalLabel">Confirmar Envío de Reporte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="mensaje-confirmacion">¿Estás seguro que deseas enviar este reporte?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarReporte()">Enviar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--<script src="js/generales.js"></script>   puede o no puede servir-->
+
+    <script>
+        function confirmarEnvioReporte() {
+            const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarModal'));
+            confirmarModal.show();
+        }
+
+        function enviarReporte() {
+            document.getElementById('reportarIncidenteForm').submit();
+        }
+    </script>
 {{/partial}}
 {{> templates/base }}

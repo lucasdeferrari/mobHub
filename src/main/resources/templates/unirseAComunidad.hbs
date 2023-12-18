@@ -56,10 +56,10 @@
         </div>
     </main>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const busquedaInput = document.getElementById('busqueda');
-        const joinButtons = document.querySelectorAll('.join-btn');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const busquedaInput = document.getElementById('busqueda');
+            const joinButtons = document.querySelectorAll('.join-btn');
 
             joinButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
@@ -94,16 +94,16 @@
             function filtrarComunidades() {
                 const busquedaValor = busquedaInput.value.toLowerCase();
 
-            document.querySelectorAll('.community-table tbody tr').forEach(function (row) {
-                const textoCeldas = Array.from(row.querySelectorAll('td')).map(td => td.textContent).join(' ');
+                document.querySelectorAll('.community-table tbody tr').forEach(function (row) {
+                    const textoCeldas = Array.from(row.querySelectorAll('td')).map(td => td.textContent).join(' ');
 
-                if (coincideBusqueda(textoCeldas, busquedaValor)) {
-                    row.style.display = 'table-row';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
+                    if (coincideBusqueda(textoCeldas, busquedaValor)) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
 
             function coincideBusqueda(texto, busqueda) {
                 return texto.toLowerCase().includes(busqueda);

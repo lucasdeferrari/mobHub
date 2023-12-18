@@ -1,3 +1,4 @@
+/* Definiciones generales */
 main {
     font-family: Arial, sans-serif;
     background-color: #577399;
@@ -12,13 +13,15 @@ main {
     text-align: center;
 }
 
+/* Estilos para la caja de carga de archivos */
 .upload-box {
     background-color: #BDD5EA;
-    padding: 20px;
+    padding: 40px; /* Ajusta el espacio interno según tus preferencias */
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    margin:  auto;
+    max-width: 800px; /* Ajusta el ancho máximo según tus preferencias */
+    width: 100%; /* Haz que el ancho sea el 100% */
+    margin: 20px auto; /* Ajusta el margen según tus preferencias */
 }
 
 .upload-box h2 {
@@ -50,7 +53,8 @@ input[type="file"] {
     max-width: 400px;
 }
 
-button {
+button,
+button.subir-button {
     background-color: #F7F7FF;
     color: #495867;
     border: none;
@@ -61,8 +65,18 @@ button {
     margin-bottom: 20px;
 }
 
-button:hover {
+button:hover,
+button.subir-button:hover {
     background-color: #E1EAF8;
+}
+
+button.subir-button {
+    background-color: #3366CC;
+    color: #fff;
+}
+
+button.subir-button:hover {
+    background-color: #254C99;
 }
 
 p a {
@@ -72,19 +86,4 @@ p a {
 
 p a:hover {
     text-decoration: underline;
-}
-
-button.subir-button {
-    background-color: #3366CC;
-    color: #fff;
-    border: none;
-    border-radius: 15px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-button.subir-button:hover {
-    background-color: #254C99;
 }

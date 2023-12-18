@@ -1,86 +1,55 @@
-{{#partial "contenido" }}
-    <!-- Enlace a tu hoja de estilos personalizada (base.css) -->
+{{#partial "contenido"}}
+    <!-- Enlace a tu hoja de estilos personalizada (rankings.css) -->
     <link rel="stylesheet" href="/css/rankings.css">
     <title>Rankings</title>
     <!-- Contenido principal de tu página -->
     <main class="flex-shrink-0">
-        <link rel="stylesheet" href="/css/rankings.css">
-        <title>Rankings</title>
-        <div class="container">
-            <div class="report-incident-box">
-                <h1>Mayor promedio de cierre </h1>
+        <div class="incidents-box container">
+            <h1 class="text-center">Rankings</h1>
+
+            <!-- Menú desplegable para elegir ranking -->
+            <div class="d-flex justify-content-center mt-3">
+                <div class="bg-light-blue p-3 rounded">
+                    <label for="rankingOptions">Elegir Ranking:</label>
+                    <select id="rankingOptions" class="form-select">
+                        <option value="Ranking 1">Opción 1</option>
+                        <option value="Ranking 2">Opción 2</option>
+                        <option value="Ranking 3">Opción 3</option>
+                    </select>
                 </div>
             </div>
-            <br>
-            <br>
-            <br>
 
-            <!-- Aquí debajo se mostrará el gráfico -->
-            <div id="chart-container" style=" max-width: 600px; margin: auto;">
-                <canvas id="myBarChart" ></canvas>
+            <!-- Contenedor para la lista de rankings -->
+            <div id="rankings-list" class="bg-light-blue p-3 rounded" style="max-height: 400px; overflow-y: auto;">
+                <ul class="list-unstyled">
+                    <!-- Elementos de la lista se llenarán aquí dinámicamente con Handlebars -->
+                </ul>
             </div>
         </div>
+
         <!-- Scripts de Bootstrap y otros recursos -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script id="ranking-template" type="text/x-handlebars-template">
+            {{#each rankings2}}
+                <li>{{}}. {{this.nombre}}</li>
+            {{/each}}
+        </script>
         <script>
-            // Este es el lugar donde debes obtener los datos de la base de datos y organizarlos
-            // Reemplaza este ejemplo con tu lógica para obtener los datos y organizarlos en "labels" y "values".
+            // Función para llenar la lista con datos del ranking usando Handlebars
+            function llenarListaRanking(data) {
+                var source = document.getElementById("ranking-template").innerHTML;
+                var template = Handlebars.compile(source);
+                var listaHTML = template({ rankings2: data });
 
-            var labels = ['Coto', 'Banco santander', 'Carrefour', 'Jumbo']; // Nombres de las entidades
-            var values = [45, 43, 40, 30, 15]; // Valores correspondientes al criterio
+                var lista = document.getElementById("rankings-list").getElementsByTagName('ul')[0];
+                lista.innerHTML = listaHTML;
+            }
 
-            // Obten el contexto del canvas
-            var ctx = document.getElementById('myBarChart').getContext('2d');
-
-            // Define los datos del gráfico de barras
-            var data = {
-                labels: labels,
-                datasets: [{
-                    label: 'Ranking por Criterio',
-                    data: values,
-                    backgroundColor: 'orange',
-                    borderColor: 'orange',
-                    borderWidth: 3,
-                    text: 'white',
-                }]
-            };
-
-            var options = {
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'white'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: 'white'
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: 'white'
-                        }
-                    }
-                }
-            };
-
-            var chartContainer = document.getElementById('chart-container');
-            chartContainer.style.width = '95%'; // Establece el ancho deseado
-            chartContainer.style.height = '300px'; // Establece la altura deseada
-
-
-
-            var myBarChart = new Chart(ctx, {
-                type: 'bar',
-                data: data,
-                options: options
+            document.addEventListener('DOMContentLoaded', function() {
+                // Llenar la lista con datos del ranking
+                llenarListaRanking({{json rankings2}});
             });
-
         </script>
     </main>
 {{/partial}}
