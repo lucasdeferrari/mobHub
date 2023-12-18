@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Llenar el select de localidad con las opciones obtenidas
                 localidades.forEach(function(localidad) {
                     var option = document.createElement("option");
-                    option.value = localidad.id;
+                    option.value = localidad.nombre;
                     option.textContent = localidad.nombre;
                     localidadSelect.appendChild(option);
                 });

@@ -9,6 +9,7 @@ import domain.Repositorios.Miembro.RepositorioMiembro;
 import domain.entidades.comunidad.Comunidad;
 import domain.entidades.comunidad.Miembro;
 import domain.entidades.comunidad.RolComunidad;
+import domain.entidades.signin.Usuario;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import server.utils.ICrudViewsHandler;
@@ -35,6 +36,10 @@ public class ComunidadesController implements ICrudViewsHandler {
         Integer idMiembro = context.sessionAttribute("id");
         Miembro miembro = repositorioMiembro.buscarPorId2(idMiembro);
         Map<Comunidad, RolComunidad> comunidadesDelMiembro = miembro.getComunidadesPertenecientes();
+        RolUsuario userRole = context.sessionAttribute("tipo_rol");
+        if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+            model.put("es_admin", context.sessionAttribute("es_admin"));
+        }
 
         List<Comunidad> comunidadesNoPertenece = comunidades.stream()
                 .filter(comunidad -> !comunidadesDelMiembro.containsKey(comunidad))

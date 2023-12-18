@@ -11,6 +11,7 @@ import domain.Repositorios.Servicio.RepositorioServicio;
 import domain.Repositorios.Usuario.RepositorioDeUsuarios;
 import domain.entidades.comunidad.Comunidad;
 import domain.entidades.comunidad.Miembro;
+import domain.entidades.comunidad.RolComunidad;
 import domain.entidades.servicios.Establecimiento;
 import domain.entidades.servicios.Incidente;
 import domain.entidades.servicios.Servicio;
@@ -22,10 +23,13 @@ import server.utils.ICrudViewsHandler;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.UUID;
 public class IncidentesController implements ICrudViewsHandler {
@@ -53,21 +57,40 @@ public class IncidentesController implements ICrudViewsHandler {
             context.redirect("/inicio");
             return;  // Asegúrate de salir del método después de redirigir
         }
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         Map<String, Object> model = new HashMap<>();
         Integer id = context.sessionAttribute("id");
         Usuario usuario = repositorioDeUsuarios.buscarPorId(id);
 
         List<Incidente> incidentes = this.repositorioIncidente.buscarTodos();
-
-        if(usuario.getRolUsuario().toString().equals("MIEMBRO")) {
-            incidentes = incidentes.stream().filter(unIncidente -> unIncidente.estadoAbierto()).collect(Collectors.toList());
+        if (usuario.getRolUsuario().equals(RolUsuario.MIEMBRO)) {
+            Miembro miembro = repositorioMiembro.buscarPorId2(id);
+            Map<Comunidad, RolComunidad> comunidadesUsuario = miembro.getComunidadesPertenecientes();
+            incidentes = incidentes.stream()
+                    .filter(unIncidente -> unIncidente.estadoAbierto() &&
+                            comunidadesUsuario.containsKey(unIncidente.getComunidad()))
+                    .collect(Collectors.toList());
         }
+
+
+        List<Map<String, Object>> incidentesFormateados = incidentes.stream()
+                .map(incidente -> {
+                    Map<String, Object> incidenteMap = new HashMap<>();
+                    incidenteMap.put("id", incidente.getId());
+                    incidenteMap.put("nombre", incidente.getNombre());
+                    incidenteMap.put("servicio", Map.of("nombre", incidente.getServicio().getNombre()));
+                    incidenteMap.put("establecimiento", Map.of("nombre", incidente.getEstablecimiento().getNombre()));
+                    incidenteMap.put("comunidad", Map.of("nombre", incidente.getComunidad().getNombre()));
+                    incidenteMap.put("fechaHoraApertura", formatter.format(incidente.getFechaHoraApertura()));
+                    incidenteMap.put("fechaHoraCierre", incidente.getFechaHoraCierre() != null ? formatter.format(incidente.getFechaHoraCierre()) : null);
+                    return incidenteMap;
+                })
+                .collect(Collectors.toList());
 
         System.out.println("rol del usuario:" + usuario.getRolUsuario().toString());
         model.put("es_admin", context.sessionAttribute("es_admin"));
-        model.put("incidentes", incidentes);
+        model.put("incidentes", incidentesFormateados);
         context.render("incidentes.hbs", model);
     }
 
@@ -144,18 +167,30 @@ public class IncidentesController implements ICrudViewsHandler {
         String json = context.body();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Integer> incidenteIds = objectMapper.readValue(json, new TypeReference<List<Integer>>() {});
+
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+
+        logger.info("Recibiendo JSON: " + json); // Registra el JSON recibido
+
         for (Integer id : incidenteIds) {
             Incidente incidente = repositorioIncidente.buscarPorId2(id);
             if (incidente != null) {
-                context.sessionAttribute("id");
+                logger.info("Incidente encontrado - ID: " + incidente.getId() + ", Nombre: " + incidente.getNombre());
+
                 Miembro miembro = repositorioMiembro.buscarPorId2(context.sessionAttribute("id"));
                 miembro.cerrarIncidente(incidente);
                 repositorioIncidente.actualizar(incidente);
+
+                logger.info("Incidente cerrado - ID: " + incidente.getId() + ", Nombre: " + incidente.getNombre());
+            } else {
+                logger.warning("No se encontró incidente con ID: " + id);
             }
         }
 
         context.redirect("/incidentes");
     }
+
 
 
     private void asignarParametros(Incidente incidente, Context context) {

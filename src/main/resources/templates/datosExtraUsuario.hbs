@@ -84,18 +84,18 @@
         </div>
     </div>
 
-<script>
-    document.getElementById("forma-notificacion").addEventListener("change", function() {
-        var horarioContainer = document.getElementById("horario-container");
-        if (this.value === "Sin apuro") {
-            horarioContainer.style.display = "block";
-        } else {
-            horarioContainer.style.display = "none";
-        }
-    });
+    <script>
+        document.getElementById("forma-notificacion").addEventListener("change", function() {
+            var horarioContainer = document.getElementById("horario-container");
+            if (this.value === "Sin apuro") {
+                horarioContainer.style.display = "block";
+            } else {
+                horarioContainer.style.display = "none";
+            }
+        });
 
-</script>
-<script src="/js/datosExtraUsuario.js"></script>
+    </script>
+    <script src="/js/datosExtraUsuario.js"></script>
 
 {{/partial}}
 {{> templates/base }}

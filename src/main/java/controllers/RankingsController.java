@@ -94,23 +94,23 @@ public class RankingsController implements ICrudViewsHandler{
             return;  // Asegúrate de salir del método después de redirigir
         }
 
-        List<Entidad> ranking1 =  generador.generarRanking1();
-      //  for (Entidad entidad : ranking1) {
+        List<Incidente> ranking2 =  generador.generarRanking2();
+
+        //  for (Entidad entidad : ranking1) {
         //    System.out.println("Nombre: " + entidad.getNombre());
-      //  }
+        //  }
         //List<Entidad> ranking2 = generador.getRankingMayorCantidadReportes();
         // List<Incidente> ranking3 = generador.getRankingMayorGradoImpacto();
 
         Map<String, Object> model = new HashMap<>();
 
-
-
-      //  model.put("ranking1", ranking1);
-      //  model.put("es_admin", context.sessionAttribute("es_admin"));
-        // model.put("ranking2", ranking2);
+        //  model.put("ranking1", ranking1);
+        //  model.put("es_admin", context.sessionAttribute("es_admin"));
+        model.put("ranking2", ranking2);
         // model.put("ranking3", ranking3);
         context.render("rankings.hbs", model);
     }
+
 
 }
 

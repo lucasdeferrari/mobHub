@@ -52,9 +52,13 @@ public class MiembrosController implements ICrudViewsHandler{
             context.redirect("/inicio");
             return;
         }
-
-        List<Comunidad> comunidades = this.repositorioComunidad.buscarTodos();
         Map<String, Object> model = new HashMap<>();
+        RolUsuario userRole = context.sessionAttribute("tipo_rol");
+        if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+            model.put("es_admin", context.sessionAttribute("es_admin"));
+        }
+        List<Comunidad> comunidades = this.repositorioComunidad.buscarTodos();
+
         List<Miembro> miembros = this.repositorioMiembro.buscarTodos();
         model.put("comunidades", comunidades);
         model.put("miembros", miembros);
@@ -169,11 +173,14 @@ public class MiembrosController implements ICrudViewsHandler{
 
         Miembro miembro = repositorioMiembro.buscarPorId2(context.sessionAttribute("id"));
         ServicioGeoRef servicioGeoref = ServicioGeoRef.instancia();
-        long localidadId = Long.parseLong(context.formParam("localidad"));
+        String localidad = context.formParam("localidad");
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+        logger.info("LA LOCALIDAD ID ES "+ localidad);
         long municipioId = Long.parseLong(context.formParam("municipio"));
         long provinciaId = Long.parseLong(context.formParam("provincia"));
 
-        String localidad = servicioGeoref.obtenerNombreLocalidad(localidadId);
+        //String localidad = servicioGeoref.obtenerNombreLocalidad(localidadId);
         String municipio = servicioGeoref.obtenerNombreMunicipio(municipioId);
         String provincia = servicioGeoref.obtenerNombreProvincia(provinciaId);
         miembro.setLocalizacionProvincia(provincia);
