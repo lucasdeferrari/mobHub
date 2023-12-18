@@ -24,14 +24,11 @@ import server.utils.ICrudViewsHandler;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.UUID;
+
 public class IncidentesController implements ICrudViewsHandler {
     private RepositorioIncidente repositorioIncidente;
     private RepositorioComunidad repositorioComunidad;
@@ -64,6 +61,10 @@ public class IncidentesController implements ICrudViewsHandler {
         Usuario usuario = repositorioDeUsuarios.buscarPorId(id);
 
         List<Incidente> incidentes = this.repositorioIncidente.buscarTodos();
+        incidentes = incidentes.stream()
+                .sorted(Comparator.comparing(Incidente::getFechaHoraApertura).reversed())
+                .collect(Collectors.toList());
+
         if (usuario.getRolUsuario().equals(RolUsuario.MIEMBRO)) {
             Miembro miembro = repositorioMiembro.buscarPorId2(id);
             Map<Comunidad, RolComunidad> comunidadesUsuario = miembro.getComunidadesPertenecientes();
@@ -84,6 +85,7 @@ public class IncidentesController implements ICrudViewsHandler {
                     incidenteMap.put("comunidad", Map.of("nombre", incidente.getComunidad().getNombre()));
                     incidenteMap.put("fechaHoraApertura", formatter.format(incidente.getFechaHoraApertura()));
                     incidenteMap.put("fechaHoraCierre", incidente.getFechaHoraCierre() != null ? formatter.format(incidente.getFechaHoraCierre()) : null);
+                    incidenteMap.put("token", incidente.getToken());
                     return incidenteMap;
                 })
                 .collect(Collectors.toList());
@@ -96,10 +98,15 @@ public class IncidentesController implements ICrudViewsHandler {
 
     @Override
     public void show(Context context) {
-        System.out.println(context.pathParam("id"));
         Incidente incidente = this.repositorioIncidente.buscarPorToken((context.pathParam("id")));
         //Servicio servicio = (Servicio) this.repositorioDeServicios.buscar(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
+        model.put("fechaHoraAperturaFormateada", formatDate(incidente.getFechaHoraApertura()));
+        if (incidente.getFechaHoraCierre() != null) {
+            model.put("fechaHoraCierreFormateada", formatDate(incidente.getFechaHoraCierre()));
+        }
+        context.render("datosIncidente.hbs", model);
+
         model.put("es_admin", context.sessionAttribute("es_admin"));
         model.put("incidente", incidente);
         context.render("datosIncidente.hbs", model);
@@ -231,6 +238,10 @@ public class IncidentesController implements ICrudViewsHandler {
         Incidente incidente = this.repositorioIncidente.buscarPorId2(id);
 
 
+    }
+    private String formatDate(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return dateTime.format(formatter);
     }
 
 

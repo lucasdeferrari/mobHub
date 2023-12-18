@@ -24,5 +24,14 @@ public abstract class Ranking {
     LocalDateTime fechaCierre = incidente.getFechaHoraCierre();
     return fechaCierre.isAfter(inicioSemana) && fechaCierre.isBefore(finSemana);
   }
+
+  public Boolean esIncidenteAbiertoDeEstaSemana(Incidente incidente) {
+    LocalDateTime fechaActual = LocalDateTime.now();
+    LocalDateTime inicioSemana = fechaActual.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+    LocalDateTime finSemana = fechaActual.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+    LocalDateTime fechaApertura = incidente.getFechaHoraApertura(); // Cambio aquí
+    return fechaApertura.isAfter(inicioSemana) && fechaApertura.isBefore(finSemana);
+  }
+
 }
  

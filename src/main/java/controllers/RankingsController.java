@@ -11,7 +11,9 @@ import domain.entidades.comunidad.Miembro;
 import domain.entidades.generadorRankings.GeneradorRanking;
 import domain.entidades.servicios.Entidad;
 import domain.entidades.servicios.Incidente;
+import domain.entidades.servicios.IncidentePuestos;
 import domain.entidades.servicios.Servicio;
+import domain.entidades.signin.RolUsuario;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import org.apache.poi.ss.formula.functions.Rank;
@@ -21,6 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class RankingsController implements ICrudViewsHandler{
     RepositorioIncidente repositorioIncidente;
@@ -93,20 +100,21 @@ public class RankingsController implements ICrudViewsHandler{
             context.redirect("/inicio");
             return;  // Asegúrate de salir del método después de redirigir
         }
-
-        List<Incidente> ranking2 =  generador.generarRanking2();
-
-        //  for (Entidad entidad : ranking1) {
-        //    System.out.println("Nombre: " + entidad.getNombre());
-        //  }
-        //List<Entidad> ranking2 = generador.getRankingMayorCantidadReportes();
-        // List<Incidente> ranking3 = generador.getRankingMayorGradoImpacto();
-
+        Logger logger = Logger.getLogger(EntidadesYOrganismosController.class.getName());
+        logger.setLevel(Level.ALL); // Configura el nivel de registro a ALL o INFO
+        List<Incidente> rank =  generador.generarRanking2();
+        logger.log(Level.INFO, "POR ENTRAR AL FOR DE RANKING");
+        for (Incidente incidente : rank) {
+            logger.log(Level.INFO, "ENTRE AL FOR");
+            logger.log(Level.INFO, "Nombre del Incidente: {0}", incidente.getNombre());
+            // Agrega más información si es necesario
+        }
+       
         Map<String, Object> model = new HashMap<>();
-
-        //  model.put("ranking1", ranking1);
-        //  model.put("es_admin", context.sessionAttribute("es_admin"));
-        model.put("ranking2", ranking2);
+        RolUsuario userRole = context.sessionAttribute("tipo_rol");
+        if (userRole == RolUsuario.ADMINISTRADOR_PLATAFORMA) {
+            model.put("es_admin", context.sessionAttribute("es_admin"));
+        }
         // model.put("ranking3", ranking3);
         context.render("rankings.hbs", model);
 

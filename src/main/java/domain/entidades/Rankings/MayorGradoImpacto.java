@@ -16,7 +16,7 @@ public class MayorGradoImpacto extends Ranking{
   public List<Incidente> generarGradoImpacto(List<Incidente> incidentes) {
 
     incidentes = incidentes.stream()
-            .filter(unincidente -> esIncidenteDeEstaSemana(unincidente))
+            .filter(unincidente -> esIncidenteAbiertoDeEstaSemana(unincidente))
             .collect(Collectors.toList());
 
     List<Incidente> finalIncidentes = incidentes;

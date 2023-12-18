@@ -69,12 +69,12 @@ public class GeneradorRanking {
 
   TimerTask task = new TimerTask() {
     public void run() {
-      Ranking criterio1 = new MayorPromedioCierre();
-      Ranking criterio2 = new MayorCantidadReportes();
-      Ranking criterio3 = new MayorGradoImpacto();
+      Ranking criterio1 = new MayorCantidadReportes();
+      Ranking criterio2 = new MayorGradoImpacto();
+      Ranking criterio3 = new MayorPromedioCierre();
 
-      rankingMayorCantidadReportes =  criterio1.generar(incidentes);
-      rankingMayorGradoImpacto = criterio2.generarGradoImpacto(incidentes);
+      rankingMayorCantidadReportes = criterio1.generar(incidentes);
+      rankingMayorGradoImpacto =  criterio2.generarGradoImpacto(incidentes);
       rankingMayorPromedioCierre = criterio3.generar(incidentes);
 
       incidentes.clear();
@@ -107,18 +107,18 @@ public class GeneradorRanking {
 
   //metodos para probar
   public List<Entidad> generarRanking1(){
-    Ranking criterio1 = new MayorPromedioCierre();
+    Ranking criterio1 = new MayorCantidadReportes();
     rankingMayorCantidadReportes =  criterio1.generar(incidentes);
     return rankingMayorCantidadReportes;
   }
   public List<Incidente> generarRanking2(){
-    Ranking criterio2 = new MayorCantidadReportes();
+    Ranking criterio2 = new MayorGradoImpacto();
     rankingMayorGradoImpacto = criterio2.generarGradoImpacto(incidentes);
     return rankingMayorGradoImpacto;
   }
   public List<Entidad> generarRanking3(){
-    Ranking criterio3 = new MayorCantidadReportes();
-    rankingMayorGradoImpacto = criterio3.generarGradoImpacto(incidentes);
+    Ranking criterio3 = new MayorPromedioCierre();
+    rankingMayorPromedioCierre = criterio3.generar(incidentes);
     return rankingMayorPromedioCierre;
   }
 }

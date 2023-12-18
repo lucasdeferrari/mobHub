@@ -56,3 +56,16 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.checkbox-container label {
+    margin-right: 10px;
+}
+
+.cerrar-checkbox {
+    margin-left: 5px;
+}

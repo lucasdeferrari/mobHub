@@ -15,25 +15,25 @@ import java.time.LocalDateTime;
 
   public class MayorCantidadReportes extends Ranking {
   @Override
-    public List<Entidad> generar(List<Incidente> listaIncidentes) {
-      Map<Entidad, Integer> cantidadIncidentes = new HashMap<>();
+  public List<Entidad> generar(List<Incidente> listaIncidentes) {
+    Map<Entidad, Integer> cantidadIncidentes = new HashMap<>();
 
-      listaIncidentes = listaIncidentes.stream()
-              .filter(unincidente -> esIncidenteDeEstaSemana(unincidente))
-              .collect(Collectors.toList());
+    listaIncidentes = listaIncidentes.stream()
+            .filter(unincidente -> esIncidenteDeEstaSemana(unincidente))
+            .collect(Collectors.toList());
 
-      for (Incidente incidente : listaIncidentes) {
-        Entidad entidad = incidente.getEntidad();
-        if (existeIncidenteReportado(entidad, incidente, listaIncidentes)) {
-          continue; //si existe no lo agregage
-        }
-        cantidadIncidentes.put(entidad, cantidadIncidentes.getOrDefault(entidad, 0) + 1);
+    for (Incidente incidente : listaIncidentes) {
+      Entidad entidad = incidente.getEntidad();
+      if (existeIncidenteReportado(entidad, incidente, listaIncidentes)) {
+        continue; // si existe no lo agrega
       }
-
-      List<Entidad> entidadesOrdenadas = new ArrayList<>(cantidadIncidentes.keySet());
-      entidadesOrdenadas.sort((e1, e2) -> Integer.compare(cantidadIncidentes.get(e2), cantidadIncidentes.get(e1)));
-      return entidadesOrdenadas;
+      cantidadIncidentes.put(entidad, cantidadIncidentes.getOrDefault(entidad, 0) + 1);
     }
+
+    List<Entidad> entidadesOrdenadas = new ArrayList<>(cantidadIncidentes.keySet());
+    entidadesOrdenadas.sort((e1, e2) -> Integer.compare(cantidadIncidentes.get(e2), cantidadIncidentes.get(e1)));
+    return entidadesOrdenadas;
+  }
 
     public boolean existeIncidenteReportado(Entidad entidad, Incidente incidente, List<Incidente> listaIncidentes) {
       if (incidente.estadoAbierto()) {
