@@ -110,7 +110,7 @@ public class ComunidadesController implements ICrudViewsHandler {
             model.put("es_admin", context.sessionAttribute("es_admin"));
             context.render("crearComunidad.hbs", model);
         } else {
-            context.render("403.hbs");
+            context.render("401.hbs");
             context.status(403); // Código 403 para acceso no autorizado
 
         }

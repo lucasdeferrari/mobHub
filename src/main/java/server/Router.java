@@ -72,6 +72,8 @@ public class Router {
             get("/inicio", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::index);
             post("/inicio", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::iniciarSesion);
 
+            get("/logout", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::cerrarSesion);
+
             get("/crear-cuenta", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::vista);
             post("/crear-cuenta", ((InicioDeSesionController) FactoryController.controller("InicioSesion"))::save);
 

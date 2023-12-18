@@ -9,63 +9,128 @@ main {
     align-items: center;
     justify-content: center;
     height: 95vh;
-
 }
 
 .container {
     text-align: center;
 }
 
-.rankings-box {
+.incidents-box {
     background-color: #BDD5EA;
     padding: 20px;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    margin: 56px auto;
+    max-width: 800px;
+    margin: 56px auto; /* Ajustado el margen superior */
 }
 
-.rankings-box h2 {
+.incidents-box h1 {
+    margin-top: 15px;
     color: #495867;
 }
 
-.input-section {
-    width: 100%;
-    text-align: left;
+.filtro-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
     padding: 10px;
-    max-width: 400px;
+    background-color: #BDD5EA;
+    border-radius: 25px; /* Ajustado el borde */
 }
 
-.input-section label {
+label {
+    display: block;
+    margin-bottom: 5px;
     font-weight: bold;
-    text-align: left;
+    color: #495867;
 }
 
-#nombre-comunidad,
-#descripcion-comunidad {
-    width: 100%;
+select, input[type="text"] {
+    flex: 1;
     padding: 10px;
     border: 1px solid #6785ad;
-    border-radius: 20px;
+    border-radius: 15px;
+    outline: none;
+    margin-right: 10px;
+}
+
+.search-box {
+    text-align: left;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #6785ad;
+    border-radius: 15px;
     outline: none;
 }
 
-/* Estilos para el botón de envío */
-.button-section button {
-    background-color: #F7F7FF;
+button {
+    background-color: #B0C4DE; /* Celeste suave */
     color: #495867;
     border: none;
     border-radius: 15px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
 }
 
-.button-section button:hover {
-    background-color: #577399;
+button:hover {
+    background-color: #A2B9CD; /* Tono más oscuro al pasar el ratón */
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    width: 18rem;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.checkbox-container {
+    margin-top: 15px;
+}
+
+.status {
+    padding: 8px;
+    border-radius: 15px;
+    background-color: #B0C4DE; /* Celeste suave */
+    color: #495867;
+}
+
+.table {
+    background-color: #BDD5EA;
+    margin-top: 20px;
+    border-radius: 15px; /* Ajustado el borde */
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #6785ad;
+}
+
+p a {
+    text-decoration: none;
+    color: #495867;
+    display: block;
+    margin-top: 20px;
+}
+
+p a:hover {
+    text-decoration: underline;
 }

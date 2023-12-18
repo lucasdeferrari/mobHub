@@ -33,7 +33,15 @@
                         <td>{{this.nombre}}</td>
                         <td>{{this.apellido}}</td>
                         <td>{{this.email}}</td>
-                        <td>{{this.rolUsuario}}</td>
+                        <td>
+                            <script>
+                                var rolUsuario = "{{this.rolUsuario}}";
+                                var rolFormateado = (rolUsuario === 'MIEMBRO') ? 'Miembro' : 'Administrador de la plataforma';
+                                document.write(rolFormateado);
+                            </script>
+                        </td>
+
+
                         <td>
                             <select class="rol-select">
                                 <option value="" >Selecciona un rol</option>
@@ -66,5 +74,8 @@
     </div>
 
     <script src="/js/filtroUsuarios.js"></script>
+
+
+
 {{/partial}}
 {{> templates/base }}

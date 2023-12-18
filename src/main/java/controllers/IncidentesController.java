@@ -153,6 +153,8 @@ public class IncidentesController implements ICrudViewsHandler {
                 repositorioIncidente.actualizar(incidente);
             }
         }
+
+        context.redirect("/incidentes");
     }
 
 

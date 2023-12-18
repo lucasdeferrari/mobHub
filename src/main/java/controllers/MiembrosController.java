@@ -32,6 +32,8 @@ import io.javalin.http.HttpStatus;
 import server.utils.ICrudViewsHandler;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MiembrosController implements ICrudViewsHandler{
     private RepositorioMiembro repositorioMiembro;
@@ -75,8 +77,8 @@ public class MiembrosController implements ICrudViewsHandler{
             model.put("usuarios", usuarios);
             context.render("filtroUsuarios.hbs", model);
         } else {
-            context.render("403.hbs");
-            context.status(403);
+            context.render("401.hbs");
+            context.status(401);
         }
     }
 
@@ -94,7 +96,7 @@ public class MiembrosController implements ICrudViewsHandler{
         RolUsuario rolUsuario = AuthMiddleware.getUserRoleType(context);
         //
         if(rolUsuario != RolUsuario.ADMINISTRADOR_PLATAFORMA) {
-            context.render("403.hbs");
+            context.render("401.hbs");
             context.status(403);
         }
         String miembroId = context.formParam("miembroId");

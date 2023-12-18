@@ -120,6 +120,15 @@ public class InicioDeSesionController implements ICrudViewsHandler {
         }
     }
 
+    public void cerrarSesion(Context context) {
+        context.sessionAttribute("id", null);
+        context.sessionAttribute("tipo_rol", null);
+        context.sessionAttribute("es_admin", null);
+
+        context.redirect("/inicio");
+
+    }
+
 
     public void showHome(Context context) {
         Integer id2 = context.sessionAttribute("id");
