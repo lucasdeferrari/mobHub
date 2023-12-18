@@ -1,15 +1,22 @@
 {{#partial "contenido" }}
-    <head>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/unirseAComunidad.css">
-        <!-- Agrega los estilos de Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <title>Comunidades</title>
-    </head>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
 
-    <body>
-    <main>
+
+
+        <title>Comunidades</title>
+
+
+
         <div class="comunities-box">
             <h1 class="text-center">Comunidades</h1>
             <div class="search-box">
@@ -35,32 +42,51 @@
             </table>
         </div>
 
-        <!-- Agrega el modal de Bootstrap para mostrar el mensaje -->
-        <div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog" aria-labelledby="mensajeModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mensajeModalLabel">Mensaje</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Has sido añadido exitosamente a la comunidad.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmacionModalLabel">Unirse a Comunidad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Has sido añadido a la comunidad exitosamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js" integrity="sha384-DWEQCHA6QUpzS9x2nEUp7RBmMByaQI4B5jta9tAosIbdz5H7bJCC7j3VIX+T5mi" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Realiza la solicitud al backend para obtener las comunidades del usuario
+            fetch('/api/user/communities')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Maneja los datos obtenidos del backend
+                        console.log('Comunidades del usuario:', data);
+                    })
+                    .catch(error => {
+                        // Maneja los errores de la solicitud
+                        console.error('Error al obtener comunidades del usuario:', error);
+                    });
+        });
+
+
         document.addEventListener('DOMContentLoaded', function () {
             const busquedaInput = document.getElementById('busqueda');
             const joinButtons = document.querySelectorAll('.join-btn');
 
+            // Agregar evento de clic para los botones de "Unirse"
             joinButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
                     const communityId = button.getAttribute('data-id');
@@ -68,10 +94,12 @@
                 });
             });
 
+            // Agregar evento de input para la barra de búsqueda
             busquedaInput.addEventListener('input', function () {
                 filtrarComunidades();
             });
 
+            // Función para realizar la solicitud POST al servidor al unirse a una comunidad
             function unirseAComunidad(communityId) {
                 fetch('/unirse-a-comunidad', {
                     method: 'POST',
@@ -82,8 +110,13 @@
                 })
                         .then(response => {
                             if (response.ok) {
-                                // Muestra el modal después de unirse exitosamente
-                                $('#mensajeModal').modal('show');
+                                // Mostrar el modal de confirmación
+                                $('#confirmacionModal').modal('show');
+                                console.log('Unido exitosamente a la comunidad');
+                                // Cerrar el modal después de 2 segundos
+                                setTimeout(function () {
+                                    $('#confirmacionModal').modal('hide');
+                                }, 2000);
                             } else {
                                 console.error('Error al unirse a la comunidad');
                             }
@@ -91,6 +124,7 @@
                         .catch(error => console.error('Error en la solicitud POST:', error));
             }
 
+            // Función para filtrar las comunidades según la barra de búsqueda
             function filtrarComunidades() {
                 const busquedaValor = busquedaInput.value.toLowerCase();
 
@@ -105,16 +139,14 @@
                 });
             }
 
+            // Función para verificar si el texto coincide con la búsqueda
             function coincideBusqueda(texto, busqueda) {
                 return texto.toLowerCase().includes(busqueda);
             }
+
+
         });
     </script>
-
-    <!-- Incluye Bootstrap JS y Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 {{/partial}}
 {{> templates/base }}
